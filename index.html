@@ -724,7 +724,13 @@
                 <div class="emoji-picker" id="emojiPicker"></div>
                 <div class="form-row">
                     <input type="text" class="form-input" id="restaurantName" placeholder="식당 이름 (예: 청담 파스타)" maxlength="20">
-                    <input type="text" class="form-input" id="restaurantCategory" placeholder="카테고리 (예: 이탈리안)" maxlength="15">
+                    <select class="form-input" id="restaurantCategory">
+                        <option value="">카테고리 선택</option>
+                        <option value="한식">한식</option>
+                        <option value="중식">중식</option>
+                        <option value="일식">일식</option>
+                        <option value="양식">양식</option>
+                    </select>
                 </div>
                 <div class="form-row">
                     <input type="text" class="form-input" id="restaurantDescription" placeholder="설명 (예: 수제 파스타 맛집)" maxlength="30">
@@ -993,7 +999,12 @@
                     <input type="text" id="edit-name-${index}" class="edit-input" value="${restaurant.name}" maxlength="20">
                 </td>
                 <td class="category-cell">
-                    <input type="text" id="edit-category-${index}" class="edit-input" value="${restaurant.category}" maxlength="15">
+                    <select id="edit-category-${index}" class="edit-input">
+                        <option value="한식" ${restaurant.category === '한식' ? 'selected' : ''}>한식</option>
+                        <option value="중식" ${restaurant.category === '중식' ? 'selected' : ''}>중식</option>
+                        <option value="일식" ${restaurant.category === '일식' ? 'selected' : ''}>일식</option>
+                        <option value="양식" ${restaurant.category === '양식' ? 'selected' : ''}>양식</option>
+                    </select>
                 </td>
                 <td class="description-cell">
                     <input type="text" id="edit-description-${index}" class="edit-input" value="${restaurant.description}" maxlength="30">
@@ -1356,7 +1367,7 @@
         document.getElementById('spinButton').addEventListener('click', spin);
 
         // 엔터키로 식당 추가
-        ['restaurantName', 'restaurantCategory', 'restaurantDescription', 'restaurantNaverMap'].forEach(id => {
+        ['restaurantName', 'restaurantDescription', 'restaurantNaverMap'].forEach(id => {
             document.getElementById(id).addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') addRestaurant();
             });
