@@ -1071,12 +1071,10 @@
 
         // 식당 삭제
         function deleteRestaurant(index) {
-            if (confirm(`정말 ${restaurants[index].name}을(를) 삭제하시겠습니까?`)) {
-                restaurants.splice(index, 1);
-                localStorage.setItem('restaurants', JSON.stringify(restaurants));
-                displayRestaurants();
-                initSlots();
-            }
+            restaurants.splice(index, 1);
+            localStorage.setItem('restaurants', JSON.stringify(restaurants));
+            displayRestaurants();
+            initSlots();
         }
 
         // 슬롯 초기화
@@ -1131,11 +1129,9 @@
 
         // 최근 룰렛 결과 삭제
         function deleteRecentResult(index) {
-            if (confirm(`${recentResults[index].name}을(를) 목록에서 삭제하시겠습니까?`)) {
-                recentResults.splice(index, 1);
-                localStorage.setItem('recentResults', JSON.stringify(recentResults));
-                displayRecentResults();
-            }
+            recentResults.splice(index, 1);
+            localStorage.setItem('recentResults', JSON.stringify(recentResults));
+            displayRecentResults();
         }
 
         // 방문 확정하여 히스토리에 추가
@@ -1181,11 +1177,9 @@
 
         // 히스토리 삭제
         function deleteHistory(index) {
-            if (confirm(`${history[index].name} 방문 기록을 삭제하시겠습니까?`)) {
-                history.splice(index, 1);
-                localStorage.setItem('lunchHistory', JSON.stringify(history));
-                displayHistory();
-            }
+            history.splice(index, 1);
+            localStorage.setItem('lunchHistory', JSON.stringify(history));
+            displayHistory();
         }
 
         // 추천 로직
