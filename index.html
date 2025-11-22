@@ -246,7 +246,7 @@
             background: white;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            max-height: 500px;
+            max-height: 800px;
             overflow-y: auto;
             min-height: 100px;
         }
@@ -694,6 +694,7 @@
 
         <div class="manage-section">
             <h3>⭐ 내 맛집 관리</h3>
+            <!-- 식당 추가 기능 주석처리
             <div class="add-form">
                 <div class="emoji-picker" id="emojiPicker"></div>
                 <div class="form-row">
@@ -724,6 +725,7 @@
                 </div>
                 <button class="add-button" onclick="addRestaurant()">➕ 식당 추가하기</button>
             </div>
+            -->
             <div class="restaurant-table-container">
                 <table class="restaurant-table">
                     <thead>
@@ -914,6 +916,7 @@
         
         fetchWeather();
 
+        /* 이모지 픽커 기능 주석처리
         function initEmojiPicker() {
             const emojiPicker = document.getElementById('emojiPicker');
             emojiPicker.innerHTML = foodEmojis.map(emoji => 
@@ -930,6 +933,7 @@
                 }
             });
         }
+        */
 
         function displayRestaurants() {
             const tableBody = document.getElementById('restaurantTableBody');
@@ -1033,6 +1037,7 @@
             alert(`✅ ${name}이(가) 수정되었습니다!`);
         }
 
+        /* 식당 추가 기능 주석처리
         function addRestaurant() {
             const name = document.getElementById('restaurantName').value.trim();
             const category = document.getElementById('restaurantCategory').value.trim();
@@ -1078,6 +1083,7 @@
             
             alert(`✨ ${newRestaurant.emoji} ${name}이(가) 추가되었습니다!`);
         }
+        */
 
         function deleteRestaurant(index) {
             const restaurant = restaurants[index];
@@ -1324,15 +1330,17 @@
         // 이벤트 리스너
         document.getElementById('spinButton').addEventListener('click', spin);
 
+        /* 식당 추가 관련 이벤트 리스너 주석처리
         ['restaurantName', 'restaurantDescription', 'restaurantNaverMap'].forEach(id => {
             document.getElementById(id).addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') addRestaurant();
             });
         });
+        */
 
         // 초기화
         window.addEventListener('DOMContentLoaded', function() {
-            initEmojiPicker();
+            // initEmojiPicker(); // 주석처리
             displayRestaurants();
             initSlots();
             displayRecentResults();
