@@ -93,6 +93,8 @@
             width: 100%;
             transition: transform 0.1s linear;
             transform: translateY(0);
+            top: 0;
+            left: 0;
         }
 
         .slot-item {
@@ -108,6 +110,7 @@
         .slot-emoji {
             font-size: 4em;
             margin-bottom: 10px;
+            line-height: 1;
         }
 
         .slot-name {
@@ -930,6 +933,11 @@
 
         function displayRestaurants() {
             const tableBody = document.getElementById('restaurantTableBody');
+            if (restaurants.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 20px; color: #999;">식당을 추가해주세요</td></tr>';
+                return;
+            }
+            
             tableBody.innerHTML = restaurants.map((restaurant, index) => `
                 <tr id="row-${index}">
                     <td class="emoji-cell">${restaurant.emoji}</td>
@@ -1072,15 +1080,17 @@
         }
 
         function deleteRestaurant(index) {
-            restaurants.splice(index, 1);
-            localStorage.setItem('restaurants', JSON.stringify(restaurants));
-            displayRestaurants();
-            initSlots();
+            const restaurant = restaurants[index];
+            if (confirm(`"${restaurant.name}"을(를) 삭제하시겠습니까?`)) {
+                restaurants.splice(index, 1);
+                localStorage.setItem('restaurants', JSON.stringify(restaurants));
+                displayRestaurants();
+                initSlots();
+            }
         }
 
         function initSlots() {
             if (restaurants.length === 0) {
-                alert('최소 1개 이상의 식당이 필요합니다!');
                 return;
             }
 
@@ -1088,6 +1098,7 @@
                 const slot = document.getElementById(`slot${i}`);
                 slot.innerHTML = '';
                 
+                // 충분한 아이템을 생성하여 스크롤 효과 보장
                 for (let j = 0; j < 20; j++) {
                     const restaurant = restaurants[j % restaurants.length];
                     const item = document.createElement('div');
@@ -1100,7 +1111,7 @@
                     slot.appendChild(item);
                 }
                 
-                // 초기 위치 설정
+                // 초기 위치 명시적으로 설정
                 slot.style.transform = 'translateY(0)';
             }
         }
@@ -1215,12 +1226,14 @@
             document.getElementById('result').classList.remove('show');
             document.getElementById('recommendation').style.display = 'none';
 
+            // 모든 슬롯 초기화
             for (let i = 1; i <= 3; i++) {
                 const slot = document.getElementById(`slot${i}`);
                 slot.style.transition = 'none';
                 slot.style.transform = 'translateY(0)';
             }
 
+            // DOM 업데이트를 위한 짧은 딜레이
             setTimeout(() => {
                 performSpin();
             }, 100);
@@ -1230,6 +1243,7 @@
             const spinDurations = [2000, 2500, 3000];
             const finalIndexes = [];
 
+            // 적어도 두 개가 같은 인덱스가 되도록 보장
             let slot1Index, slot2Index, slot3Index;
             do {
                 slot1Index = Math.floor(Math.random() * restaurants.length);
@@ -1243,6 +1257,7 @@
 
             finalIndexes.push(slot1Index, slot2Index, slot3Index);
 
+            // 각 슬롯 스핀
             for (let i = 1; i <= 3; i++) {
                 const slot = document.getElementById(`slot${i}`);
                 const duration = spinDurations[i - 1];
@@ -1251,6 +1266,7 @@
                 let currentPosition = 0;
                 const spinInterval = setInterval(() => {
                     currentPosition -= 250;
+                    slot.style.transition = 'none';
                     slot.style.transform = `translateY(${currentPosition}px)`;
                 }, 50);
 
@@ -1262,6 +1278,7 @@
                 }, duration);
             }
 
+            // 결과 표시
             setTimeout(() => {
                 let selected;
                 if (finalIndexes[0] === finalIndexes[1]) {
@@ -1286,6 +1303,7 @@
                 document.getElementById('recommendation').textContent = recommendation;
                 document.getElementById('recommendation').style.display = 'block';
 
+                // 최근 결과에 추가 (중복 체크)
                 const isDuplicate = recentResults.some(item => item.name === selected.name);
                 if (!isDuplicate) {
                     recentResults.push({
@@ -1303,6 +1321,7 @@
             }, 3500);
         }
 
+        // 이벤트 리스너
         document.getElementById('spinButton').addEventListener('click', spin);
 
         ['restaurantName', 'restaurantDescription', 'restaurantNaverMap'].forEach(id => {
@@ -1311,11 +1330,14 @@
             });
         });
 
-        initEmojiPicker();
-        displayRestaurants();
-        initSlots();
-        displayRecentResults();
-        displayHistory();
+        // 초기화
+        window.addEventListener('DOMContentLoaded', function() {
+            initEmojiPicker();
+            displayRestaurants();
+            initSlots();
+            displayRecentResults();
+            displayHistory();
+        });
     </script>
 </body>
 </html>
