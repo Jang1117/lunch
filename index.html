@@ -199,48 +199,6 @@
             font-size: 1.3em;
         }
 
-        .add-form {
-            display: grid;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-        }
-
-        .form-input {
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1em;
-            transition: border-color 0.3s;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .add-button {
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        .add-button:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
-        }
-
         .restaurant-table-container {
             margin-top: 20px;
             background: white;
@@ -398,37 +356,6 @@
             border: 2px solid #667eea;
             border-radius: 4px;
             font-size: 0.85em;
-        }
-
-        .emoji-picker {
-            display: grid;
-            grid-template-columns: repeat(8, 1fr);
-            gap: 5px;
-            padding: 10px;
-            background: white;
-            border: 2px solid #667eea;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .emoji-option {
-            font-size: 2em;
-            cursor: pointer;
-            padding: 5px;
-            border-radius: 5px;
-            text-align: center;
-            transition: all 0.2s;
-        }
-
-        .emoji-option:hover {
-            background: #f0f0f0;
-            transform: scale(1.2);
-        }
-
-        .emoji-option.selected {
-            background: #667eea;
         }
 
         .history {
@@ -610,11 +537,6 @@
             }
         }
 
-        @keyframes spin {
-            0% { transform: rotateX(0deg); }
-            100% { transform: rotateX(360deg); }
-        }
-
         @media (max-width: 768px) {
             .container {
                 padding: 20px;
@@ -694,38 +616,6 @@
 
         <div class="manage-section">
             <h3>⭐ 내 맛집 관리</h3>
-            <!-- 식당 추가 기능 주석처리
-            <div class="add-form">
-                <div class="emoji-picker" id="emojiPicker"></div>
-                <div class="form-row">
-                    <input type="text" class="form-input" id="restaurantName" placeholder="식당 이름 (예: 청담 파스타)" maxlength="20">
-                    <select class="form-input" id="restaurantCategory">
-                        <option value="">카테고리 선택</option>
-                        <option value="한식">한식</option>
-                        <option value="중식">중식</option>
-                        <option value="일식">일식</option>
-                        <option value="양식">양식</option>
-                        <option value="카페">카페</option>
-                        <option value="샐러드">샐러드</option>
-                        <option value="아시안">아시안</option>
-                    </select>
-                </div>
-                <div class="form-row">
-                    <input type="text" class="form-input" id="restaurantDescription" placeholder="설명 (예: 수제 파스타 맛집)" maxlength="30">
-                    <select class="form-input" id="restaurantPrice">
-                        <option value="">가격대 선택</option>
-                        <option value="₩">₩ (1만원 이하)</option>
-                        <option value="₩₩">₩₩ (1-2만원)</option>
-                        <option value="₩₩₩">₩₩₩ (2-4만원)</option>
-                        <option value="₩₩₩₩">₩₩₩₩ (4만원 이상)</option>
-                    </select>
-                </div>
-                <div class="form-row">
-                    <input type="url" class="form-input" id="restaurantNaverMap" placeholder="네이버 지도 링크 (선택사항)" style="grid-column: 1 / -1;">
-                </div>
-                <button class="add-button" onclick="addRestaurant()">➕ 식당 추가하기</button>
-            </div>
-            -->
             <div class="restaurant-table-container">
                 <table class="restaurant-table">
                     <thead>
@@ -822,12 +712,13 @@
         let isSpinning = false;
         let history = JSON.parse(localStorage.getItem('lunchHistory')) || [];
         let recentResults = JSON.parse(localStorage.getItem('recentResults')) || [];
-        let selectedEmoji = '🍽️';
 
         const foodEmojis = ['🍕', '🍣', '🍜', '🍝', '🍔', '🍱', '🥗', '🍲', '🥩', '🍛', 
                            '🌮', '🥟', '🐔', '🥐', '🍗', '🍖', '🦐', '🦞', '🍤', '🥘',
                            '🍳', '🥓', '🧇', '🥞', '🍰', '🍩', '🍪', '☕', '🍵', '🥤',
                            '🍽️', '🥄', '🍴', '🥢'];
+
+        const SLOT_HEIGHT = 250;
 
         // 날짜 및 요일 표시
         const today = new Date();
@@ -877,63 +768,11 @@
                 document.getElementById('weather').textContent = `${weatherEmoji} ${weatherText} ${temp}°C`;
             } catch (error) {
                 console.log('날씨 정보를 가져오는데 실패했습니다.');
-                const hour = today.getHours();
-                const month = today.getMonth() + 1;
-                
-                let weatherEmoji = '☀️';
-                let weatherText = '맑음';
-                
-                if (month >= 12 || month <= 2) {
-                    if (Math.random() > 0.7) {
-                        weatherEmoji = '❄️';
-                        weatherText = '눈';
-                    } else {
-                        weatherEmoji = '☁️';
-                        weatherText = '흐림';
-                    }
-                } else if (month >= 6 && month <= 8) {
-                    if (Math.random() > 0.6) {
-                        weatherEmoji = '🌧️';
-                        weatherText = '비';
-                    } else {
-                        weatherEmoji = '☀️';
-                        weatherText = '맑음';
-                    }
-                } else {
-                    const weathers = [
-                        { emoji: '☀️', text: '맑음' },
-                        { emoji: '⛅', text: '구름' },
-                        { emoji: '☁️', text: '흐림' }
-                    ];
-                    const selected = weathers[Math.floor(Math.random() * weathers.length)];
-                    weatherEmoji = selected.emoji;
-                    weatherText = selected.text;
-                }
-                
-                document.getElementById('weather').textContent = `${weatherEmoji} ${weatherText}`;
+                document.getElementById('weather').textContent = '☀️ 맑음';
             }
         }
         
         fetchWeather();
-
-        /* 이모지 픽커 기능 주석처리
-        function initEmojiPicker() {
-            const emojiPicker = document.getElementById('emojiPicker');
-            emojiPicker.innerHTML = foodEmojis.map(emoji => 
-                `<div class="emoji-option ${emoji === selectedEmoji ? 'selected' : ''}" onclick="selectEmoji('${emoji}')">${emoji}</div>`
-            ).join('');
-        }
-
-        function selectEmoji(emoji) {
-            selectedEmoji = emoji;
-            document.querySelectorAll('.emoji-option').forEach(el => {
-                el.classList.remove('selected');
-                if (el.textContent === emoji) {
-                    el.classList.add('selected');
-                }
-            });
-        }
-        */
 
         function displayRestaurants() {
             const tableBody = document.getElementById('restaurantTableBody');
@@ -1037,54 +876,6 @@
             alert(`✅ ${name}이(가) 수정되었습니다!`);
         }
 
-        /* 식당 추가 기능 주석처리
-        function addRestaurant() {
-            const name = document.getElementById('restaurantName').value.trim();
-            const category = document.getElementById('restaurantCategory').value.trim();
-            const description = document.getElementById('restaurantDescription').value.trim();
-            const price = document.getElementById('restaurantPrice').value;
-            const naverMap = document.getElementById('restaurantNaverMap').value.trim();
-
-            if (!name) {
-                alert('식당 이름을 입력해주세요!');
-                return;
-            }
-            if (!category) {
-                alert('카테고리를 입력해주세요!');
-                return;
-            }
-            if (!price) {
-                alert('가격대를 선택해주세요!');
-                return;
-            }
-
-            const newRestaurant = {
-                name,
-                emoji: selectedEmoji,
-                category,
-                description: description || '맛있는 식당',
-                price,
-                naverMap: naverMap || ''
-            };
-
-            restaurants.push(newRestaurant);
-            localStorage.setItem('restaurants', JSON.stringify(restaurants));
-            
-            document.getElementById('restaurantName').value = '';
-            document.getElementById('restaurantCategory').value = '';
-            document.getElementById('restaurantDescription').value = '';
-            document.getElementById('restaurantPrice').value = '';
-            document.getElementById('restaurantNaverMap').value = '';
-            selectedEmoji = '🍽️';
-            
-            displayRestaurants();
-            initEmojiPicker();
-            initSlots();
-            
-            alert(`✨ ${newRestaurant.emoji} ${name}이(가) 추가되었습니다!`);
-        }
-        */
-
         function deleteRestaurant(index) {
             const restaurant = restaurants[index];
             if (confirm(`"${restaurant.name}"을(를) 삭제하시겠습니까?`)) {
@@ -1100,12 +891,13 @@
                 return;
             }
 
+            const totalItems = Math.max(restaurants.length * 3, 100);
+
             for (let i = 1; i <= 3; i++) {
                 const slot = document.getElementById(`slot${i}`);
                 slot.innerHTML = '';
                 
-                // 충분한 아이템을 생성하여 스크롤 효과 보장
-                for (let j = 0; j < 20; j++) {
+                for (let j = 0; j < totalItems; j++) {
                     const restaurant = restaurants[j % restaurants.length];
                     const item = document.createElement('div');
                     item.className = 'slot-item';
@@ -1117,7 +909,6 @@
                     slot.appendChild(item);
                 }
                 
-                // 초기 위치 명시적으로 설정
                 slot.style.transform = 'translateY(0)';
             }
         }
@@ -1232,14 +1023,12 @@
             document.getElementById('result').classList.remove('show');
             document.getElementById('recommendation').style.display = 'none';
 
-            // 모든 슬롯 초기화
             for (let i = 1; i <= 3; i++) {
                 const slot = document.getElementById(`slot${i}`);
                 slot.style.transition = 'none';
                 slot.style.transform = 'translateY(0)';
             }
 
-            // DOM 업데이트를 위한 짧은 딜레이
             setTimeout(() => {
                 performSpin();
             }, 100);
@@ -1249,7 +1038,6 @@
             const spinDurations = [2000, 2500, 3000];
             const finalIndexes = [];
 
-            // 적어도 두 개가 같은 인덱스가 되도록 보장
             let slot1Index, slot2Index, slot3Index;
             do {
                 slot1Index = Math.floor(Math.random() * restaurants.length);
@@ -1263,28 +1051,35 @@
 
             finalIndexes.push(slot1Index, slot2Index, slot3Index);
 
-            // 각 슬롯 스핀
+            const totalItems = Math.max(restaurants.length * 3, 100);
+
             for (let i = 1; i <= 3; i++) {
                 const slot = document.getElementById(`slot${i}`);
                 const duration = spinDurations[i - 1];
                 const finalIndex = finalIndexes[i - 1];
 
-                let currentPosition = 0;
+                let spinCount = 0;
+                const maxSpins = Math.floor(duration / 50);
+                
                 const spinInterval = setInterval(() => {
-                    currentPosition -= 250;
+                    spinCount++;
+                    const currentPosition = -(spinCount * SLOT_HEIGHT);
                     slot.style.transition = 'none';
                     slot.style.transform = `translateY(${currentPosition}px)`;
                 }, 50);
 
                 setTimeout(() => {
                     clearInterval(spinInterval);
-                    const finalPosition = -(finalIndex * 250);
+                    
+                    const offset = Math.floor(totalItems / 2);
+                    const targetPosition = offset + finalIndex;
+                    const finalPosition = -(targetPosition * SLOT_HEIGHT);
+                    
                     slot.style.transition = 'transform 0.5s ease-out';
                     slot.style.transform = `translateY(${finalPosition}px)`;
                 }, duration);
             }
 
-            // 결과 표시
             setTimeout(() => {
                 let selected;
                 if (finalIndexes[0] === finalIndexes[1]) {
@@ -1309,7 +1104,6 @@
                 document.getElementById('recommendation').textContent = recommendation;
                 document.getElementById('recommendation').style.display = 'block';
 
-                // 최근 결과에 추가 (중복 체크)
                 const isDuplicate = recentResults.some(item => item.name === selected.name);
                 if (!isDuplicate) {
                     recentResults.push({
@@ -1327,20 +1121,9 @@
             }, 3500);
         }
 
-        // 이벤트 리스너
         document.getElementById('spinButton').addEventListener('click', spin);
 
-        /* 식당 추가 관련 이벤트 리스너 주석처리
-        ['restaurantName', 'restaurantDescription', 'restaurantNaverMap'].forEach(id => {
-            document.getElementById(id).addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') addRestaurant();
-            });
-        });
-        */
-
-        // 초기화
         window.addEventListener('DOMContentLoaded', function() {
-            // initEmojiPicker(); // 주석처리
             displayRestaurants();
             initSlots();
             displayRecentResults();
