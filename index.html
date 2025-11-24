@@ -294,7 +294,20 @@
             font-size: 0.9em;
         }
 
-        .restaurant-table tr:hover {
+        .restaurant-table tbody tr {
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .restaurant-table tbody tr:hover {
+            background: #f0f8ff;
+        }
+
+        .restaurant-table tbody tr.no-link {
+            cursor: default;
+        }
+
+        .restaurant-table tbody tr.no-link:hover {
             background: #f8f9fa;
         }
 
@@ -384,6 +397,11 @@
             resize: vertical;
             min-height: 60px;
             grid-column: 1 / -1;
+        }
+
+        .emoji-select {
+            font-size: 1.2em;
+            padding: 10px;
         }
 
         .add-button {
@@ -858,7 +876,7 @@
                 <div class="category-count">(<span id="count-일식">0</span>)</div>
             </div>
             <div class="category-button" data-category="양식" onclick="selectCategory('양식')">
-                <div class="category-icon">🇮🇹</div>
+                <div class="category-icon">w🇹</div>
                 <div class="category-label">양식</div>
                 <div class="category-count">(<span id="count-양식">0</span>)</div>
             </div>
@@ -955,7 +973,32 @@
 
                 <div class="form-group">
                     <label>이모지 *</label>
-                    <input type="text" id="restaurantEmoji" maxlength="2" placeholder="🍜" required>
+                    <select id="restaurantEmoji" class="emoji-select" required>
+                        <option value="">선택하세요</option>
+                        <option value="🍖">🍖 고기</option>
+                        <option value="🥩">🥩 스테이크</option>
+                        <option value="🍜">🍜 라면/국수</option>
+                        <option value="🍲">🍲 찌개/전골</option>
+                        <option value="🍱">🍱 도시락/정식</option>
+                        <option value="🍛">🍛 카레/돈까스</option>
+                        <option value="🍗">🍗 치킨</option>
+                        <option value="🐷">🐷 족발/보쌈</option>
+                        <option value="🥓">🥓 삼겹살</option>
+                        <option value="🔥">🔥 곱창</option>
+                        <option value="🦞">🦞 해산물</option>
+                        <option value="🐟">🐟 생선/회</option>
+                        <option value="🍢">🍢 꼬치</option>
+                        <option value="🥟">🥟 만두/딤섬</option>
+                        <option value="🌶️">🌶️ 떡볶이</option>
+                        <option value="🍔">🍔 햄버거</option>
+                        <option value="🍕">🍕 피자</option>
+                        <option value="🍝">🍝 파스타</option>
+                        <option value="🥗">🥗 샐러드</option>
+                        <option value="🥪">🥪 샌드위치</option>
+                        <option value="☕">☕ 카페/브런치</option>
+                        <option value="🍵">🍵 일식/오마카세</option>
+                        <option value="🍽️">🍽️ 기타</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -1245,13 +1288,26 @@
         }
     }
 
+    // 테이블 행 클릭 처리
+    function handleRowClick(event, naverMap) {
+        // 삭제 버튼 클릭 시 행 클릭 이벤트 무시
+        if (event.target.classList.contains('delete-button')) {
+            return;
+        }
+        
+        // 네이버 지도 링크가 있으면 새 창으로 열기
+        if (naverMap && naverMap.trim() !== '') {
+            window.open(naverMap, '_blank');
+        }
+    }
+
     // 식당 목록 표시
     function displayRestaurants() {
         const tbody = document.getElementById('restaurantTableBody');
         
         if (restaurants.length === 0) {
             tbody.innerHTML = `
-                <tr>
+                <tr class="no-link">
                     <td colspan="6" style="text-align: center; color: #999; padding: 20px;">
                         등록된 식당이 없습니다. 위 양식으로 식당을 추가해주세요!
                     </td>
@@ -1260,18 +1316,24 @@
             return;
         }
 
-        tbody.innerHTML = restaurants.map(r => `
-            <tr>
-                <td class="emoji-cell">${r.emoji}</td>
-                <td class="name-cell" title="${r.name}">${r.name}</td>
-                <td class="category-cell">${r.category}</td>
-                <td>${r.price}</td>
-                <td class="description-cell" title="${r.description}">${r.description}</td>
-                <td class="action-cell">
-                    <button class="delete-button" onclick="deleteRestaurant(${r.id})">삭제</button>
-                </td>
-            </tr>
-        `).join('');
+        tbody.innerHTML = restaurants.map(r => {
+            const hasLink = r.naverMap && r.naverMap.trim() !== '';
+            const rowClass = hasLink ? '' : 'no-link';
+            const cursorStyle = hasLink ? 'cursor: pointer;' : '';
+            
+            return `
+                <tr class="${rowClass}" onclick="handleRowClick(event, '${r.naverMap || ''}')" style="${cursorStyle}">
+                    <td class="emoji-cell">${r.emoji}</td>
+                    <td class="name-cell" title="${r.name}">${r.name}</td>
+                    <td class="category-cell">${r.category}</td>
+                    <td>${r.price}</td>
+                    <td class="description-cell" title="${r.description}">${r.description}</td>
+                    <td class="action-cell">
+                        <button class="delete-button" onclick="deleteRestaurant(${r.id})">삭제</button>
+                    </td>
+                </tr>
+            `;
+        }).join('');
     }
 
     // 슬롯 초기화
