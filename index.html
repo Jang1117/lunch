@@ -48,6 +48,58 @@
             font-size: 1.1em;
         }
 
+        .category-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .category-button {
+            background: white;
+            border: 3px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            min-width: 100px;
+        }
+
+        .category-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .category-button.active {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .category-icon {
+            font-size: 2.5em;
+            line-height: 1;
+        }
+
+        .category-label {
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+        .category-count {
+            font-size: 0.85em;
+            opacity: 0.8;
+        }
+
+        .category-button.active .category-count {
+            opacity: 1;
+        }
+
         .info-bar {
             display: flex;
             justify-content: space-around;
@@ -253,203 +305,167 @@
         }
 
         .restaurant-table .name-cell {
-            font-weight: bold;
-            color: #333;
-            width: 120px;
+            font-weight: 600;
+            max-width: 150px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .restaurant-table .category-cell {
-            color: #666;
-            width: 80px;
-            white-space: nowrap;
+            max-width: 100px;
         }
 
         .restaurant-table .description-cell {
-            color: #666;
-            width: 150px;
-            font-size: 0.85em;
-        }
-
-        .restaurant-table .price-cell {
-            color: #667eea;
-            font-weight: bold;
-            width: 60px;
-            text-align: center;
-        }
-
-        .restaurant-table .link-cell {
-            width: 70px;
-            text-align: center;
-        }
-
-        .restaurant-table .actions-cell {
-            text-align: center;
-            width: 100px;
-        }
-
-        .map-link {
-            display: inline-block;
-            background: #03C75A;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 0.8em;
-            transition: all 0.3s;
+            max-width: 250px;
+            overflow: hidden;
+            text-overflow: ellipsis;
             white-space: nowrap;
         }
 
-        .map-link:hover {
-            background: #02b350;
-            transform: translateY(-1px);
+        .restaurant-table .action-cell {
+            text-align: center;
+            width: 80px;
         }
 
-        .edit-button, .save-button, .cancel-button {
-            padding: 5px 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.8em;
-            margin: 2px 0;
-            transition: all 0.3s;
-            display: block;
-            width: 100%;
-        }
-
-        .edit-button {
-            background: #667eea;
-            color: white;
-        }
-
-        .edit-button:hover {
-            background: #5568d3;
-        }
-
-        .save-button {
-            background: #28a745;
-            color: white;
-        }
-
-        .save-button:hover {
-            background: #218838;
-        }
-
-        .cancel-button {
-            background: #6c757d;
-            color: white;
-        }
-
-        .cancel-button:hover {
-            background: #5a6268;
-        }
-
-        .delete-button-table {
+        .delete-button {
             background: #ff4757;
             color: white;
-            padding: 5px 10px;
             border: none;
+            padding: 6px 12px;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 0.8em;
-            transition: all 0.3s;
-            display: block;
-            width: 100%;
-            margin-top: 2px;
-        }
-
-        .delete-button-table:hover {
-            background: #ee5a6f;
-        }
-
-        .edit-input {
-            width: 100%;
-            padding: 4px;
-            border: 2px solid #667eea;
-            border-radius: 4px;
             font-size: 0.85em;
+            transition: background 0.3s;
         }
 
-        .history {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f8f9fa;
+        .delete-button:hover {
+            background: #ff3838;
+        }
+
+        .add-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-size: 0.9em;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.95em;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
+            grid-column: 1 / -1;
+        }
+
+        .add-button {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1em;
             border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
         }
 
-        .history h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.3em;
+        .add-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
         }
 
         .recommendation {
             margin-top: 20px;
-            padding: 15px;
-            background: #fff9e6;
-            border-left: 4px solid #ffd700;
-            border-radius: 5px;
-            font-size: 0.95em;
-            color: #666;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.1em;
+            line-height: 1.6;
+            display: none;
         }
 
-        .recent-results {
+        .recent-results-section {
             margin-top: 30px;
             padding: 20px;
-            background: #fff4f4;
+            background: #fff5e6;
             border-radius: 10px;
-            border: 2px solid #ff6b9d;
+            border: 2px dashed #ffa500;
+            display: none;
         }
 
-        .recent-results h3 {
-            color: #ff6b9d;
+        .recent-results-section h3 {
+            color: #ff8c00;
             margin-bottom: 15px;
             font-size: 1.3em;
         }
 
         .recent-results-list {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 10px;
         }
 
         .recent-result-item {
-            background: white;
-            padding: 15px 20px;
-            border-radius: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             position: relative;
-            transition: all 0.3s;
-            min-width: 130px;
-        }
-
-        .recent-result-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         .recent-result-emoji {
-            font-size: 2em;
-        }
-
-        .recent-result-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .recent-result-name {
-            font-weight: bold;
-            color: #333;
-            font-size: 1.1em;
+            font-size: 2.5em;
+            min-width: 50px;
             text-align: center;
         }
 
+        .recent-result-info {
+            flex: 1;
+        }
+
+        .recent-result-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
         .recent-result-category {
-            font-size: 0.85em;
+            font-size: 0.9em;
             color: #666;
         }
 
@@ -460,42 +476,106 @@
             background: #ff4757;
             color: white;
             border: none;
-            width: 20px;
-            height: 20px;
+            width: 25px;
+            height: 25px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 0.8em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
+            font-size: 1.2em;
+            line-height: 1;
+            transition: background 0.3s;
         }
 
         .recent-result-delete:hover {
-            background: #ee5a6f;
-            transform: scale(1.1);
+            background: #ff3838;
         }
 
         .recent-result-confirm {
-            background: #28a745;
+            background: #03C75A;
             color: white;
             border: none;
-            padding: 8px 15px;
+            padding: 10px 20px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 0.9em;
-            transition: all 0.3s;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background 0.3s;
         }
 
         .recent-result-confirm:hover {
-            background: #218838;
-            transform: translateY(-1px);
+            background: #02b350;
+        }
+
+        .history-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #e8f5e9;
+            border-radius: 10px;
+            border: 2px dashed #4caf50;
+        }
+
+        .history-section h3 {
+            color: #388e3c;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .history-table-container {
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-height: 400px;
+            overflow-y: auto;
+            overflow-x: auto;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 500px;
+        }
+
+        .history-table th {
+            background: #4caf50;
+            color: white;
+            padding: 12px 10px;
+            text-align: left;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            font-size: 0.9em;
+        }
+
+        .history-table td {
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.9em;
+        }
+
+        .history-table tr:hover {
+            background: #f1f8f4;
+        }
+
+        .history-delete-button {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: background 0.3s;
+        }
+
+        .history-delete-button:hover {
+            background: #ff3838;
         }
 
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(-20px);
             }
             to {
                 opacity: 1;
@@ -503,236 +583,109 @@
             }
         }
 
-        /* 최근 방문 기록 테이블 */
-        .history-table-container {
-            margin-top: 10px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            overflow-x: auto;
-        }
-
-        .history-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9em;
-        }
-
-        .history-table th,
-        .history-table td {
-            padding: 8px 10px;
-            border-bottom: 1px solid #e5e5e5;
-            text-align: center;
-            white-space: nowrap;
-        }
-
-        .history-table th {
-            background: #667eea;
-            color: white;
-            position: sticky;
-            top: 0;
-            z-index: 5;
-        }
-
-        .history-table tr:hover td {
-            background: #f8f9ff;
-        }
-
-        .history-delete-button {
-            padding: 4px 10px;
-            border: none;
-            border-radius: 6px;
-            background: #ff4757;
-            color: white;
-            font-size: 0.8em;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .history-delete-button:hover {
-            background: #ee5a6f;
-            transform: translateY(-1px);
-        }
-
-        /* 📱 태블릿 & 모바일 공통 */
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
             .container {
-                padding: 20px 16px;
-                border-radius: 16px;
+                padding: 20px;
             }
 
             h1 {
-                font-size: 1.9em;
-                line-height: 1.3;
-            }
-
-            .subtitle {
-                font-size: 0.95em;
-                margin-bottom: 20px;
-            }
-
-            .info-bar {
-                flex-direction: column;
-                align-items: stretch;
-                text-align: left;
-                padding: 12px;
-            }
-
-            .info-item {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            .info-label {
-                font-size: 0.85em;
-            }
-
-            .info-value {
-                font-size: 1em;
+                font-size: 1.8em;
             }
 
             .slot-machine {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: stretch;
-                gap: 8px;
-                margin: 25px 0;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
             }
 
             .slot {
-                width: calc((100% - 16px) / 3);
-                max-width: none;
-                height: 200px;
+                width: 180px;
+                height: 220px;
             }
 
             .slot-item {
-                height: 200px;
-                padding: 10px;
+                height: 220px;
             }
 
-            .slot-emoji {
-                font-size: 2.4em;
+            .add-form {
+                grid-template-columns: 1fr;
             }
 
-            .slot-name {
-                font-size: 0.95em;
+            .category-selector {
+                gap: 10px;
             }
 
-            .slot-category {
-                font-size: 0.8em;
-                padding: 3px 8px;
+            .category-button {
+                min-width: 85px;
+                padding: 12px 15px;
             }
 
-            .controls {
-                margin: 20px 0;
+            .category-icon {
+                font-size: 2em;
             }
 
-            .spin-button {
-                width: 100%;
-                max-width: 360px;
-                padding: 16px 20px;
-                font-size: 1.2em;
-            }
-
-            .result {
-                padding: 18px;
-            }
-
-            .result h2 {
-                font-size: 1.6em;
-            }
-
-            .result-details {
-                font-size: 1em;
-            }
-
-            .manage-section {
-                padding: 16px;
-            }
-
-            .history,
-            .recent-results {
-                padding: 16px;
-            }
-
-            .history-table {
-                font-size: 0.8em;
-            }
-
-            .history-table th,
-            .history-table td {
-                padding: 6px 6px;
-            }
-
-            .restaurant-table {
-                font-size: 0.8em;
-            }
-
-            .restaurant-table th,
-            .restaurant-table td {
-                padding: 8px 6px;
-            }
-
-            /* 설명/가격 컬럼 모바일에서 숨기기 */
-            .restaurant-table th:nth-child(4),
-            .restaurant-table td.description-cell,
-            .restaurant-table th:nth-child(5),
-            .restaurant-table td.price-cell {
-                display: none;
-            }
-        }
-
-        /* 아주 작은 화면 (아이폰 SE 급) */
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.6em;
-            }
-
-            .slot {
-                height: 180px;
-            }
-
-            .slot-item {
-                height: 180px;
-            }
-
-            .recent-result-item {
-                padding: 12px 14px;
-            }
-
-            .recent-result-name {
-                font-size: 0.95em;
-            }
-
-            .map-link {
-                font-size: 0.75em;
-                padding: 4px 8px;
+            .category-label {
+                font-size: 0.9em;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎰 압구정 로데오 점심 룰렛</h1>
-        <p class="subtitle">오늘 점심 뭐 먹을까? 룰렛을 돌려보세요!</p>
+        <h1>🎰 점심 룰렛 🎰</h1>
+        <p class="subtitle">어디서 먹을까? 운명에 맡겨보세요!</p>
 
-        <div class="info-bar">
-            <div class="info-item">
-                <div class="info-label">오늘 날짜</div>
-                <div class="info-value" id="currentDate"></div>
+        <!-- 카테고리 선택 -->
+        <div class="category-selector">
+            <div class="category-button active" data-category="전체" onclick="selectCategory('전체')">
+                <div class="category-icon">🍽️</div>
+                <div class="category-label">전체</div>
+                <div class="category-count">(<span id="count-전체">0</span>)</div>
             </div>
-            <div class="info-item">
-                <div class="info-label">요일</div>
-                <div class="info-value" id="currentDay"></div>
+            <div class="category-button" data-category="한식" onclick="selectCategory('한식')">
+                <div class="category-icon">🇰🇷</div>
+                <div class="category-label">한식</div>
+                <div class="category-count">(<span id="count-한식">0</span>)</div>
+            </div>
+            <div class="category-button" data-category="중식" onclick="selectCategory('중식')">
+                <div class="category-icon">🇨🇳</div>
+                <div class="category-label">중식</div>
+                <div class="category-count">(<span id="count-중식">0</span>)</div>
+            </div>
+            <div class="category-button" data-category="일식" onclick="selectCategory('일식')">
+                <div class="category-icon">🇯🇵</div>
+                <div class="category-label">일식</div>
+                <div class="category-count">(<span id="count-일식">0</span>)</div>
+            </div>
+            <div class="category-button" data-category="양식" onclick="selectCategory('양식')">
+                <div class="category-icon">w🇹</div>
+                <div class="category-label">양식</div>
+                <div class="category-count">(<span id="count-양식">0</span>)</div>
+            </div>
+            <div class="category-button" data-category="기타" onclick="selectCategory('기타')">
+                <div class="category-icon">🌍</div>
+                <div class="category-label">기타</div>
+                <div class="category-count">(<span id="count-기타">0</span>)</div>
             </div>
         </div>
 
+        <!-- 정보 바 -->
+        <div class="info-bar">
+            <div class="info-item">
+                <div class="info-label">등록된 식당</div>
+                <div class="info-value"><span id="totalRestaurants">0</span>개</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">선택된 카테고리</div>
+                <div class="info-value"><span id="selectedCategory">전체</span></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">이번 주 방문</div>
+                <div class="info-value"><span id="weekVisits">0</span>회</div>
+            </div>
+        </div>
+
+        <!-- 슬롯 머신 -->
         <div class="slot-machine">
             <div class="slot">
                 <div class="slot-content" id="slot1"></div>
@@ -745,32 +698,37 @@
             </div>
         </div>
 
+        <!-- 컨트롤 -->
         <div class="controls">
-            <button class="spin-button" id="spinButton">🎰 룰렛 돌리기!</button>
+            <button class="spin-button" id="spinButton">돌리기! 🎲</button>
         </div>
 
+        <!-- 결과 -->
         <div class="result" id="result">
-            <h2>🎉 오늘의 추천 맛집!</h2>
+            <h2>🎉 오늘의 메뉴! 🎉</h2>
             <div class="result-details" id="resultDetails"></div>
         </div>
 
-        <div class="recommendation" id="recommendation" style="display: none;"></div>
+        <!-- 추천 메시지 -->
+        <div class="recommendation" id="recommendation"></div>
 
-        <div class="recent-results" id="recentResults" style="display: none;">
-            <h3>🎲 최근 룰렛 결과</h3>
+        <!-- 최근 결과 -->
+        <div class="recent-results-section" id="recentResultsSection">
+            <h3>🎯 최근 결과</h3>
             <div class="recent-results-list" id="recentResultsList"></div>
         </div>
 
-        <div class="history">
-            <h3>📝 최근 방문 기록 (최근 1주일)</h3>
+        <!-- 방문 기록 -->
+        <div class="history-section">
+            <h3>📅 방문 기록 (최근 1주일)</h3>
             <div class="history-table-container">
                 <table class="history-table">
                     <thead>
                         <tr>
                             <th>날짜</th>
                             <th>요일</th>
-                            <th>종류</th>
-                            <th>음식점</th>
+                            <th>분류</th>
+                            <th>식당</th>
                             <th>관리</th>
                         </tr>
                     </thead>
@@ -785,35 +743,98 @@
             </div>
         </div>
 
+        <!-- 식당 관리 -->
         <div class="manage-section">
-            <h3>⭐ 내 맛집 관리</h3>
+            <h3>🏪 식당 관리</h3>
+            
+            <form class="add-form" id="addForm">
+                <div class="form-group">
+                    <label>식당명 *</label>
+                    <input type="text" id="restaurantName" required>
+                </div>
+
+                <div class="form-group">
+                    <label>이모지 *</label>
+                    <input type="text" id="restaurantEmoji" maxlength="2" placeholder="🍜" required>
+                </div>
+
+                <div class="form-group">
+                    <label>분류 *</label>
+                    <select id="restaurantCategory" required>
+                        <option value="">선택하세요</option>
+                        <option value="한식">한식</option>
+                        <option value="중식">중식</option>
+                        <option value="일식">일식</option>
+                        <option value="양식">양식</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>가격대 *</label>
+                    <select id="restaurantPrice" required>
+                        <option value="">선택하세요</option>
+                        <option value="₩">₩ (저렴)</option>
+                        <option value="₩₩">₩₩ (보통)</option>
+                        <option value="₩₩₩">₩₩₩ (약간 비쌈)</option>
+                        <option value="₩₩₩₩">₩₩₩₩ (비쌈)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>설명</label>
+                    <textarea id="restaurantDescription" placeholder="간단한 설명을 입력하세요"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>네이버 지도 링크 (선택)</label>
+                    <input type="url" id="restaurantNaverMap" placeholder="https://naver.me/...">
+                </div>
+
+                <button type="submit" class="add-button">➕ 식당 추가</button>
+            </form>
+
             <div class="restaurant-table-container">
                 <table class="restaurant-table">
                     <thead>
                         <tr>
-                            <th>🎭</th>
-                            <th>이름</th>
-                            <th>종류</th>
+                            <th>이모지</th>
+                            <th>식당명</th>
+                            <th>분류</th>
+                            <th>가격대</th>
                             <th>설명</th>
-                            <th>가격</th>
-                            <th>지도</th>
                             <th>관리</th>
                         </tr>
                     </thead>
-                    <tbody id="restaurantTableBody"></tbody>
+                    <tbody id="restaurantTableBody">
+                        <tr>
+                            <td colspan="6" style="text-align: center; color: #999; padding: 20px;">
+                                등록된 식당이 없습니다. 위 양식으로 식당을 추가해주세요!
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
 
 <script>
-    // 기본 식당 리스트
+    const SLOT_HEIGHT = 250;
+    let restaurants = [];
+    let filteredRestaurants = [];
+    let selectedCategoryFilter = '전체';
+    let isSpinning = false;
+    let history = [];
+    let recentResults = [];
+    const days = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+
+    // 기본 식당 데이터
     const defaultRestaurants = [
         { name: "창고43", emoji: "🍖", category: "한식", description: "창고스페셜·깍두기볶음밥", price: "₩₩₩", naverMap: "https://naver.me/FSw7K4zM" },
         { name: "흑우정", emoji: "🥩", category: "한식", description: "블랙앵거스·꽃갈비살", price: "₩₩₩₩", naverMap: "https://naver.me/G2EwpJwu" },
         { name: "청담만옥", emoji: "🍜", category: "한식", description: "평양냉면·어복쟁반", price: "₩₩", naverMap: "https://naver.me/x67yoaKp" },
         { name: "화연산장", emoji: "🦞", category: "중식", description: "고급 중식 코스 요리", price: "₩₩₩", naverMap: "https://naver.me/GoD7l9CG" },
-        { name: "수다 청담점", emoji: "☕", category: "카페", description: "브런치·샌드위치", price: "₩₩", naverMap: "https://naver.me/FjbnBQLO" },
+        { name: "수다 청담점", emoji: "☕", category: "기타", description: "브런치·샌드위치", price: "₩₩", naverMap: "https://naver.me/FjbnBQLO" },
         { name: "우정", emoji: "🥩", category: "한식", description: "숙성한우·특등심", price: "₩₩₩₩", naverMap: "https://naver.me/I55a4iNs" },
         { name: "정식당", emoji: "🍱", category: "한식", description: "한식 파인다이닝", price: "₩₩₩₩", naverMap: "https://naver.me/xv3DHt17" },
         { name: "썬더버드", emoji: "🍗", category: "양식", description: "프라이드치킨", price: "₩₩", naverMap: "https://naver.me/GtURVvOw" },
@@ -828,7 +849,7 @@
         { name: "이모가있는집", emoji: "🍖", category: "한식", description: "가정식 백반", price: "₩₩", naverMap: "https://naver.me/56R6warn" },
         { name: "미트플레이스", emoji: "🥩", category: "한식", description: "숙성고기 전문", price: "₩₩₩", naverMap: "https://naver.me/xMjeb7BC" },
         { name: "죠스떡볶이", emoji: "🌶️", category: "한식", description: "떡볶이·튀김", price: "₩", naverMap: "https://naver.me/G657eZBr" },
-        { name: "샐러디", emoji: "🥗", category: "샐러드", description: "샐러드 전문점", price: "₩₩", naverMap: "https://naver.me/59vQPd2h" },
+        { name: "샐러디", emoji: "🥗", category: "기타", description: "샐러드 전문점", price: "₩₩", naverMap: "https://naver.me/59vQPd2h" },
         { name: "세븐패티버거", emoji: "🍔", category: "양식", description: "수제버거", price: "₩₩", naverMap: "https://naver.me/5apDhkjC" },
         { name: "다운타우너", emoji: "🍔", category: "양식", description: "아보카도버거·더블버거", price: "₩₩", naverMap: "https://naver.me/xY4suE7O" },
         { name: "도산분식", emoji: "🍜", category: "한식", description: "떡볶이·김밥", price: "₩₩", naverMap: "https://naver.me/5eUcprjo" },
@@ -858,14 +879,14 @@
         { name: "강서면옥", emoji: "🍜", category: "한식", description: "평양냉면·갈비탕", price: "₩₩", naverMap: "https://naver.me/Fnm0z3hW" },
         { name: "한솥도시락", emoji: "🍱", category: "한식", description: "도시락·덮밥", price: "₩", naverMap: "https://naver.me/FtTh8Z8a" },
         { name: "호시카츠", emoji: "🍛", category: "일식", description: "돈까스 정식", price: "₩₩", naverMap: "https://naver.me/FV7YLbG0" },
-        { name: "청담고수", emoji: "🍜", category: "아시안", description: "쌀국수·월남쌈", price: "₩₩", naverMap: "https://naver.me/513NwDpD" },
+        { name: "청담고수", emoji: "🍜", category: "기타", description: "쌀국수·월남쌈", price: "₩₩", naverMap: "https://naver.me/513NwDpD" },
         { name: "청담해정", emoji: "🐟", category: "한식", description: "물회·회덮밥", price: "₩₩₩", naverMap: "https://naver.me/FW6hbr1n" },
         { name: "hen", emoji: "🍗", category: "양식", description: "로티세리치킨", price: "₩₩", naverMap: "https://naver.me/FW6hbr1n" },
         { name: "성덕", emoji: "🍖", category: "한식", description: "한우·숙성고기", price: "₩₩₩", naverMap: "https://naver.me/58NdttAs" },
         { name: "한사리감자탕", emoji: "🍲", category: "한식", description: "감자탕·뼈해장국", price: "₩₩", naverMap: "https://naver.me/GBFHlBQG" },
         { name: "청담25", emoji: "🍱", category: "한식", description: "한정식·정갈한식", price: "₩₩₩", naverMap: "https://naver.me/xNLZHXq0" },
         { name: "부흥왕족발", emoji: "🐷", category: "한식", description: "족발·보쌈", price: "₩₩", naverMap: "https://naver.me/56R619MD" },
-        { name: "샐러듀박스", emoji: "🥗", category: "샐러드", description: "샐러드 보울", price: "₩₩", naverMap: "https://naver.me/GctrC26Z" },
+        { name: "샐러듀박스", emoji: "🥗", category: "기타", description: "샐러드 보울", price: "₩₩", naverMap: "https://naver.me/GctrC26Z" },
         { name: "골목식당", emoji: "🍖", category: "한식", description: "제육볶음·김치찌개", price: "₩₩", naverMap: "https://naver.me/5ZJaPiwW" },
         { name: "홍성원", emoji: "🥟", category: "중식", description: "딤섬·샤오롱바오", price: "₩₩₩", naverMap: "https://naver.me/GOPmMY5D" },
         { name: "청담동칼국수", emoji: "🍜", category: "한식", description: "칼국수·수제비", price: "₩", naverMap: "https://naver.me/xwmqcYOo" },
@@ -876,183 +897,223 @@
         { name: "청담", emoji: "🍱", category: "한식", description: "한식 코스 요리", price: "₩₩₩", naverMap: "https://naver.me/GALR9Vjy" }
     ];
 
-    let restaurants = JSON.parse(localStorage.getItem('restaurants')) || [...defaultRestaurants];
-    let isSpinning = false;
-    let history = JSON.parse(localStorage.getItem('lunchHistory')) || [];
-    let recentResults = JSON.parse(localStorage.getItem('recentResults')) || [];
+    // localStorage에서 데이터 로드
+    function loadData() {
+        const saved = localStorage.getItem('restaurants');
+        if (saved) {
+            try {
+                restaurants = JSON.parse(saved);
+            } catch(e) {
+                restaurants = [];
+            }
+        }
+        
+        // localStorage가 비어있으면 기본 데이터 로드
+        if (restaurants.length === 0) {
+            restaurants = defaultRestaurants.map((r, index) => ({
+                ...r,
+                id: Date.now() + index
+            }));
+            localStorage.setItem('restaurants', JSON.stringify(restaurants));
+        }
 
-    // 1주일 지난 기록은 자동 삭제
-    (function pruneHistoryOnLoad() {
-        const now = Date.now();
-        const oneWeekAgo = now - 7 * 24 * 60 * 60 * 1000;
-        history = history.filter(item => item.timestamp && item.timestamp >= oneWeekAgo);
-        localStorage.setItem('lunchHistory', JSON.stringify(history));
-    })();
+        const savedHistory = localStorage.getItem('lunchHistory');
+        if (savedHistory) {
+            try {
+                history = JSON.parse(savedHistory);
+                // 1주일 이전 기록 제거
+                const oneWeekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+                history = history.filter(h => h.timestamp && h.timestamp >= oneWeekAgo);
+                localStorage.setItem('lunchHistory', JSON.stringify(history));
+            } catch(e) {
+                history = [];
+            }
+        }
 
-    const foodEmojis = ['🍕', '🍣', '🍜', '🍝', '🍔', '🍱', '🥗', '🍲', '🥩', '🍛',
-                        '🌮', '🥟', '🐔', '🥐', '🍗', '🍖', '🦐', '🦞', '🍤', '🥘',
-                        '🍳', '🥓', '🧇', '🥞', '🍰', '🍩', '🍪', '☕', '🍵', '🥤',
-                        '🍽️', '🥄', '🍴', '🥢'];
-
-    let SLOT_HEIGHT = 250;
-
-    function updateSlotHeight() {
-        const slotEl = document.querySelector('.slot');
-        if (slotEl) {
-            SLOT_HEIGHT = slotEl.offsetHeight || 250;
+        const savedResults = localStorage.getItem('recentResults');
+        if (savedResults) {
+            try {
+                recentResults = JSON.parse(savedResults);
+            } catch(e) {
+                recentResults = [];
+            }
         }
     }
 
-    const LOOPS = 20;
-    function getTotalItems() {
-        return Math.max(restaurants.length * LOOPS, restaurants.length);
+    // 카테고리 선택
+    function selectCategory(category) {
+        selectedCategoryFilter = category;
+        
+        // 버튼 활성화 상태 업데이트
+        document.querySelectorAll('.category-button').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.querySelector(`[data-category="${category}"]`).classList.add('active');
+
+        // 선택된 카테고리 표시
+        document.getElementById('selectedCategory').textContent = category;
+
+        // 필터링된 식당 목록 업데이트
+        updateFilteredRestaurants();
+        
+        // 슬롯 재초기화
+        initSlots();
     }
 
-    // 날짜, 요일 표시
-    const today = new Date();
-    const days = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
-    document.getElementById('currentDate').textContent = `${today.getMonth() + 1}/${today.getDate()}`;
-    document.getElementById('currentDay').textContent = days[today.getDay()];
+    // 필터링된 식당 목록 업데이트
+    function updateFilteredRestaurants() {
+        if (selectedCategoryFilter === '전체') {
+            filteredRestaurants = [...restaurants];
+        } else {
+            filteredRestaurants = restaurants.filter(r => r.category === selectedCategoryFilter);
+        }
+    }
 
-    function displayRestaurants() {
-        const tableBody = document.getElementById('restaurantTableBody');
-        if (restaurants.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 20px; color: #999;">식당을 추가해주세요</td></tr>';
+    // 카테고리별 개수 업데이트
+    function updateCategoryCounts() {
+        const categories = ['전체', '한식', '중식', '일식', '양식', '기타'];
+        
+        categories.forEach(cat => {
+            let count = 0;
+            if (cat === '전체') {
+                count = restaurants.length;
+            } else {
+                count = restaurants.filter(r => r.category === cat).length;
+            }
+            document.getElementById(`count-${cat}`).textContent = count;
+        });
+        
+        document.getElementById('totalRestaurants').textContent = restaurants.length;
+    }
+
+    // 식당 추가
+    document.getElementById('addForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('restaurantName').value.trim();
+        const emoji = document.getElementById('restaurantEmoji').value.trim();
+        const category = document.getElementById('restaurantCategory').value;
+        const price = document.getElementById('restaurantPrice').value;
+        const description = document.getElementById('restaurantDescription').value.trim();
+        const naverMap = document.getElementById('restaurantNaverMap').value.trim();
+
+        if (!name || !emoji || !category || !price) {
+            alert('필수 항목을 모두 입력해주세요!');
             return;
         }
 
-        tableBody.innerHTML = restaurants.map((restaurant, index) => `
-            <tr id="row-${index}">
-                <td class="emoji-cell">${restaurant.emoji}</td>
-                <td class="name-cell">${restaurant.name}</td>
-                <td class="category-cell">${restaurant.category}</td>
-                <td class="description-cell">${restaurant.description}</td>
-                <td class="price-cell">${restaurant.price}</td>
-                <td class="link-cell">
-                    ${restaurant.naverMap ? `<a href="${restaurant.naverMap}" target="_blank" class="map-link">📍 지도</a>` : '-'}
-                </td>
-                <td class="actions-cell">
-                    <button class="edit-button" onclick="editRestaurant(${index})">수정</button>
-                    <button class="delete-button-table" onclick="deleteRestaurant(${index})">삭제</button>
+        const restaurant = {
+            id: Date.now(),
+            name: name,
+            emoji: emoji,
+            category: category,
+            price: price,
+            description: description || '맛있는 식당',
+            naverMap: naverMap || ''
+        };
+
+        restaurants.push(restaurant);
+        localStorage.setItem('restaurants', JSON.stringify(restaurants));
+
+        this.reset();
+        displayRestaurants();
+        updateFilteredRestaurants();
+        initSlots();
+        updateCategoryCounts();
+    });
+
+    // 식당 삭제
+    function deleteRestaurant(id) {
+        if (confirm('정말 삭제하시겠습니까?')) {
+            restaurants = restaurants.filter(r => r.id !== id);
+            localStorage.setItem('restaurants', JSON.stringify(restaurants));
+            displayRestaurants();
+            updateFilteredRestaurants();
+            initSlots();
+            updateCategoryCounts();
+        }
+    }
+
+    // 식당 목록 표시
+    function displayRestaurants() {
+        const tbody = document.getElementById('restaurantTableBody');
+        
+        if (restaurants.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="6" style="text-align: center; color: #999; padding: 20px;">
+                        등록된 식당이 없습니다. 위 양식으로 식당을 추가해주세요!
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        tbody.innerHTML = restaurants.map(r => `
+            <tr>
+                <td class="emoji-cell">${r.emoji}</td>
+                <td class="name-cell" title="${r.name}">${r.name}</td>
+                <td class="category-cell">${r.category}</td>
+                <td>${r.price}</td>
+                <td class="description-cell" title="${r.description}">${r.description}</td>
+                <td class="action-cell">
+                    <button class="delete-button" onclick="deleteRestaurant(${r.id})">삭제</button>
                 </td>
             </tr>
         `).join('');
     }
 
-    function editRestaurant(index) {
-        const restaurant = restaurants[index];
-        const row = document.getElementById(`row-${index}`);
-
-        row.innerHTML = `
-            <td class="emoji-cell">
-                <select id="edit-emoji-${index}" class="edit-input" style="font-size: 1.5em; text-align: center;">
-                    ${foodEmojis.map(emoji => `<option value="${emoji}" ${emoji === restaurant.emoji ? 'selected' : ''}>${emoji}</option>`).join('')}
-                </select>
-            </td>
-            <td class="name-cell">
-                <input type="text" id="edit-name-${index}" class="edit-input" value="${restaurant.name}" maxlength="20">
-            </td>
-            <td class="category-cell">
-                <select id="edit-category-${index}" class="edit-input">
-                    <option value="한식" ${restaurant.category === '한식' ? 'selected' : ''}>한식</option>
-                    <option value="중식" ${restaurant.category === '중식' ? 'selected' : ''}>중식</option>
-                    <option value="일식" ${restaurant.category === '일식' ? 'selected' : ''}>일식</option>
-                    <option value="양식" ${restaurant.category === '양식' ? 'selected' : ''}>양식</option>
-                    <option value="카페" ${restaurant.category === '카페' ? 'selected' : ''}>카페</option>
-                    <option value="샐러드" ${restaurant.category === '샐러드' ? 'selected' : ''}>샐러드</option>
-                    <option value="아시안" ${restaurant.category === '아시안' ? 'selected' : ''}>아시안</option>
-                </select>
-            </td>
-            <td class="description-cell">
-                <input type="text" id="edit-description-${index}" class="edit-input" value="${restaurant.description}" maxlength="30">
-            </td>
-            <td class="price-cell">
-                <select id="edit-price-${index}" class="edit-input">
-                    <option value="₩" ${restaurant.price === '₩' ? 'selected' : ''}>₩</option>
-                    <option value="₩₩" ${restaurant.price === '₩₩' ? 'selected' : ''}>₩₩</option>
-                    <option value="₩₩₩" ${restaurant.price === '₩₩₩' ? 'selected' : ''}>₩₩₩</option>
-                    <option value="₩₩₩₩" ${restaurant.price === '₩₩₩₩' ? 'selected' : ''}>₩₩₩₩</option>
-                </select>
-            </td>
-            <td class="link-cell">
-                <input type="url" id="edit-map-${index}" class="edit-input" value="${restaurant.naverMap || ''}" placeholder="지도 링크">
-            </td>
-            <td class="actions-cell">
-                <button class="save-button" onclick="saveRestaurant(${index})">저장</button>
-                <button class="cancel-button" onclick="displayRestaurants()">취소</button>
-            </td>
-        `;
-    }
-
-    function saveRestaurant(index) {
-        const emoji = document.getElementById(`edit-emoji-${index}`).value;
-        const name = document.getElementById(`edit-name-${index}`).value.trim();
-        const category = document.getElementById(`edit-category-${index}`).value.trim();
-        const description = document.getElementById(`edit-description-${index}`).value.trim();
-        const price = document.getElementById(`edit-price-${index}`).value;
-        const naverMap = document.getElementById(`edit-map-${index}`).value.trim();
-
-        if (!name) {
-            alert('식당 이름을 입력해주세요!');
-            return;
-        }
-        if (!category) {
-            alert('카테고리를 입력해주세요!');
-            return;
-        }
-
-        restaurants[index] = {
-            name,
-            emoji,
-            category,
-            description: description || '맛있는 식당',
-            price,
-            naverMap: naverMap || ''
-        };
-
-        localStorage.setItem('restaurants', JSON.stringify(restaurants));
-        displayRestaurants();
-        initSlots();
-    }
-
-    function deleteRestaurant(index) {
-        const restaurant = restaurants[index];
-        if (confirm(`"${restaurant.name}"을(를) 삭제하시겠습니까?`)) {
-            restaurants.splice(index, 1);
-            localStorage.setItem('restaurants', JSON.stringify(restaurants));
-            displayRestaurants();
-            initSlots();
-        }
-    }
-
+    // 슬롯 초기화
     function initSlots() {
-        if (restaurants.length === 0) return;
+        updateFilteredRestaurants();
+        
+        if (filteredRestaurants.length === 0) {
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`slot${i}`).innerHTML = `
+                    <div class="slot-item">
+                        <div class="slot-emoji">❓</div>
+                        <div class="slot-name">식당 없음</div>
+                    </div>
+                `;
+            }
+            return;
+        }
 
-        updateSlotHeight();
-        const totalItems = getTotalItems();
-
+        const repeatCount = Math.max(3, Math.ceil(20 / filteredRestaurants.length));
+        
         for (let i = 1; i <= 3; i++) {
             const slot = document.getElementById(`slot${i}`);
-            slot.innerHTML = '';
-
-            for (let j = 0; j < totalItems; j++) {
-                const restaurant = restaurants[j % restaurants.length];
-                const item = document.createElement('div');
-                item.className = 'slot-item';
-                item.innerHTML = `
-                    <div class="slot-emoji">${restaurant.emoji}</div>
-                    <div class="slot-name">${restaurant.name}</div>
-                    <div class="slot-category">${restaurant.category}</div>
-                `;
-                slot.appendChild(item);
+            let content = '';
+            
+            for (let j = 0; j < repeatCount; j++) {
+                filteredRestaurants.forEach(restaurant => {
+                    content += `
+                        <div class="slot-item">
+                            <div class="slot-emoji">${restaurant.emoji}</div>
+                            <div class="slot-name">${restaurant.name}</div>
+                            <div class="slot-category">${restaurant.category}</div>
+                        </div>
+                    `;
+                });
             }
-
-            slot.style.transform = 'translateY(0)';
+            
+            slot.innerHTML = content;
         }
     }
 
+    function getTotalItems() {
+        if (filteredRestaurants.length === 0) return 1;
+        const repeatCount = Math.max(3, Math.ceil(20 / filteredRestaurants.length));
+        return filteredRestaurants.length * repeatCount;
+    }
+
+    function updateSlotHeight() {
+        // 슬롯 높이 업데이트 (필요시)
+    }
+
+    // 최근 결과 표시
     function displayRecentResults() {
-        const recentResultsSection = document.getElementById('recentResults');
+        const recentResultsSection = document.getElementById('recentResultsSection');
         const recentResultsList = document.getElementById('recentResultsList');
 
         if (recentResults.length === 0) {
@@ -1086,7 +1147,6 @@
         const nowTs = now.getTime();
         const oneWeekAgo = nowTs - 7 * 24 * 60 * 60 * 1000;
 
-        // 1주일 이전 기록 삭제
         history = history.filter(h => h.timestamp && h.timestamp >= oneWeekAgo);
 
         const dateString = `${now.getMonth() + 1}/${now.getDate()}`;
@@ -1109,6 +1169,7 @@
         displayHistory();
     }
 
+    // 방문 기록 표시
     function displayHistory() {
         const tbody = document.getElementById('historyTableBody');
         if (!tbody) return;
@@ -1142,6 +1203,9 @@
                 </tr>
             `;
         }).join('');
+
+        // 이번 주 방문 횟수 업데이트
+        document.getElementById('weekVisits').textContent = history.length;
     }
 
     function deleteHistory(index) {
@@ -1170,10 +1234,11 @@
         return recommendation || '오늘의 완벽한 선택입니다! 맛있게 드세요 😋';
     }
 
+    // 룰렛 돌리기
     function spin() {
         if (isSpinning) return;
-        if (restaurants.length === 0) {
-            alert('식당을 먼저 추가해주세요!');
+        if (filteredRestaurants.length === 0) {
+            alert(`${selectedCategoryFilter} 카테고리에 등록된 식당이 없습니다!`);
             return;
         }
 
@@ -1201,9 +1266,9 @@
 
         let slot1Index, slot2Index, slot3Index;
         do {
-            slot1Index = Math.floor(Math.random() * restaurants.length);
-            slot2Index = Math.floor(Math.random() * restaurants.length);
-            slot3Index = Math.floor(Math.random() * restaurants.length);
+            slot1Index = Math.floor(Math.random() * filteredRestaurants.length);
+            slot2Index = Math.floor(Math.random() * filteredRestaurants.length);
+            slot3Index = Math.floor(Math.random() * filteredRestaurants.length);
         } while (
             slot1Index !== slot2Index &&
             slot2Index !== slot3Index &&
@@ -1237,7 +1302,7 @@
             setTimeout(() => {
                 clearInterval(spinInterval);
 
-                const lastLoopStart = totalItems - restaurants.length;
+                const lastLoopStart = totalItems - filteredRestaurants.length;
                 const targetIndex = lastLoopStart + finalIndex;
                 const finalPosition = -(targetIndex * SLOT_HEIGHT);
 
@@ -1249,11 +1314,11 @@
         setTimeout(() => {
             let selected;
             if (finalIndexes[0] === finalIndexes[1]) {
-                selected = restaurants[finalIndexes[0]];
+                selected = filteredRestaurants[finalIndexes[0]];
             } else if (finalIndexes[1] === finalIndexes[2]) {
-                selected = restaurants[finalIndexes[1]];
+                selected = filteredRestaurants[finalIndexes[1]];
             } else {
-                selected = restaurants[finalIndexes[0]];
+                selected = filteredRestaurants[finalIndexes[0]];
             }
 
             document.getElementById('resultDetails').innerHTML = `
@@ -1290,8 +1355,11 @@
     document.getElementById('spinButton').addEventListener('click', spin);
 
     window.addEventListener('DOMContentLoaded', function() {
+        loadData();
         displayRestaurants();
+        updateFilteredRestaurants();
         initSlots();
+        updateCategoryCounts();
         displayRecentResults();
         displayHistory();
     });
