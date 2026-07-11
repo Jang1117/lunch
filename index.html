@@ -48,58 +48,6 @@
             font-size: 1.1em;
         }
 
-        .category-selector {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .category-button {
-            background: white;
-            border: 3px solid #e0e0e0;
-            border-radius: 15px;
-            padding: 15px 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            min-width: 100px;
-        }
-
-        .category-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .category-button.active {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .category-icon {
-            font-size: 2.5em;
-            line-height: 1;
-        }
-
-        .category-label {
-            font-size: 1em;
-            font-weight: bold;
-        }
-
-        .category-count {
-            font-size: 0.85em;
-            opacity: 0.8;
-        }
-
-        .category-button.active .category-count {
-            opacity: 1;
-        }
-
         .info-bar {
             display: flex;
             justify-content: space-around;
@@ -294,20 +242,7 @@
             font-size: 0.9em;
         }
 
-        .restaurant-table tbody tr {
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .restaurant-table tbody tr:hover {
-            background: #f0f8ff;
-        }
-
-        .restaurant-table tbody tr.no-link {
-            cursor: default;
-        }
-
-        .restaurant-table tbody tr.no-link:hover {
+        .restaurant-table tr:hover {
             background: #f8f9fa;
         }
 
@@ -318,172 +253,203 @@
         }
 
         .restaurant-table .name-cell {
-            font-weight: 600;
-            max-width: 150px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            font-weight: bold;
+            color: #333;
+            width: 120px;
         }
 
         .restaurant-table .category-cell {
-            max-width: 100px;
-        }
-
-        .restaurant-table .description-cell {
-            max-width: 250px;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            color: #666;
+            width: 80px;
             white-space: nowrap;
         }
 
-        .restaurant-table .action-cell {
-            text-align: center;
-            width: 80px;
+        .restaurant-table .description-cell {
+            color: #666;
+            width: 150px;
+            font-size: 0.85em;
         }
 
-        .delete-button {
-            background: #ff4757;
+        .restaurant-table .price-cell {
+            color: #667eea;
+            font-weight: bold;
+            width: 60px;
+            text-align: center;
+        }
+
+        .restaurant-table .link-cell {
+            width: 70px;
+            text-align: center;
+        }
+
+        .restaurant-table .actions-cell {
+            text-align: center;
+            width: 100px;
+        }
+
+        .map-link {
+            display: inline-block;
+            background: #03C75A;
             color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.8em;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .map-link:hover {
+            background: #02b350;
+            transform: translateY(-1px);
+        }
+
+        .edit-button, .save-button, .cancel-button {
+            padding: 5px 10px;
             border: none;
-            padding: 6px 12px;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 0.85em;
-            transition: background 0.3s;
-        }
-
-        .delete-button:hover {
-            background: #ff3838;
-        }
-
-        .add-form {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .form-group label {
-            font-size: 0.9em;
-            color: #666;
-            font-weight: 600;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            padding: 10px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 0.95em;
-            transition: border-color 0.3s;
-            font-family: inherit;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 60px;
-            grid-column: 1 / -1;
-        }
-
-        .emoji-select {
-            font-size: 1.2em;
-            padding: 10px;
-        }
-
-        .add-button {
-            grid-column: 1 / -1;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            font-size: 1.1em;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
+            font-size: 0.8em;
+            margin: 2px 0;
             transition: all 0.3s;
+            display: block;
+            width: 100%;
         }
 
-        .add-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        .edit-button {
+            background: #667eea;
+            color: white;
+        }
+
+        .edit-button:hover {
+            background: #5568d3;
+        }
+
+        .save-button {
+            background: #28a745;
+            color: white;
+        }
+
+        .save-button:hover {
+            background: #218838;
+        }
+
+        .cancel-button {
+            background: #6c757d;
+            color: white;
+        }
+
+        .cancel-button:hover {
+            background: #5a6268;
+        }
+
+        .delete-button-table {
+            background: #ff4757;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: all 0.3s;
+            display: block;
+            width: 100%;
+            margin-top: 2px;
+        }
+
+        .delete-button-table:hover {
+            background: #ee5a6f;
+        }
+
+        .edit-input {
+            width: 100%;
+            padding: 4px;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        .history {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .history h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
         }
 
         .recommendation {
             margin-top: 20px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            text-align: center;
-            font-size: 1.1em;
-            line-height: 1.6;
-            display: none;
+            padding: 15px;
+            background: #fff9e6;
+            border-left: 4px solid #ffd700;
+            border-radius: 5px;
+            font-size: 0.95em;
+            color: #666;
         }
 
-        .recent-results-section {
+        .recent-results {
             margin-top: 30px;
             padding: 20px;
-            background: #fff5e6;
+            background: #fff4f4;
             border-radius: 10px;
-            border: 2px dashed #ffa500;
-            display: none;
+            border: 2px solid #ff6b9d;
         }
 
-        .recent-results-section h3 {
-            color: #ff8c00;
+        .recent-results h3 {
+            color: #ff6b9d;
             margin-bottom: 15px;
             font-size: 1.3em;
         }
 
         .recent-results-list {
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
             gap: 10px;
         }
 
         .recent-result-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
             background: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
             position: relative;
+            transition: all 0.3s;
+            min-width: 130px;
+        }
+
+        .recent-result-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         .recent-result-emoji {
-            font-size: 2.5em;
-            min-width: 50px;
-            text-align: center;
+            font-size: 2em;
         }
 
         .recent-result-info {
-            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .recent-result-name {
-            font-size: 1.2em;
             font-weight: bold;
             color: #333;
-            margin-bottom: 5px;
+            font-size: 1.1em;
+            text-align: center;
         }
 
         .recent-result-category {
-            font-size: 0.9em;
+            font-size: 0.85em;
             color: #666;
         }
 
@@ -494,106 +460,42 @@
             background: #ff4757;
             color: white;
             border: none;
-            width: 25px;
-            height: 25px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 1.2em;
-            line-height: 1;
-            transition: background 0.3s;
+            font-size: 0.8em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
         }
 
         .recent-result-delete:hover {
-            background: #ff3838;
+            background: #ee5a6f;
+            transform: scale(1.1);
         }
 
         .recent-result-confirm {
-            background: #03C75A;
+            background: #28a745;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 8px 15px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 1em;
-            font-weight: bold;
-            transition: background 0.3s;
+            font-size: 0.9em;
+            transition: all 0.3s;
         }
 
         .recent-result-confirm:hover {
-            background: #02b350;
-        }
-
-        .history-section {
-            margin-top: 30px;
-            padding: 20px;
-            background: #e8f5e9;
-            border-radius: 10px;
-            border: 2px dashed #4caf50;
-        }
-
-        .history-section h3 {
-            color: #388e3c;
-            margin-bottom: 15px;
-            font-size: 1.3em;
-        }
-
-        .history-table-container {
-            margin-top: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            max-height: 400px;
-            overflow-y: auto;
-            overflow-x: auto;
-        }
-
-        .history-table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 500px;
-        }
-
-        .history-table th {
-            background: #4caf50;
-            color: white;
-            padding: 12px 10px;
-            text-align: left;
-            font-weight: bold;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            font-size: 0.9em;
-        }
-
-        .history-table td {
-            padding: 10px;
-            border-bottom: 1px solid #e0e0e0;
-            font-size: 0.9em;
-        }
-
-        .history-table tr:hover {
-            background: #f1f8f4;
-        }
-
-        .history-delete-button {
-            background: #ff4757;
-            color: white;
-            border: none;
-            padding: 5px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.85em;
-            transition: background 0.3s;
-        }
-
-        .history-delete-button:hover {
-            background: #ff3838;
+            background: #218838;
+            transform: translateY(-1px);
         }
 
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateY(-20px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -601,14 +503,71 @@
             }
         }
 
+        /* 최근 방문 기록 테이블 */
+        .history-table-container {
+            margin-top: 10px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            overflow-x: auto;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+
+        .history-table th,
+        .history-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #e5e5e5;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .history-table th {
+            background: #667eea;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
+
+        .history-table tr:hover td {
+            background: #f8f9ff;
+        }
+
+        .history-delete-button {
+            padding: 4px 10px;
+            border: none;
+            border-radius: 6px;
+            background: #ff4757;
+            color: white;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .history-delete-button:hover {
+            background: #ee5a6f;
+            transform: translateY(-1px);
+        }
+
+        /* 📱 태블릿 & 모바일 공통 */
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
             .container {
-                padding: 15px;
+                padding: 20px 16px;
+                border-radius: 16px;
             }
 
             h1 {
-                font-size: 1.6em;
-                margin-bottom: 8px;
+                font-size: 1.9em;
+                line-height: 1.3;
             }
 
             .subtitle {
@@ -616,36 +575,21 @@
                 margin-bottom: 20px;
             }
 
-            .category-selector {
-                gap: 8px;
-                margin-bottom: 20px;
-            }
-
-            .category-button {
-                min-width: 70px;
-                padding: 10px 12px;
-            }
-
-            .category-icon {
-                font-size: 1.8em;
-            }
-
-            .category-label {
-                font-size: 0.85em;
-            }
-
-            .category-count {
-                font-size: 0.75em;
-            }
-
             .info-bar {
-                padding: 10px;
-                margin-bottom: 20px;
-                gap: 5px;
+                flex-direction: column;
+                align-items: stretch;
+                text-align: left;
+                padding: 12px;
+            }
+
+            .info-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
             }
 
             .info-label {
-                font-size: 0.75em;
+                font-size: 0.85em;
             }
 
             .info-value {
@@ -653,257 +597,142 @@
             }
 
             .slot-machine {
+                display: flex;
                 flex-direction: row;
                 justify-content: center;
+                align-items: stretch;
                 gap: 8px;
                 margin: 25px 0;
             }
 
             .slot {
-                width: 30%;
-                min-width: 95px;
-                max-width: 120px;
-                height: 140px;
-                border-width: 3px;
+                width: calc((100% - 16px) / 3);
+                max-width: none;
+                height: 200px;
             }
 
             .slot-item {
-                height: 140px;
-                padding: 10px 5px;
+                height: 200px;
+                padding: 10px;
             }
 
             .slot-emoji {
-                font-size: 2.2em;
-                margin-bottom: 5px;
+                font-size: 2.4em;
             }
 
             .slot-name {
-                font-size: 0.85em;
-                margin-bottom: 3px;
-                line-height: 1.2;
+                font-size: 0.95em;
             }
 
             .slot-category {
-                font-size: 0.7em;
-                padding: 3px 6px;
+                font-size: 0.8em;
+                padding: 3px 8px;
+            }
+
+            .controls {
+                margin: 20px 0;
             }
 
             .spin-button {
-                padding: 15px 40px;
+                width: 100%;
+                max-width: 360px;
+                padding: 16px 20px;
                 font-size: 1.2em;
             }
 
             .result {
-                padding: 20px;
-                margin-top: 20px;
+                padding: 18px;
             }
 
             .result h2 {
-                font-size: 1.5em;
-                margin-bottom: 10px;
+                font-size: 1.6em;
             }
 
             .result-details {
                 font-size: 1em;
             }
 
-            .recommendation {
-                padding: 15px;
-                font-size: 0.95em;
-                margin-top: 15px;
-            }
-
             .manage-section {
-                padding: 15px;
-                margin-top: 20px;
+                padding: 16px;
             }
 
-            .manage-section h3 {
-                font-size: 1.1em;
-                margin-bottom: 12px;
+            .history,
+            .recent-results {
+                padding: 16px;
             }
 
-            .add-form {
-                grid-template-columns: 1fr;
-                gap: 12px;
+            .history-table {
+                font-size: 0.8em;
             }
 
-            .form-group label {
-                font-size: 0.85em;
+            .history-table th,
+            .history-table td {
+                padding: 6px 6px;
             }
 
-            .form-group input,
-            .form-group select,
-            .form-group textarea {
-                padding: 8px;
-                font-size: 0.9em;
-            }
-
-            .add-button {
-                padding: 10px 25px;
-                font-size: 1em;
-            }
-
-            .recent-results-section,
-            .history-section {
-                padding: 15px;
-                margin-top: 20px;
-            }
-
-            .recent-results-section h3,
-            .history-section h3 {
-                font-size: 1.1em;
-                margin-bottom: 12px;
-            }
-
-            .recent-result-item {
-                padding: 12px;
-                gap: 12px;
-            }
-
-            .recent-result-emoji {
-                font-size: 2em;
-                min-width: 40px;
-            }
-
-            .recent-result-name {
-                font-size: 1em;
-            }
-
-            .recent-result-category {
-                font-size: 0.85em;
-            }
-
-            .recent-result-confirm {
-                padding: 8px 15px;
-                font-size: 0.9em;
+            .restaurant-table {
+                font-size: 0.8em;
             }
 
             .restaurant-table th,
-            .restaurant-table td,
-            .history-table th,
-            .history-table td {
+            .restaurant-table td {
                 padding: 8px 6px;
-                font-size: 0.85em;
             }
 
-            .delete-button,
-            .history-delete-button {
-                padding: 5px 10px;
-                font-size: 0.8em;
+            /* 설명/가격 컬럼 모바일에서 숨기기 */
+            .restaurant-table th:nth-child(4),
+            .restaurant-table td.description-cell,
+            .restaurant-table th:nth-child(5),
+            .restaurant-table td.price-cell {
+                display: none;
             }
         }
 
+        /* 아주 작은 화면 (아이폰 SE 급) */
         @media (max-width: 480px) {
-            .container {
-                padding: 12px;
-            }
-
             h1 {
-                font-size: 1.4em;
-            }
-
-            .category-button {
-                min-width: 65px;
-                padding: 8px 10px;
-            }
-
-            .category-icon {
                 font-size: 1.6em;
             }
 
-            .category-label {
-                font-size: 0.8em;
-            }
-
             .slot {
-                width: 31%;
-                min-width: 85px;
-                max-width: 110px;
-                height: 130px;
+                height: 180px;
             }
 
             .slot-item {
-                height: 130px;
-                padding: 8px 3px;
+                height: 180px;
             }
 
-            .slot-emoji {
-                font-size: 2em;
+            .recent-result-item {
+                padding: 12px 14px;
             }
 
-            .slot-name {
+            .recent-result-name {
+                font-size: 0.95em;
+            }
+
+            .map-link {
                 font-size: 0.75em;
-            }
-
-            .slot-category {
-                font-size: 0.65em;
-                padding: 2px 5px;
-            }
-
-            .spin-button {
-                padding: 12px 35px;
-                font-size: 1.1em;
+                padding: 4px 8px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎰 점심 룰렛 🎰</h1>
-        <p class="subtitle">어디서 먹을까? 운명에 맡겨보세요!</p>
+        <h1>🎰 압구정 로데오 점심 룰렛</h1>
+        <p class="subtitle">오늘 점심 뭐 먹을까? 룰렛을 돌려보세요!</p>
 
-        <!-- 카테고리 선택 -->
-        <div class="category-selector">
-            <div class="category-button active" data-category="전체" onclick="selectCategory('전체')">
-                <div class="category-icon">🍽️</div>
-                <div class="category-label">전체</div>
-                <div class="category-count">(<span id="count-전체">0</span>)</div>
-            </div>
-            <div class="category-button" data-category="한식" onclick="selectCategory('한식')">
-                <div class="category-icon">🍚</div>
-                <div class="category-label">한식</div>
-                <div class="category-count">(<span id="count-한식">0</span>)</div>
-            </div>
-            <div class="category-button" data-category="중식" onclick="selectCategory('중식')">
-                <div class="category-icon">🥢</div>
-                <div class="category-label">중식</div>
-                <div class="category-count">(<span id="count-중식">0</span>)</div>
-            </div>
-            <div class="category-button" data-category="일식" onclick="selectCategory('일식')">
-                <div class="category-icon">🍣</div>
-                <div class="category-label">일식</div>
-                <div class="category-count">(<span id="count-일식">0</span>)</div>
-            </div>
-            <div class="category-button" data-category="양식" onclick="selectCategory('양식')">
-                <div class="category-icon">🍝</div>
-                <div class="category-label">양식</div>
-                <div class="category-count">(<span id="count-양식">0</span>)</div>
-            </div>
-            <div class="category-button" data-category="기타" onclick="selectCategory('기타')">
-                <div class="category-icon">🌍</div>
-                <div class="category-label">기타</div>
-                <div class="category-count">(<span id="count-기타">0</span>)</div>
-            </div>
-        </div>
-
-        <!-- 정보 바 -->
         <div class="info-bar">
             <div class="info-item">
-                <div class="info-label">등록된 식당</div>
-                <div class="info-value"><span id="totalRestaurants">0</span>개</div>
+                <div class="info-label">오늘 날짜</div>
+                <div class="info-value" id="currentDate"></div>
             </div>
             <div class="info-item">
-                <div class="info-label">선택된 카테고리</div>
-                <div class="info-value"><span id="selectedCategory">전체</span></div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">이번 주 방문</div>
-                <div class="info-value"><span id="weekVisits">0</span>회</div>
+                <div class="info-label">요일</div>
+                <div class="info-value" id="currentDay"></div>
             </div>
         </div>
 
-        <!-- 슬롯 머신 -->
         <div class="slot-machine">
             <div class="slot">
                 <div class="slot-content" id="slot1"></div>
@@ -916,37 +745,32 @@
             </div>
         </div>
 
-        <!-- 컨트롤 -->
         <div class="controls">
-            <button class="spin-button" id="spinButton">돌리기! 🎲</button>
+            <button class="spin-button" id="spinButton">🎰 룰렛 돌리기!</button>
         </div>
 
-        <!-- 결과 -->
         <div class="result" id="result">
-            <h2>🎉 오늘의 메뉴! 🎉</h2>
+            <h2>🎉 오늘의 추천 맛집!</h2>
             <div class="result-details" id="resultDetails"></div>
         </div>
 
-        <!-- 추천 메시지 -->
-        <div class="recommendation" id="recommendation"></div>
+        <div class="recommendation" id="recommendation" style="display: none;"></div>
 
-        <!-- 최근 결과 -->
-        <div class="recent-results-section" id="recentResultsSection">
-            <h3>🎯 최근 결과</h3>
+        <div class="recent-results" id="recentResults" style="display: none;">
+            <h3>🎲 최근 룰렛 결과</h3>
             <div class="recent-results-list" id="recentResultsList"></div>
         </div>
 
-        <!-- 방문 기록 -->
-        <div class="history-section">
-            <h3>📅 방문 기록 (최근 1주일)</h3>
+        <div class="history">
+            <h3>📝 최근 방문 기록 (최근 1주일)</h3>
             <div class="history-table-container">
                 <table class="history-table">
                     <thead>
                         <tr>
                             <th>날짜</th>
                             <th>요일</th>
-                            <th>분류</th>
-                            <th>식당</th>
+                            <th>종류</th>
+                            <th>음식점</th>
                             <th>관리</th>
                         </tr>
                     </thead>
@@ -961,434 +785,283 @@
             </div>
         </div>
 
-        <!-- 식당 관리 -->
         <div class="manage-section">
-            <h3>🏪 식당 관리</h3>
-            
-            <form class="add-form" id="addForm">
-                <div class="form-group">
-                    <label>식당명 *</label>
-                    <input type="text" id="restaurantName" required>
-                </div>
-
-                <div class="form-group">
-                    <label>이모지 *</label>
-                    <select id="restaurantEmoji" class="emoji-select" required>
-                        <option value="">선택하세요</option>
-                        <option value="🍖">🍖 고기</option>
-                        <option value="🥩">🥩 스테이크</option>
-                        <option value="🍜">🍜 라면/국수</option>
-                        <option value="🍲">🍲 찌개/전골</option>
-                        <option value="🍱">🍱 도시락/정식</option>
-                        <option value="🍛">🍛 카레/돈까스</option>
-                        <option value="🍗">🍗 치킨</option>
-                        <option value="🐷">🐷 족발/보쌈</option>
-                        <option value="🥓">🥓 삼겹살</option>
-                        <option value="🔥">🔥 곱창</option>
-                        <option value="🦞">🦞 해산물</option>
-                        <option value="🐟">🐟 생선/회</option>
-                        <option value="🍢">🍢 꼬치</option>
-                        <option value="🥟">🥟 만두/딤섬</option>
-                        <option value="🌶️">🌶️ 떡볶이</option>
-                        <option value="🍔">🍔 햄버거</option>
-                        <option value="🍕">🍕 피자</option>
-                        <option value="🍝">🍝 파스타</option>
-                        <option value="🥗">🥗 샐러드</option>
-                        <option value="🥪">🥪 샌드위치</option>
-                        <option value="☕">☕ 카페/브런치</option>
-                        <option value="🍵">🍵 일식/오마카세</option>
-                        <option value="🍽️">🍽️ 기타</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>분류 *</label>
-                    <select id="restaurantCategory" required>
-                        <option value="">선택하세요</option>
-                        <option value="한식">한식</option>
-                        <option value="중식">중식</option>
-                        <option value="일식">일식</option>
-                        <option value="양식">양식</option>
-                        <option value="기타">기타</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>가격대 *</label>
-                    <select id="restaurantPrice" required>
-                        <option value="">선택하세요</option>
-                        <option value="₩">₩ (저렴)</option>
-                        <option value="₩₩">₩₩ (보통)</option>
-                        <option value="₩₩₩">₩₩₩ (약간 비쌈)</option>
-                        <option value="₩₩₩₩">₩₩₩₩ (비쌈)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>설명</label>
-                    <textarea id="restaurantDescription" placeholder="간단한 설명을 입력하세요"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label>네이버 지도 링크 (선택)</label>
-                    <input type="url" id="restaurantNaverMap" placeholder="https://naver.me/...">
-                </div>
-
-                <button type="submit" class="add-button">➕ 식당 추가</button>
-            </form>
-
+            <h3>⭐ 내 맛집 관리</h3>
             <div class="restaurant-table-container">
                 <table class="restaurant-table">
                     <thead>
                         <tr>
-                            <th>이모지</th>
-                            <th>식당명</th>
-                            <th>분류</th>
-                            <th>가격대</th>
+                            <th>🎭</th>
+                            <th>이름</th>
+                            <th>종류</th>
                             <th>설명</th>
+                            <th>가격</th>
+                            <th>지도</th>
                             <th>관리</th>
                         </tr>
                     </thead>
-                    <tbody id="restaurantTableBody">
-                        <tr>
-                            <td colspan="6" style="text-align: center; color: #999; padding: 20px;">
-                                등록된 식당이 없습니다. 위 양식으로 식당을 추가해주세요!
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tbody id="restaurantTableBody"></tbody>
                 </table>
             </div>
         </div>
     </div>
 
 <script>
-    let SLOT_HEIGHT = 250;
-    let restaurants = [];
-    let filteredRestaurants = [];
-    let selectedCategoryFilter = '전체';
-    let isSpinning = false;
-    let history = [];
-    let recentResults = [];
-    const days = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
-
-    // 화면 크기에 따라 슬롯 높이 설정
-    function updateSlotHeightConstant() {
-        if (window.innerWidth <= 480) {
-            SLOT_HEIGHT = 130;
-        } else if (window.innerWidth <= 768) {
-            SLOT_HEIGHT = 140;
-        } else {
-            SLOT_HEIGHT = 250;
-        }
-    }
-
-    // 기본 식당 데이터
+    // 기본 식당 리스트
     const defaultRestaurants = [
-        { name: "창고43", emoji: "🍖", category: "한식", description: "창고스페셜·깍두기볶음밥", price: "₩₩₩", naverMap: "https://naver.me/FSw7K4zM" },
+        { name: "창고43", emoji: "🍖", category: "한식", description: "창고43스페셜·깍두기볶음밥", price: "₩₩₩", naverMap: "https://naver.me/FSw7K4zM" },
         { name: "흑우정", emoji: "🥩", category: "한식", description: "블랙앵거스·꽃갈비살", price: "₩₩₩₩", naverMap: "https://naver.me/G2EwpJwu" },
-        { name: "청담만옥", emoji: "🍜", category: "한식", description: "평양냉면·어복쟁반", price: "₩₩", naverMap: "https://naver.me/x67yoaKp" },
-        { name: "화연산장", emoji: "🦞", category: "중식", description: "고급 중식 코스 요리", price: "₩₩₩", naverMap: "https://naver.me/GoD7l9CG" },
-        { name: "수다 청담점", emoji: "☕", category: "기타", description: "브런치·샌드위치", price: "₩₩", naverMap: "https://naver.me/FjbnBQLO" },
-        { name: "우정", emoji: "🥩", category: "한식", description: "숙성한우·특등심", price: "₩₩₩₩", naverMap: "https://naver.me/I55a4iNs" },
-        { name: "정식당", emoji: "🍱", category: "한식", description: "한식 파인다이닝", price: "₩₩₩₩", naverMap: "https://naver.me/xv3DHt17" },
-        { name: "썬더버드", emoji: "🍗", category: "양식", description: "프라이드치킨", price: "₩₩", naverMap: "https://naver.me/GtURVvOw" },
-        { name: "팔십상", emoji: "🍖", category: "한식", description: "소고기·돼지고기 구이", price: "₩₩₩", naverMap: "https://naver.me/502MZmLA" },
-        { name: "히키", emoji: "🍜", category: "일식", description: "라멘 전문점", price: "₩₩", naverMap: "https://naver.me/GrmaIyYe" },
-        { name: "옛날집", emoji: "🍖", category: "한식", description: "전통 고기구이", price: "₩₩", naverMap: "https://naver.me/5A3pZkyy" },
-        { name: "돈블랑", emoji: "🍛", category: "일식", description: "프리미엄 삼겹살·돈까스", price: "₩₩", naverMap: "https://naver.me/xTT6MS4T" },
-        { name: "두루", emoji: "🍲", category: "한식", description: "한정식", price: "₩₩₩", naverMap: "https://naver.me/Fjbn5tnH" },
-        { name: "영동교집", emoji: "🥟", category: "중식", description: "중화요리", price: "₩₩", naverMap: "https://naver.me/5iTd44gb" },
-        { name: "마오", emoji: "🍜", category: "중식", description: "현대적 중식당", price: "₩₩", naverMap: "https://naver.me/IItceslH" },
-        { name: "무안회관", emoji: "🦞", category: "한식", description: "꽃게장 전문점", price: "₩₩₩", naverMap: "https://naver.me/FJb4ZfX4" },
-        { name: "이모가있는집", emoji: "🍖", category: "한식", description: "가정식 백반", price: "₩₩", naverMap: "https://naver.me/56R6warn" },
-        { name: "미트플레이스", emoji: "🥩", category: "한식", description: "숙성고기 전문", price: "₩₩₩", naverMap: "https://naver.me/xMjeb7BC" },
+        { name: "청담만옥", emoji: "🍲", category: "한식", description: "해물탕·차돌미나리전", price: "₩₩₩", naverMap: "https://naver.me/x67yoaKp" },
+        { name: "화연산장", emoji: "🍖", category: "한식", description: "짚불구이·갈비", price: "₩₩₩", naverMap: "https://naver.me/GoD7l9CG" },
+        { name: "수다 청담점", emoji: "🍢", category: "이자카야", description: "감자전·모둠꼬치", price: "₩₩", naverMap: "https://naver.me/FjbnBQLO" },
+        { name: "우정", emoji: "🥩", category: "한식", description: "한우불고기·곱창전골", price: "₩₩₩₩", naverMap: "https://naver.me/I55a4iNs" },
+        { name: "정식당", emoji: "🍱", category: "한식", description: "모듬김밥·문어감태국수", price: "₩₩₩₩", naverMap: "https://naver.me/xv3DHt17" },
+        { name: "썬더버드", emoji: "🍗", category: "양식", description: "크리스피치킨·프라이드치킨", price: "₩₩", naverMap: "https://naver.me/GtURVvOw" },
+        { name: "팔십상", emoji: "🍣", category: "일식", description: "참치사시미·참치코스", price: "₩₩₩", naverMap: "https://naver.me/502MZmLA" },
+        { name: "옛날집", emoji: "🍖", category: "한식", description: "명란젓정식·떡갈비", price: "₩₩", naverMap: "https://naver.me/5A3pZkyy" },
+        { name: "돈블랑", emoji: "🥓", category: "한식", description: "삼겹살·항정살모둠", price: "₩₩", naverMap: "https://naver.me/xTT6MS4T" },
+        { name: "두루", emoji: "🍲", category: "한식", description: "국시·소고기국밥", price: "₩₩₩", naverMap: "https://naver.me/Fjbn5tnH" },
+        { name: "영동교집", emoji: "🥓", category: "한식", description: "흑돼지삼겹살·통껍데기", price: "₩₩", naverMap: "https://naver.me/5iTd44gb" },
+        { name: "마오", emoji: "🍜", category: "중식", description: "북경오리·마오짬뽕", price: "₩₩", naverMap: "https://naver.me/IItceslH" },
+        { name: "무안회관", emoji: "🍲", category: "한식", description: "한우곰탕·낙지볶음", price: "₩₩₩", naverMap: "https://naver.me/FJb4ZfX4" },
+        { name: "이모가있는집", emoji: "🍖", category: "한식", description: "부대찌개·섞어찌개", price: "₩₩", naverMap: "https://naver.me/56R6warn" },
         { name: "죠스떡볶이", emoji: "🌶️", category: "한식", description: "떡볶이·튀김", price: "₩", naverMap: "https://naver.me/G657eZBr" },
-        { name: "샐러디", emoji: "🥗", category: "기타", description: "샐러드 전문점", price: "₩₩", naverMap: "https://naver.me/59vQPd2h" },
-        { name: "세븐패티버거", emoji: "🍔", category: "양식", description: "수제버거", price: "₩₩", naverMap: "https://naver.me/5apDhkjC" },
+        { name: "샐러디", emoji: "🥗", category: "샐러드", description: "샐러드·포케·프로틴박스", price: "₩₩", naverMap: "https://naver.me/59vQPd2h" },
+        { name: "세븐패티버거", emoji: "🍔", category: "양식", description: "스매시버거·멀티패티버거", price: "₩₩", naverMap: "https://naver.me/5apDhkjC" },
         { name: "다운타우너", emoji: "🍔", category: "양식", description: "아보카도버거·더블버거", price: "₩₩", naverMap: "https://naver.me/xY4suE7O" },
-        { name: "도산분식", emoji: "🍜", category: "한식", description: "떡볶이·김밥", price: "₩₩", naverMap: "https://naver.me/5eUcprjo" },
+        { name: "도산분식", emoji: "🍜", category: "한식", description: "떡볶이·육회김밥", price: "₩₩", naverMap: "https://naver.me/5eUcprjo" },
         { name: "쉐이크쉑", emoji: "🍔", category: "양식", description: "쉑버거·치즈프라이", price: "₩₩", naverMap: "https://naver.me/G58gYkfJ" },
-        { name: "얼오브샌드위치", emoji: "🥪", category: "양식", description: "샌드위치 전문점", price: "₩₩", naverMap: "https://naver.me/52R5GP91" },
-        { name: "루비떡볶이", emoji: "🌶️", category: "한식", description: "떡볶이·튀김", price: "₩", naverMap: "https://naver.me/FUhsgOZ0" },
-        { name: "원조마포소금구이", emoji: "🥓", category: "한식", description: "소금구이 전문", price: "₩₩₩", naverMap: "https://naver.me/5xjpqOb4" },
-        { name: "애월식당", emoji: "🐟", category: "한식", description: "제주 고등어·갈치", price: "₩₩", naverMap: "https://naver.me/GipBctR4" },
-        { name: "샤브인서울", emoji: "🍲", category: "한식", description: "샤브샤브 뷔페", price: "₩₩", naverMap: "https://naver.me/xucp4nA0" },
-        { name: "도산정육", emoji: "🥩", category: "한식", description: "정육식당·한우", price: "₩₩₩", naverMap: "https://naver.me/FY3yD6Gz" },
-        { name: "상록수", emoji: "🍖", category: "한식", description: "불고기·갈비", price: "₩₩", naverMap: "https://naver.me/Gq84EA4Q" },
-        { name: "롸카두들", emoji: "🍗", category: "양식", description: "내쉬빌 핫치킨", price: "₩₩", naverMap: "https://naver.me/IxsqU1de" },
-        { name: "골드피쉬", emoji: "🐟", category: "일식", description: "프리미엄 초밥", price: "₩₩₩", naverMap: "https://naver.me/GlJIDKKR" },
-        { name: "영삼이네우정소갈비", emoji: "🍖", category: "한식", description: "소갈비 전문", price: "₩₩₩", naverMap: "https://naver.me/G8s9wvev" },
+        { name: "얼오브샌드위치", emoji: "🥪", category: "양식", description: "핫샌드위치 전문점", price: "₩₩", naverMap: "https://naver.me/52R5GP91" },
+        { name: "루비떡볶이", emoji: "🌶️", category: "한식", description: "새우깡떡볶이·소세지김밥", price: "₩", naverMap: "https://naver.me/FUhsgOZ0" },
+        { name: "원조마포소금구이", emoji: "🥓", category: "한식", description: "뒷덜미살·갈매기살구이", price: "₩₩₩", naverMap: "https://naver.me/5xjpqOb4" },
+        { name: "애월식당", emoji: "🐷", category: "한식", description: "제주 오겹살·항정살", price: "₩₩₩", naverMap: "https://naver.me/GipBctR4" },
+        { name: "샤브인서울", emoji: "🍲", category: "한식", description: "프리미엄 샤브샤브", price: "₩₩₩", naverMap: "https://naver.me/xucp4nA0" },
+        { name: "도산정육", emoji: "🥩", category: "한식", description: "한우·제주삼겹살 정육식당", price: "₩₩₩", naverMap: "https://naver.me/FY3yD6Gz" },
+        { name: "상록수", emoji: "🍖", category: "한식", description: "항정살·비빔수제비", price: "₩₩", naverMap: "https://naver.me/Gq84EA4Q" },
+        { name: "롸카두들", emoji: "🍗", category: "양식", description: "내쉬빌핫치킨버거", price: "₩₩", naverMap: "https://naver.me/IxsqU1de" },
+        { name: "골드피쉬", emoji: "🥟", category: "중식", description: "딤섬·샤오롱포", price: "₩₩", naverMap: "https://naver.me/GlJIDKKR" },
+        { name: "영삼이네우정소갈비", emoji: "🍖", category: "한식", description: "마늘양념소갈비·정갈비", price: "₩₩₩", naverMap: "https://naver.me/G8s9wvev" },
         { name: "발아메밀블라썸", emoji: "🍜", category: "한식", description: "메밀국수·막국수", price: "₩₩", naverMap: "https://naver.me/xUw1kjYo" },
-        { name: "스미카츠", emoji: "🍛", category: "일식", description: "돈까스·히레카츠", price: "₩₩", naverMap: "https://naver.me/xbA5vSA1" },
-        { name: "추풍령칼삼겹살", emoji: "🥓", category: "한식", description: "칼삼겹·항정살", price: "₩₩", naverMap: "https://naver.me/xNLZNOIT" },
-        { name: "봉추찜닭", emoji: "🍗", category: "한식", description: "찜닭·볶음밥", price: "₩₩", naverMap: "https://naver.me/FbONRdeL" },
-        { name: "호화반점", emoji: "🥟", category: "중식", description: "짜장면·짬뽕", price: "₩₩", naverMap: "https://naver.me/5UEc0fSt" },
-        { name: "센자이료쿠", emoji: "🍵", category: "일식", description: "일식 오마카세", price: "₩₩₩", naverMap: "https://naver.me/Fio7B3xv" },
-        { name: "오만복국수", emoji: "🍜", category: "한식", description: "국수·칼국수", price: "₩", naverMap: "https://naver.me/5WOkRcDp" },
-        { name: "뉴만두집", emoji: "🥟", category: "한식", description: "만두·만둣국", price: "₩", naverMap: "https://naver.me/5HkaOhnl" },
-        { name: "이가네양꼬치", emoji: "🍢", category: "중식", description: "양꼬치·마라탕", price: "₩₩", naverMap: "https://naver.me/5wWetdWj" },
-        { name: "꽃돌이네", emoji: "🍖", category: "한식", description: "삼겹살·목살", price: "₩₩", naverMap: "https://naver.me/53lKcfXi" },
-        { name: "압구정곱창", emoji: "🔥", category: "한식", description: "곱창·대창", price: "₩₩", naverMap: "https://naver.me/FvEgnTt6" },
-        { name: "묵전", emoji: "🍲", category: "한식", description: "묵밥·도토리묵", price: "₩₩", naverMap: "https://naver.me/5bVsWw4I" },
-        { name: "강서면옥", emoji: "🍜", category: "한식", description: "평양냉면·갈비탕", price: "₩₩", naverMap: "https://naver.me/Fnm0z3hW" },
+        { name: "스미카츠", emoji: "🍛", category: "일식", description: "돈까스·꽃목살카츠", price: "₩₩₩", naverMap: "https://naver.me/xbA5vSA1" },
+        { name: "추풍령칼삼겹살", emoji: "🥓", category: "한식", description: "칼삼겹살·항정살", price: "₩₩", naverMap: "https://naver.me/xNLZNOIT" },
+        { name: "봉추찜닭", emoji: "🍗", category: "한식", description: "찜닭·누룽지볶음밥", price: "₩₩", naverMap: "https://naver.me/FbONRdeL" },
+        { name: "호화반점", emoji: "🥟", category: "중식", description: "트러플짜장면·탕수육", price: "₩₩₩", naverMap: "https://naver.me/5UEc0fSt" },
+        { name: "센자이료쿠", emoji: "🍵", category: "일식", description: "라멘·마제소바", price: "₩", naverMap: "https://naver.me/Fio7B3xv" },
+        { name: "오만복국수", emoji: "🍜", category: "한식", description: "잔치국수·보쌈", price: "₩", naverMap: "https://naver.me/5WOkRcDp" },
+        { name: "뉴만두집", emoji: "🥟", category: "한식", description: "평양만두·만둣국", price: "₩", naverMap: "https://naver.me/5HkaOhnl" },
+        { name: "이가네양꼬치", emoji: "🍢", category: "중식", description: "양꼬치·양갈비", price: "₩₩", naverMap: "https://naver.me/5wWetdWj" },
+        { name: "꽃돌이네", emoji: "🥩", category: "한식", description: "한우모듬·특수부위", price: "₩₩₩₩", naverMap: "https://naver.me/53lKcfXi" },
+        { name: "압구정곱창", emoji: "🔥", category: "한식", description: "곱창·대창구이", price: "₩₩₩", naverMap: "https://naver.me/FvEgnTt6" },
+        { name: "묵전", emoji: "🍲", category: "한식", description: "묵사발·도토리묵전", price: "₩₩", naverMap: "https://naver.me/5bVsWw4I" },
+        { name: "강서면옥", emoji: "🍜", category: "한식", description: "평양냉면·소고기수육", price: "₩₩", naverMap: "https://naver.me/Fnm0z3hW" },
         { name: "한솥도시락", emoji: "🍱", category: "한식", description: "도시락·덮밥", price: "₩", naverMap: "https://naver.me/FtTh8Z8a" },
-        { name: "호시카츠", emoji: "🍛", category: "일식", description: "돈까스 정식", price: "₩₩", naverMap: "https://naver.me/FV7YLbG0" },
-        { name: "청담고수", emoji: "🍜", category: "기타", description: "쌀국수·월남쌈", price: "₩₩", naverMap: "https://naver.me/513NwDpD" },
-        { name: "청담해정", emoji: "🐟", category: "한식", description: "물회·회덮밥", price: "₩₩₩", naverMap: "https://naver.me/FW6hbr1n" },
-        { name: "hen", emoji: "🍗", category: "양식", description: "로티세리치킨", price: "₩₩", naverMap: "https://naver.me/FW6hbr1n" },
-        { name: "성덕", emoji: "🍖", category: "한식", description: "한우·숙성고기", price: "₩₩₩", naverMap: "https://naver.me/58NdttAs" },
+        { name: "호시카츠", emoji: "🍛", category: "일식", description: "로스카츠·히레카츠정식", price: "₩₩", naverMap: "https://naver.me/FV7YLbG0" },
+        { name: "청담고수", emoji: "🍖", category: "한식", description: "숙성목살·항정살구이", price: "₩₩", naverMap: "https://naver.me/513NwDpD" },
+        { name: "청담해정", emoji: "🍲", category: "한식", description: "선지해장국·한우곱창", price: "₩₩", naverMap: "https://naver.me/FW6hbr1n" },
+        { name: "hen", emoji: "🍗", category: "한식", description: "숯불닭구이·닭볶음탕", price: "₩₩", naverMap: "https://map.naver.com/p/search/청담 hen 숯불닭구이" },
+        { name: "성덕", emoji: "🥟", category: "중식", description: "샤오롱포·하가우딤섬", price: "₩₩", naverMap: "https://naver.me/58NdttAs" },
         { name: "한사리감자탕", emoji: "🍲", category: "한식", description: "감자탕·뼈해장국", price: "₩₩", naverMap: "https://naver.me/GBFHlBQG" },
-        { name: "청담25", emoji: "🍱", category: "한식", description: "한정식·정갈한식", price: "₩₩₩", naverMap: "https://naver.me/xNLZHXq0" },
-        { name: "부흥왕족발", emoji: "🐷", category: "한식", description: "족발·보쌈", price: "₩₩", naverMap: "https://naver.me/56R619MD" },
-        { name: "샐러듀박스", emoji: "🥗", category: "기타", description: "샐러드 보울", price: "₩₩", naverMap: "https://naver.me/GctrC26Z" },
+        { name: "청담25", emoji: "🍱", category: "한식", description: "한정식·갈치구이", price: "₩₩₩", naverMap: "https://naver.me/xNLZHXq0" },
+        { name: "부흥왕족발", emoji: "🐷", category: "한식", description: "족발·막국수", price: "₩₩₩", naverMap: "https://naver.me/56R619MD" },
         { name: "골목식당", emoji: "🍖", category: "한식", description: "제육볶음·김치찌개", price: "₩₩", naverMap: "https://naver.me/5ZJaPiwW" },
-        { name: "홍성원", emoji: "🥟", category: "중식", description: "딤섬·샤오롱바오", price: "₩₩₩", naverMap: "https://naver.me/GOPmMY5D" },
-        { name: "청담동칼국수", emoji: "🍜", category: "한식", description: "칼국수·수제비", price: "₩", naverMap: "https://naver.me/xwmqcYOo" },
-        { name: "강강술래", emoji: "🐟", category: "한식", description: "해산물찜·아구찜", price: "₩₩₩", naverMap: "https://naver.me/5CW7bJcA" },
-        { name: "청담동순도리", emoji: "🍖", category: "한식", description: "순대국·순대", price: "₩₩", naverMap: "https://naver.me/FtTh7Jlq" },
-        { name: "달구벌반점", emoji: "🥟", category: "중식", description: "짜장면·탕수육", price: "₩₩", naverMap: "https://naver.me/G386bN4N" },
-        { name: "소스", emoji: "🍝", category: "양식", description: "파스타·리조또", price: "₩₩₩", naverMap: "https://naver.me/xhzCxM66" },
-        { name: "청담", emoji: "🍱", category: "한식", description: "한식 코스 요리", price: "₩₩₩", naverMap: "https://naver.me/GALR9Vjy" },
-        { name: "이도청담", emoji: "🍝", category: "양식", description: "양식 코스 요리", price: "₩₩₩", naverMap: "https://naver.me/xJiB0tAu" }
+        { name: "홍성원", emoji: "🥟", category: "중식", description: "짬뽕·탕수육", price: "₩₩₩", naverMap: "https://naver.me/GOPmMY5D" },
+        { name: "청담동칼국수", emoji: "🍜", category: "한식", description: "바지락칼국수·수제비", price: "₩", naverMap: "https://naver.me/xwmqcYOo" },
+        { name: "강강술래", emoji: "🍖", category: "한식", description: "양념갈비·떡갈비", price: "₩₩₩", naverMap: "https://naver.me/5CW7bJcA" },
+        { name: "청담동순도리", emoji: "🍖", category: "한식", description: "순대국·곱도리탕", price: "₩₩", naverMap: "https://naver.me/FtTh7Jlq" },
+        { name: "달구벌반점", emoji: "🥟", category: "중식", description: "고기짬뽕·탕수육", price: "₩₩", naverMap: "https://naver.me/G386bN4N" },
+        { name: "소스", emoji: "🍝", category: "양식", description: "돈까스·떡볶이", price: "₩₩", naverMap: "https://naver.me/xhzCxM66" },
+        { name: "오아시스", emoji: "🥐", category: "카페", description: "에그베네딕트·타이누들샐러드", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 오아시스 브런치" },
+        { name: "투아투아", emoji: "🧇", category: "카페", description: "바토네·치아바타·바게트", price: "₩", naverMap: "https://map.naver.com/p/search/압구정로데오 투아투아" },
+        { name: "타르틴베이커리 도산점", emoji: "☕", category: "카페", description: "크루아상·바나나크림타르트", price: "₩₩", naverMap: "https://map.naver.com/p/search/타르틴베이커리 도산점" },
+        { name: "호시", emoji: "🍣", category: "이자카야", description: "고등어봉초밥·묵은지광어김밥", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 호시 이자카야" },
+        { name: "이치에", emoji: "🍤", category: "이자카야", description: "우니소바·고등어볶음밥", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 이치에" },
+        { name: "도마야끼덕아웃", emoji: "🐙", category: "이자카야", description: "문어초회·크라운갈비", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 도마야끼덕아웃" },
+        { name: "태국당", emoji: "🍛", category: "아시안", description: "태국 가정식", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 태국당" },
+        { name: "소이연남 마오", emoji: "🍜", category: "아시안", description: "닭꼬치·항정살구이", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 소이연남 마오" },
+        { name: "레우레우", emoji: "🍲", category: "아시안", description: "카오소이·똠얌마마", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 레우레우" },
+        { name: "크레이지타이", emoji: "🌶️", category: "아시안", description: "똠양꿍·뿌팟퐁커리", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 크레이지타이" },
+        { name: "까폼", emoji: "🍜", category: "아시안", description: "랭쌥·카오카무", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 까폼" },
+        { name: "롱씨암", emoji: "🍛", category: "아시안", description: "모닝글로리튀김·호이라이팟", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 롱씨암" }
     ];
 
-    // localStorage에서 데이터 로드
-    function loadData() {
-        const saved = localStorage.getItem('restaurants');
-        if (saved) {
-            try {
-                restaurants = JSON.parse(saved);
-            } catch(e) {
-                restaurants = [];
-            }
+    let restaurants = JSON.parse(localStorage.getItem('restaurants')) || [...defaultRestaurants];
+    let isSpinning = false;
+    let history = JSON.parse(localStorage.getItem('lunchHistory')) || [];
+    let recentResults = JSON.parse(localStorage.getItem('recentResults')) || [];
+
+    // 1주일 지난 기록은 자동 삭제
+    (function pruneHistoryOnLoad() {
+        const now = Date.now();
+        const oneWeekAgo = now - 7 * 24 * 60 * 60 * 1000;
+        history = history.filter(item => item.timestamp && item.timestamp >= oneWeekAgo);
+        localStorage.setItem('lunchHistory', JSON.stringify(history));
+    })();
+
+    const foodEmojis = ['🍕', '🍣', '🍜', '🍝', '🍔', '🍱', '🥗', '🍲', '🥩', '🍛',
+                        '🌮', '🥟', '🐔', '🥐', '🍗', '🍖', '🦐', '🦞', '🍤', '🥘',
+                        '🍳', '🥓', '🧇', '🥞', '🍰', '🍩', '🍪', '☕', '🍵', '🥤',
+                        '🍽️', '🥄', '🍴', '🥢', '🌶️', '🍶', '🐙', '🍢', '🥪', '🔥', '🐷'];
+
+    let SLOT_HEIGHT = 250;
+
+    function updateSlotHeight() {
+        const slotEl = document.querySelector('.slot');
+        if (slotEl) {
+            SLOT_HEIGHT = slotEl.offsetHeight || 250;
         }
-        
-        // localStorage가 비어있으면 기본 데이터 로드
+    }
+
+    const LOOPS = 20;
+    function getTotalItems() {
+        return Math.max(restaurants.length * LOOPS, restaurants.length);
+    }
+
+    // 날짜, 요일 표시
+    const today = new Date();
+    const days = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+    document.getElementById('currentDate').textContent = `${today.getMonth() + 1}/${today.getDate()}`;
+    document.getElementById('currentDay').textContent = days[today.getDay()];
+
+    function displayRestaurants() {
+        const tableBody = document.getElementById('restaurantTableBody');
         if (restaurants.length === 0) {
-            restaurants = defaultRestaurants.map((r, index) => ({
-                ...r,
-                id: Date.now() + index
-            }));
-            localStorage.setItem('restaurants', JSON.stringify(restaurants));
-        }
-
-        const savedHistory = localStorage.getItem('lunchHistory');
-        if (savedHistory) {
-            try {
-                history = JSON.parse(savedHistory);
-                // 1주일 이전 기록 제거
-                const oneWeekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-                history = history.filter(h => h.timestamp && h.timestamp >= oneWeekAgo);
-                localStorage.setItem('lunchHistory', JSON.stringify(history));
-            } catch(e) {
-                history = [];
-            }
-        }
-
-        const savedResults = localStorage.getItem('recentResults');
-        if (savedResults) {
-            try {
-                recentResults = JSON.parse(savedResults);
-            } catch(e) {
-                recentResults = [];
-            }
-        }
-    }
-
-    // 카테고리 선택
-    function selectCategory(category) {
-        selectedCategoryFilter = category;
-        
-        // 버튼 활성화 상태 업데이트
-        document.querySelectorAll('.category-button').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        document.querySelector(`[data-category="${category}"]`).classList.add('active');
-
-        // 선택된 카테고리 표시
-        document.getElementById('selectedCategory').textContent = category;
-
-        // 필터링된 식당 목록 업데이트
-        updateFilteredRestaurants();
-        
-        // 슬롯 재초기화
-        initSlots();
-    }
-
-    // 필터링된 식당 목록 업데이트
-    function updateFilteredRestaurants() {
-        if (selectedCategoryFilter === '전체') {
-            filteredRestaurants = [...restaurants];
-        } else {
-            filteredRestaurants = restaurants.filter(r => r.category === selectedCategoryFilter);
-        }
-    }
-
-    // 카테고리별 개수 업데이트
-    function updateCategoryCounts() {
-        const categories = ['전체', '한식', '중식', '일식', '양식', '기타'];
-        
-        categories.forEach(cat => {
-            let count = 0;
-            if (cat === '전체') {
-                count = restaurants.length;
-            } else {
-                count = restaurants.filter(r => r.category === cat).length;
-            }
-            document.getElementById(`count-${cat}`).textContent = count;
-        });
-        
-        document.getElementById('totalRestaurants').textContent = restaurants.length;
-    }
-
-    // 식당 추가
-    document.getElementById('addForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const name = document.getElementById('restaurantName').value.trim();
-        const emoji = document.getElementById('restaurantEmoji').value.trim();
-        const category = document.getElementById('restaurantCategory').value;
-        const price = document.getElementById('restaurantPrice').value;
-        const description = document.getElementById('restaurantDescription').value.trim();
-        const naverMap = document.getElementById('restaurantNaverMap').value.trim();
-
-        if (!name || !emoji || !category || !price) {
-            alert('필수 항목을 모두 입력해주세요!');
+            tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 20px; color: #999;">식당을 추가해주세요</td></tr>';
             return;
         }
 
-        const restaurant = {
-            id: Date.now(),
-            name: name,
-            emoji: emoji,
-            category: category,
-            price: price,
+        tableBody.innerHTML = restaurants.map((restaurant, index) => `
+            <tr id="row-${index}">
+                <td class="emoji-cell">${restaurant.emoji}</td>
+                <td class="name-cell">${restaurant.name}</td>
+                <td class="category-cell">${restaurant.category}</td>
+                <td class="description-cell">${restaurant.description}</td>
+                <td class="price-cell">${restaurant.price}</td>
+                <td class="link-cell">
+                    ${restaurant.naverMap ? `<a href="${restaurant.naverMap}" target="_blank" class="map-link">📍 지도</a>` : '-'}
+                </td>
+                <td class="actions-cell">
+                    <button class="edit-button" onclick="editRestaurant(${index})">수정</button>
+                    <button class="delete-button-table" onclick="deleteRestaurant(${index})">삭제</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function editRestaurant(index) {
+        const restaurant = restaurants[index];
+        const row = document.getElementById(`row-${index}`);
+
+        row.innerHTML = `
+            <td class="emoji-cell">
+                <select id="edit-emoji-${index}" class="edit-input" style="font-size: 1.5em; text-align: center;">
+                    ${foodEmojis.map(emoji => `<option value="${emoji}" ${emoji === restaurant.emoji ? 'selected' : ''}>${emoji}</option>`).join('')}
+                </select>
+            </td>
+            <td class="name-cell">
+                <input type="text" id="edit-name-${index}" class="edit-input" value="${restaurant.name}" maxlength="20">
+            </td>
+            <td class="category-cell">
+                <select id="edit-category-${index}" class="edit-input">
+                    <option value="한식" ${restaurant.category === '한식' ? 'selected' : ''}>한식</option>
+                    <option value="중식" ${restaurant.category === '중식' ? 'selected' : ''}>중식</option>
+                    <option value="일식" ${restaurant.category === '일식' ? 'selected' : ''}>일식</option>
+                    <option value="양식" ${restaurant.category === '양식' ? 'selected' : ''}>양식</option>
+                    <option value="카페" ${restaurant.category === '카페' ? 'selected' : ''}>카페</option>
+                    <option value="샐러드" ${restaurant.category === '샐러드' ? 'selected' : ''}>샐러드</option>
+                    <option value="아시안" ${restaurant.category === '아시안' ? 'selected' : ''}>아시안</option>
+                    <option value="이자카야" ${restaurant.category === '이자카야' ? 'selected' : ''}>이자카야</option>
+                </select>
+            </td>
+            <td class="description-cell">
+                <input type="text" id="edit-description-${index}" class="edit-input" value="${restaurant.description}" maxlength="30">
+            </td>
+            <td class="price-cell">
+                <select id="edit-price-${index}" class="edit-input">
+                    <option value="₩" ${restaurant.price === '₩' ? 'selected' : ''}>₩</option>
+                    <option value="₩₩" ${restaurant.price === '₩₩' ? 'selected' : ''}>₩₩</option>
+                    <option value="₩₩₩" ${restaurant.price === '₩₩₩' ? 'selected' : ''}>₩₩₩</option>
+                    <option value="₩₩₩₩" ${restaurant.price === '₩₩₩₩' ? 'selected' : ''}>₩₩₩₩</option>
+                </select>
+            </td>
+            <td class="link-cell">
+                <input type="url" id="edit-map-${index}" class="edit-input" value="${restaurant.naverMap || ''}" placeholder="지도 링크">
+            </td>
+            <td class="actions-cell">
+                <button class="save-button" onclick="saveRestaurant(${index})">저장</button>
+                <button class="cancel-button" onclick="displayRestaurants()">취소</button>
+            </td>
+        `;
+    }
+
+    function saveRestaurant(index) {
+        const emoji = document.getElementById(`edit-emoji-${index}`).value;
+        const name = document.getElementById(`edit-name-${index}`).value.trim();
+        const category = document.getElementById(`edit-category-${index}`).value.trim();
+        const description = document.getElementById(`edit-description-${index}`).value.trim();
+        const price = document.getElementById(`edit-price-${index}`).value;
+        const naverMap = document.getElementById(`edit-map-${index}`).value.trim();
+
+        if (!name) {
+            alert('식당 이름을 입력해주세요!');
+            return;
+        }
+        if (!category) {
+            alert('카테고리를 입력해주세요!');
+            return;
+        }
+
+        restaurants[index] = {
+            name,
+            emoji,
+            category,
             description: description || '맛있는 식당',
+            price,
             naverMap: naverMap || ''
         };
 
-        restaurants.push(restaurant);
         localStorage.setItem('restaurants', JSON.stringify(restaurants));
-
-        this.reset();
         displayRestaurants();
-        updateFilteredRestaurants();
         initSlots();
-        updateCategoryCounts();
-    });
+    }
 
-    // 식당 삭제
-    function deleteRestaurant(id) {
-        if (confirm('정말 삭제하시겠습니까?')) {
-            restaurants = restaurants.filter(r => r.id !== id);
+    function deleteRestaurant(index) {
+        const restaurant = restaurants[index];
+        if (confirm(`"${restaurant.name}"을(를) 삭제하시겠습니까?`)) {
+            restaurants.splice(index, 1);
             localStorage.setItem('restaurants', JSON.stringify(restaurants));
             displayRestaurants();
-            updateFilteredRestaurants();
             initSlots();
-            updateCategoryCounts();
         }
     }
 
-    // 테이블 행 클릭 처리
-    function handleRowClick(event, naverMap) {
-        // 삭제 버튼 클릭 시 행 클릭 이벤트 무시
-        if (event.target.classList.contains('delete-button')) {
-            return;
-        }
-        
-        // 네이버 지도 링크가 있으면 새 창으로 열기
-        if (naverMap && naverMap.trim() !== '') {
-            window.open(naverMap, '_blank');
-        }
-    }
-
-    // 식당 목록 표시
-    function displayRestaurants() {
-        const tbody = document.getElementById('restaurantTableBody');
-        
-        if (restaurants.length === 0) {
-            tbody.innerHTML = `
-                <tr class="no-link">
-                    <td colspan="6" style="text-align: center; color: #999; padding: 20px;">
-                        등록된 식당이 없습니다. 위 양식으로 식당을 추가해주세요!
-                    </td>
-                </tr>
-            `;
-            return;
-        }
-
-        tbody.innerHTML = restaurants.map(r => {
-            const hasLink = r.naverMap && r.naverMap.trim() !== '';
-            const rowClass = hasLink ? '' : 'no-link';
-            const cursorStyle = hasLink ? 'cursor: pointer;' : '';
-            
-            return `
-                <tr class="${rowClass}" onclick="handleRowClick(event, '${r.naverMap || ''}')" style="${cursorStyle}">
-                    <td class="emoji-cell">${r.emoji}</td>
-                    <td class="name-cell" title="${r.name}">${r.name}</td>
-                    <td class="category-cell">${r.category}</td>
-                    <td>${r.price}</td>
-                    <td class="description-cell" title="${r.description}">${r.description}</td>
-                    <td class="action-cell">
-                        <button class="delete-button" onclick="deleteRestaurant(${r.id})">삭제</button>
-                    </td>
-                </tr>
-            `;
-        }).join('');
-    }
-
-    // 슬롯 초기화
     function initSlots() {
-        updateSlotHeightConstant();
-        updateFilteredRestaurants();
-        
-        if (filteredRestaurants.length === 0) {
-            for (let i = 1; i <= 3; i++) {
-                document.getElementById(`slot${i}`).innerHTML = `
-                    <div class="slot-item">
-                        <div class="slot-emoji">❓</div>
-                        <div class="slot-name">식당 없음</div>
-                    </div>
-                `;
-            }
-            return;
-        }
+        if (restaurants.length === 0) return;
 
-        const repeatCount = Math.max(3, Math.ceil(20 / filteredRestaurants.length));
-        
+        updateSlotHeight();
+        const totalItems = getTotalItems();
+
         for (let i = 1; i <= 3; i++) {
             const slot = document.getElementById(`slot${i}`);
-            let content = '';
-            
-            for (let j = 0; j < repeatCount; j++) {
-                filteredRestaurants.forEach(restaurant => {
-                    content += `
-                        <div class="slot-item">
-                            <div class="slot-emoji">${restaurant.emoji}</div>
-                            <div class="slot-name">${restaurant.name}</div>
-                            <div class="slot-category">${restaurant.category}</div>
-                        </div>
-                    `;
-                });
+            slot.innerHTML = '';
+
+            for (let j = 0; j < totalItems; j++) {
+                const restaurant = restaurants[j % restaurants.length];
+                const item = document.createElement('div');
+                item.className = 'slot-item';
+                item.innerHTML = `
+                    <div class="slot-emoji">${restaurant.emoji}</div>
+                    <div class="slot-name">${restaurant.name}</div>
+                    <div class="slot-category">${restaurant.category}</div>
+                `;
+                slot.appendChild(item);
             }
-            
-            slot.innerHTML = content;
+
+            slot.style.transform = 'translateY(0)';
         }
     }
 
-    function getTotalItems() {
-        if (filteredRestaurants.length === 0) return 1;
-        const repeatCount = Math.max(3, Math.ceil(20 / filteredRestaurants.length));
-        return filteredRestaurants.length * repeatCount;
-    }
-
-    function updateSlotHeight() {
-        // 슬롯 높이 업데이트 (필요시)
-    }
-
-    // 최근 결과 표시
     function displayRecentResults() {
-        const recentResultsSection = document.getElementById('recentResultsSection');
+        const recentResultsSection = document.getElementById('recentResults');
         const recentResultsList = document.getElementById('recentResultsList');
 
         if (recentResults.length === 0) {
@@ -1422,6 +1095,7 @@
         const nowTs = now.getTime();
         const oneWeekAgo = nowTs - 7 * 24 * 60 * 60 * 1000;
 
+        // 1주일 이전 기록 삭제
         history = history.filter(h => h.timestamp && h.timestamp >= oneWeekAgo);
 
         const dateString = `${now.getMonth() + 1}/${now.getDate()}`;
@@ -1444,7 +1118,6 @@
         displayHistory();
     }
 
-    // 방문 기록 표시
     function displayHistory() {
         const tbody = document.getElementById('historyTableBody');
         if (!tbody) return;
@@ -1478,9 +1151,6 @@
                 </tr>
             `;
         }).join('');
-
-        // 이번 주 방문 횟수 업데이트
-        document.getElementById('weekVisits').textContent = history.length;
     }
 
     function deleteHistory(index) {
@@ -1509,11 +1179,10 @@
         return recommendation || '오늘의 완벽한 선택입니다! 맛있게 드세요 😋';
     }
 
-    // 룰렛 돌리기
     function spin() {
         if (isSpinning) return;
-        if (filteredRestaurants.length === 0) {
-            alert(`${selectedCategoryFilter} 카테고리에 등록된 식당이 없습니다!`);
+        if (restaurants.length === 0) {
+            alert('식당을 먼저 추가해주세요!');
             return;
         }
 
@@ -1541,9 +1210,9 @@
 
         let slot1Index, slot2Index, slot3Index;
         do {
-            slot1Index = Math.floor(Math.random() * filteredRestaurants.length);
-            slot2Index = Math.floor(Math.random() * filteredRestaurants.length);
-            slot3Index = Math.floor(Math.random() * filteredRestaurants.length);
+            slot1Index = Math.floor(Math.random() * restaurants.length);
+            slot2Index = Math.floor(Math.random() * restaurants.length);
+            slot3Index = Math.floor(Math.random() * restaurants.length);
         } while (
             slot1Index !== slot2Index &&
             slot2Index !== slot3Index &&
@@ -1577,7 +1246,7 @@
             setTimeout(() => {
                 clearInterval(spinInterval);
 
-                const lastLoopStart = totalItems - filteredRestaurants.length;
+                const lastLoopStart = totalItems - restaurants.length;
                 const targetIndex = lastLoopStart + finalIndex;
                 const finalPosition = -(targetIndex * SLOT_HEIGHT);
 
@@ -1589,11 +1258,11 @@
         setTimeout(() => {
             let selected;
             if (finalIndexes[0] === finalIndexes[1]) {
-                selected = filteredRestaurants[finalIndexes[0]];
+                selected = restaurants[finalIndexes[0]];
             } else if (finalIndexes[1] === finalIndexes[2]) {
-                selected = filteredRestaurants[finalIndexes[1]];
+                selected = restaurants[finalIndexes[1]];
             } else {
-                selected = filteredRestaurants[finalIndexes[0]];
+                selected = restaurants[finalIndexes[0]];
             }
 
             document.getElementById('resultDetails').innerHTML = `
@@ -1630,17 +1299,13 @@
     document.getElementById('spinButton').addEventListener('click', spin);
 
     window.addEventListener('DOMContentLoaded', function() {
-        loadData();
         displayRestaurants();
-        updateFilteredRestaurants();
         initSlots();
-        updateCategoryCounts();
         displayRecentResults();
         displayHistory();
     });
 
     window.addEventListener('resize', () => {
-        updateSlotHeightConstant();
         updateSlotHeight();
     });
 </script>
