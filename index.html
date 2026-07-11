@@ -442,6 +442,22 @@
             document.getElementById("showSidebarBtn").style.display = "none";
             if (map) google.maps.event.trigger(map, "resize");
         }
+
+        // 현재 지도 화면 안에 보이는 자산만 반환합니다.
+        // 지역 집계 마커는 전체 자산을 기준으로 해야 하므로 개별 마커에만 사용합니다.
+        function getVisibleAssets(assets) {
+            const bounds = map && map.getBounds();
+            if (!bounds) return assets;
+
+            return assets.filter(asset => {
+                if (!asset.position || asset.position.lat == null || asset.position.lng == null) {
+                    return false;
+                }
+
+                return bounds.contains(asset.position);
+            });
+        }
+
         function updateFilteredMarkers(assets) {
             markers.forEach(marker => marker.setMap(null));
             markers = [];
@@ -500,6 +516,8 @@
                 });
                 console.log(`줌 레벨 ${zoom}에서 지역 마커 생성: ${markers.length}개`);
             } else {
+                // 줌 8 이상에서는 전체 자산이 아니라 현재 화면 안의 자산만 생성합니다.
+                displayAssets = getVisibleAssets(assets);
                 displayAssets.forEach(asset => {
                     if (!asset.position || !asset.position.lat || !asset.position.lng) {
                         console.warn(`자산 ${asset.title}의 위치 데이터 누락:`, asset.position);
@@ -741,10 +759,14 @@
             moveToAssets();
             initializeSidebar();
             
-            map.addListener("zoom_changed", () => {
-                console.log(`줄 레벨 변경: ${map.getZoom()}`);
-                const mapFilteredAssets = getFilteredAssetsForMap();
-                updateFilteredMarkers(mapFilteredAssets);
+            let markerUpdateTimer;
+            map.addListener("idle", () => {
+                clearTimeout(markerUpdateTimer);
+                markerUpdateTimer = setTimeout(() => {
+                    console.log(`지도 이동 완료, 줌 레벨: ${map.getZoom()}`);
+                    const mapFilteredAssets = getFilteredAssetsForMap();
+                    updateFilteredMarkers(mapFilteredAssets);
+                }, 100);
             });
         };
     </script>
