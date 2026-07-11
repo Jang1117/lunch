@@ -884,7 +884,19 @@
         { name: "롱씨암", emoji: "🍛", category: "아시안", description: "모닝글로리튀김·호이라이팟", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 롱씨암" }
     ];
 
+    // defaultRestaurants 내용이 수정될 때마다 이 값을 올리면,
+    // 브라우저에 저장된 예전 데이터(localStorage)를 최신 정보로 자동 동기화합니다.
+    const RESTAURANT_DATA_VERSION = 2;
+
     let restaurants = JSON.parse(localStorage.getItem('restaurants')) || [...defaultRestaurants];
+    (function syncRestaurantDataWithDefaults() {
+        const storedVersion = Number(localStorage.getItem('restaurantsDataVersion')) || 0;
+        if (storedVersion >= RESTAURANT_DATA_VERSION) return;
+        const defaultsByName = new Map(defaultRestaurants.map(r => [r.name, r]));
+        restaurants = restaurants.map(r => defaultsByName.has(r.name) ? { ...defaultsByName.get(r.name) } : r);
+        localStorage.setItem('restaurants', JSON.stringify(restaurants));
+        localStorage.setItem('restaurantsDataVersion', String(RESTAURANT_DATA_VERSION));
+    })();
     let isSpinning = false;
     let history = JSON.parse(localStorage.getItem('lunchHistory')) || [];
     let recentResults = JSON.parse(localStorage.getItem('recentResults')) || [];
