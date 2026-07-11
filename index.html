@@ -2,1325 +2,751 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>압구정 로데오 점심 룰렛 🎰</title>
+    <title>CPO Mill Plant Map</title>
     <style>
-        * {
+        html, body {
+            height: 100%;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .container {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 800px;
+        #map {
+            height: 100vh;
             width: 100%;
         }
-
-        h1 {
-            text-align: center;
-            color: #667eea;
+        #sidebar {
+            position: fixed;
+            top: 70px;
+            right: 0;
+            width: 300px;
+            height: calc(100% - 70px);
+            background: #f8f8f8;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            padding: 10px;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+            z-index: 900;
+            visibility: visible;
+        }
+        #sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        #sidebar::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+        #sidebar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        #sidebar h2 {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+        #sidebar input {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        #sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        #sidebar li {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #ddd;
+        }
+        #sidebar li:hover {
+            background: #e0e0e0;
+        }
+        #sidebar details {
             margin-bottom: 10px;
-            font-size: 2.5em;
-            word-break: keep-all;
         }
-
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 1.1em;
-        }
-
-        .info-bar {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 30px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            gap: 10px;
-        }
-
-        .info-item {
-            text-align: center;
-            min-width: 0;
-        }
-
-        .info-label {
-            font-size: 0.9em;
-            color: #666;
-            margin-bottom: 5px;
-        }
-
-        .info-value {
-            font-size: 1.2em;
+        #sidebar summary {
             font-weight: bold;
-            color: #667eea;
+            padding: 8px;
+            cursor: pointer;
+            background: #e0e0e0;
+            border-radius: 4px;
         }
-
-        .slot-machine {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 40px 0;
-            perspective: 1000px;
+        #sidebar .country-summary {
+            background: #4CAF50;
+            color: white;
+            border-radius: 4px;
         }
-
-        .slot {
-            background: linear-gradient(145deg, #f0f0f0, #ffffff);
-            border: 4px solid #667eea;
-            border-radius: 15px;
-            width: 200px;
-            height: 250px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        .global-button {
+            position: fixed;
+            top: 20px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 1000;
         }
-
-        .slot-content {
-            position: absolute;
-            width: 100%;
-            transition: transform 0.1s linear;
-            transform: translateY(0);
+        .global-button#homeBtn {
+            right: 10px;
+        }
+        .global-button#hideSidebarBtn {
+            right: 100px;
+        }
+        .global-button#showSidebarBtn {
+            right: 100px;
+            display: none;
+        }
+        .global-button:hover {
+            background-color: #e0e0e0;
+        }
+        .popup-overlay {
+            display: none;
+            position: fixed;
             top: 0;
             left: 0;
-        }
-
-        .slot-item {
-            height: 250px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .slot-emoji {
-            font-size: 4em;
-            margin-bottom: 10px;
-            line-height: 1;
-        }
-
-        .slot-name {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .slot-category {
-            font-size: 0.9em;
-            color: #666;
-            background: #f0f0f0;
-            padding: 5px 10px;
-            border-radius: 15px;
-        }
-
-        .controls {
-            text-align: center;
-            margin: 30px 0;
-        }
-
-        .spin-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 20px 60px;
-            font-size: 1.5em;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-            transition: all 0.3s;
-            font-weight: bold;
-        }
-
-        .spin-button:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
-        }
-
-        .spin-button:active:not(:disabled) {
-            transform: translateY(-1px);
-        }
-
-        .spin-button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .result {
-            margin-top: 30px;
-            padding: 25px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            border-radius: 15px;
-            color: white;
-            text-align: center;
-            display: none;
-            animation: slideIn 0.5s ease-out;
-        }
-
-        .result.show {
-            display: block;
-        }
-
-        .result h2 {
-            font-size: 2em;
-            margin-bottom: 15px;
-        }
-
-        .result-details {
-            font-size: 1.2em;
-            line-height: 1.8;
-        }
-
-        .manage-section {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f0f8ff;
-            border-radius: 10px;
-            border: 2px dashed #667eea;
-        }
-
-        .manage-section h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.3em;
-        }
-
-        .restaurant-table-container {
-            margin-top: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            max-height: 800px;
-            overflow-y: auto;
-            overflow-x: auto;
-            min-height: 100px;
-        }
-
-        .restaurant-table {
             width: 100%;
-            border-collapse: collapse;
-            min-width: 650px;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
         }
-
-        .restaurant-table th {
-            background: #667eea;
-            color: white;
-            padding: 12px 8px;
-            text-align: left;
-            font-weight: bold;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            font-size: 0.9em;
-            white-space: nowrap;
-        }
-
-        .restaurant-table td {
-            padding: 10px 8px;
-            border-bottom: 1px solid #e0e0e0;
-            vertical-align: middle;
-            font-size: 0.9em;
-        }
-
-        .restaurant-table tr:hover {
-            background: #f8f9fa;
-        }
-
-        .restaurant-table .emoji-cell {
-            font-size: 1.5em;
-            text-align: center;
-            width: 50px;
-        }
-
-        .restaurant-table .name-cell {
-            font-weight: bold;
-            color: #333;
-            width: 120px;
-        }
-
-        .restaurant-table .category-cell {
-            color: #666;
-            width: 80px;
-            white-space: nowrap;
-        }
-
-        .restaurant-table .description-cell {
-            color: #666;
-            width: 150px;
-            font-size: 0.85em;
-        }
-
-        .restaurant-table .price-cell {
-            color: #667eea;
-            font-weight: bold;
-            width: 60px;
-            text-align: center;
-        }
-
-        .restaurant-table .link-cell {
-            width: 70px;
-            text-align: center;
-        }
-
-        .restaurant-table .actions-cell {
-            text-align: center;
-            width: 100px;
-        }
-
-        .map-link {
-            display: inline-block;
-            background: #03C75A;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 0.8em;
-            transition: all 0.3s;
-            white-space: nowrap;
-        }
-
-        .map-link:hover {
-            background: #02b350;
-            transform: translateY(-1px);
-        }
-
-        .edit-button, .save-button, .cancel-button {
-            padding: 5px 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.8em;
-            margin: 2px 0;
-            transition: all 0.3s;
-            display: block;
-            width: 100%;
-        }
-
-        .edit-button {
-            background: #667eea;
-            color: white;
-        }
-
-        .edit-button:hover {
-            background: #5568d3;
-        }
-
-        .save-button {
-            background: #28a745;
-            color: white;
-        }
-
-        .save-button:hover {
-            background: #218838;
-        }
-
-        .cancel-button {
-            background: #6c757d;
-            color: white;
-        }
-
-        .cancel-button:hover {
-            background: #5a6268;
-        }
-
-        .delete-button-table {
-            background: #ff4757;
-            color: white;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.8em;
-            transition: all 0.3s;
-            display: block;
-            width: 100%;
-            margin-top: 2px;
-        }
-
-        .delete-button-table:hover {
-            background: #ee5a6f;
-        }
-
-        .edit-input {
-            width: 100%;
-            padding: 4px;
-            border: 2px solid #667eea;
-            border-radius: 4px;
-            font-size: 0.85em;
-        }
-
-        .history {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-        }
-
-        .history h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.3em;
-        }
-
-        .recommendation {
-            margin-top: 20px;
-            padding: 15px;
-            background: #fff9e6;
-            border-left: 4px solid #ffd700;
-            border-radius: 5px;
-            font-size: 0.95em;
-            color: #666;
-        }
-
-        .recent-results {
-            margin-top: 30px;
-            padding: 20px;
-            background: #fff4f4;
-            border-radius: 10px;
-            border: 2px solid #ff6b9d;
-        }
-
-        .recent-results h3 {
-            color: #ff6b9d;
-            margin-bottom: 15px;
-            font-size: 1.3em;
-        }
-
-        .recent-results-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .recent-result-item {
-            background: white;
-            padding: 15px 20px;
-            border-radius: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            position: relative;
-            transition: all 0.3s;
-            min-width: 130px;
-        }
-
-        .recent-result-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        .recent-result-emoji {
-            font-size: 2em;
-        }
-
-        .recent-result-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .recent-result-name {
-            font-weight: bold;
-            color: #333;
-            font-size: 1.1em;
-            text-align: center;
-        }
-
-        .recent-result-category {
-            font-size: 0.85em;
-            color: #666;
-        }
-
-        .recent-result-delete {
+        .popup-content {
             position: absolute;
-            top: 5px;
-            right: 5px;
-            background: #ff4757;
-            color: white;
-            border: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 0.8em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .recent-result-delete:hover {
-            background: #ee5a6f;
-            transform: scale(1.1);
-        }
-
-        .recent-result-confirm {
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: all 0.3s;
-        }
-
-        .recent-result-confirm:hover {
-            background: #218838;
-            transform: translateY(-1px);
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* 최근 방문 기록 테이블 */
-        .history-table-container {
-            margin-top: 10px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            overflow-x: auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 360px;
+            max-width: 90%;
+            text-align: left;
         }
-
-        .history-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9em;
+        .popup-content h3 {
+            margin: 0 0 10px;
+            font-size: 22px;
         }
-
-        .history-table th,
-        .history-table td {
-            padding: 8px 10px;
-            border-bottom: 1px solid #e5e5e5;
-            text-align: center;
-            white-space: nowrap;
+        .popup-content p {
+            margin: 0 0 15px;
+            font-size: 16px;
+            line-height: 1.4;
         }
-
-        .history-table th {
-            background: #667eea;
-            color: white;
-            position: sticky;
-            top: 0;
-            z-index: 5;
-        }
-
-        .history-table tr:hover td {
-            background: #f8f9ff;
-        }
-
-        .history-delete-button {
-            padding: 4px 10px;
-            border: none;
-            border-radius: 6px;
-            background: #ff4757;
-            color: white;
-            font-size: 0.8em;
+        .popup-content .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
             cursor: pointer;
-            transition: all 0.2s;
+            color: #000;
+            font-weight: bold;
+            font-size: 16px;
         }
-
-        .history-delete-button:hover {
-            background: #ee5a6f;
-            transform: translateY(-1px);
+        .gm-style .gm-label {
+            font-size: 12px;
+            color: #000;
+            background-color: #fff;
+            padding: 3px 6px;
+            border: 1px solid #999;
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            max-width: 150px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: bold;
         }
-
-        /* 📱 태블릿 & 모바일 공통 */
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
+        @media (max-width: 600px) {
+            #sidebar {
+                width: 250px;
+                height: calc(100% - 70px);
             }
-
-            .container {
-                padding: 20px 16px;
-                border-radius: 16px;
+            .global-button {
+                font-size: 12px;
+                padding: 8px;
             }
-
-            h1 {
-                font-size: 1.9em;
-                line-height: 1.3;
+            .global-button#hideSidebarBtn {
+                right: 80px;
             }
-
-            .subtitle {
-                font-size: 0.95em;
-                margin-bottom: 20px;
-            }
-
-            .info-bar {
-                flex-direction: column;
-                align-items: stretch;
-                text-align: left;
-                padding: 12px;
-            }
-
-            .info-item {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            .info-label {
-                font-size: 0.85em;
-            }
-
-            .info-value {
-                font-size: 1em;
-            }
-
-            .slot-machine {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: stretch;
-                gap: 8px;
-                margin: 25px 0;
-            }
-
-            .slot {
-                width: calc((100% - 16px) / 3);
-                max-width: none;
-                height: 200px;
-            }
-
-            .slot-item {
-                height: 200px;
-                padding: 10px;
-            }
-
-            .slot-emoji {
-                font-size: 2.4em;
-            }
-
-            .slot-name {
-                font-size: 0.95em;
-            }
-
-            .slot-category {
-                font-size: 0.8em;
-                padding: 3px 8px;
-            }
-
-            .controls {
-                margin: 20px 0;
-            }
-
-            .spin-button {
-                width: 100%;
-                max-width: 360px;
-                padding: 16px 20px;
-                font-size: 1.2em;
-            }
-
-            .result {
-                padding: 18px;
-            }
-
-            .result h2 {
-                font-size: 1.6em;
-            }
-
-            .result-details {
-                font-size: 1em;
-            }
-
-            .manage-section {
-                padding: 16px;
-            }
-
-            .history,
-            .recent-results {
-                padding: 16px;
-            }
-
-            .history-table {
-                font-size: 0.8em;
-            }
-
-            .history-table th,
-            .history-table td {
-                padding: 6px 6px;
-            }
-
-            .restaurant-table {
-                font-size: 0.8em;
-            }
-
-            .restaurant-table th,
-            .restaurant-table td {
-                padding: 8px 6px;
-            }
-
-            /* 설명/가격 컬럼 모바일에서 숨기기 */
-            .restaurant-table th:nth-child(4),
-            .restaurant-table td.description-cell,
-            .restaurant-table th:nth-child(5),
-            .restaurant-table td.price-cell {
-                display: none;
-            }
-        }
-
-        /* 아주 작은 화면 (아이폰 SE 급) */
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.6em;
-            }
-
-            .slot {
-                height: 180px;
-            }
-
-            .slot-item {
-                height: 180px;
-            }
-
-            .recent-result-item {
-                padding: 12px 14px;
-            }
-
-            .recent-result-name {
-                font-size: 0.95em;
-            }
-
-            .map-link {
-                font-size: 0.75em;
-                padding: 4px 8px;
+            .popup-content {
+                width: 300px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🎰 압구정 로데오 점심 룰렛</h1>
-        <p class="subtitle">오늘 점심 뭐 먹을까? 룰렛을 돌려보세요!</p>
-
-        <div class="info-bar">
-            <div class="info-item">
-                <div class="info-label">오늘 날짜</div>
-                <div class="info-value" id="currentDate"></div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">요일</div>
-                <div class="info-value" id="currentDay"></div>
-            </div>
-        </div>
-
-        <div class="slot-machine">
-            <div class="slot">
-                <div class="slot-content" id="slot1"></div>
-            </div>
-            <div class="slot">
-                <div class="slot-content" id="slot2"></div>
-            </div>
-            <div class="slot">
-                <div class="slot-content" id="slot3"></div>
-            </div>
-        </div>
-
-        <div class="controls">
-            <button class="spin-button" id="spinButton">🎰 룰렛 돌리기!</button>
-        </div>
-
-        <div class="result" id="result">
-            <h2>🎉 오늘의 추천 맛집!</h2>
-            <div class="result-details" id="resultDetails"></div>
-        </div>
-
-        <div class="recommendation" id="recommendation" style="display: none;"></div>
-
-        <div class="recent-results" id="recentResults" style="display: none;">
-            <h3>🎲 최근 룰렛 결과</h3>
-            <div class="recent-results-list" id="recentResultsList"></div>
-        </div>
-
-        <div class="history">
-            <h3>📝 최근 방문 기록 (최근 1주일)</h3>
-            <div class="history-table-container">
-                <table class="history-table">
-                    <thead>
-                        <tr>
-                            <th>날짜</th>
-                            <th>요일</th>
-                            <th>종류</th>
-                            <th>음식점</th>
-                            <th>관리</th>
-                        </tr>
-                    </thead>
-                    <tbody id="historyTableBody">
-                        <tr>
-                            <td colspan="5" style="text-align: center; color: #999; padding: 10px;">
-                                아직 기록이 없습니다
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="manage-section">
-            <h3>⭐ 내 맛집 관리</h3>
-            <div class="restaurant-table-container">
-                <table class="restaurant-table">
-                    <thead>
-                        <tr>
-                            <th>🎭</th>
-                            <th>이름</th>
-                            <th>종류</th>
-                            <th>설명</th>
-                            <th>가격</th>
-                            <th>지도</th>
-                            <th>관리</th>
-                        </tr>
-                    </thead>
-                    <tbody id="restaurantTableBody"></tbody>
-                </table>
-            </div>
+    <div id="sidebar">
+        <h2>CPO Mill Plant (<span id="millCount"></span>)</h2>
+        <input type="text" id="searchInput" placeholder="자산 이름 검색...">
+        <ul id="millList"></ul>
+    </div>
+    <div id="map"></div>
+    <button class="global-button" id="homeBtn" onclick="showHome()">Home</button>
+    <button class="global-button" id="hideSidebarBtn" onclick="hideSidebar()">Hide Sidebar</button>
+    <button class="global-button" id="showSidebarBtn" onclick="showSidebar()" style="display: none;">Show Sidebar</button>
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-content" id="popupContent">
+            <span class="close-button" onclick="closePopup()">X</span>
+            <h3 id="popupTitle"></h3>
+            <p id="popupDescription"></p>
+            <div id="popupExtra"></div>
         </div>
     </div>
-
-<script>
-    // 기본 식당 리스트
-    const defaultRestaurants = [
-        { name: "창고43", emoji: "🍖", category: "한식", description: "창고43스페셜·깍두기볶음밥", price: "₩₩₩", naverMap: "https://naver.me/FSw7K4zM" },
-        { name: "흑우정", emoji: "🥩", category: "한식", description: "블랙앵거스·꽃갈비살", price: "₩₩₩₩", naverMap: "https://naver.me/G2EwpJwu" },
-        { name: "청담만옥", emoji: "🍲", category: "한식", description: "해물탕·차돌미나리전", price: "₩₩₩", naverMap: "https://naver.me/x67yoaKp" },
-        { name: "화연산장", emoji: "🍖", category: "한식", description: "짚불구이·갈비", price: "₩₩₩", naverMap: "https://naver.me/GoD7l9CG" },
-        { name: "수다 청담점", emoji: "🍢", category: "이자카야", description: "감자전·모둠꼬치", price: "₩₩", naverMap: "https://naver.me/FjbnBQLO" },
-        { name: "우정", emoji: "🥩", category: "한식", description: "한우불고기·곱창전골", price: "₩₩₩₩", naverMap: "https://naver.me/I55a4iNs" },
-        { name: "정식당", emoji: "🍱", category: "한식", description: "모듬김밥·문어감태국수", price: "₩₩₩₩", naverMap: "https://naver.me/xv3DHt17" },
-        { name: "썬더버드", emoji: "🍗", category: "양식", description: "크리스피치킨·프라이드치킨", price: "₩₩", naverMap: "https://naver.me/GtURVvOw" },
-        { name: "팔십상", emoji: "🍣", category: "일식", description: "참치사시미·참치코스", price: "₩₩₩", naverMap: "https://naver.me/502MZmLA" },
-        { name: "옛날집", emoji: "🍖", category: "한식", description: "명란젓정식·떡갈비", price: "₩₩", naverMap: "https://naver.me/5A3pZkyy" },
-        { name: "돈블랑", emoji: "🥓", category: "한식", description: "삼겹살·항정살모둠", price: "₩₩", naverMap: "https://naver.me/xTT6MS4T" },
-        { name: "두루", emoji: "🍲", category: "한식", description: "국시·소고기국밥", price: "₩₩₩", naverMap: "https://naver.me/Fjbn5tnH" },
-        { name: "영동교집", emoji: "🥓", category: "한식", description: "흑돼지삼겹살·통껍데기", price: "₩₩", naverMap: "https://naver.me/5iTd44gb" },
-        { name: "마오", emoji: "🍜", category: "중식", description: "북경오리·마오짬뽕", price: "₩₩", naverMap: "https://naver.me/IItceslH" },
-        { name: "무안회관", emoji: "🍲", category: "한식", description: "한우곰탕·낙지볶음", price: "₩₩₩", naverMap: "https://naver.me/FJb4ZfX4" },
-        { name: "이모가있는집", emoji: "🍖", category: "한식", description: "부대찌개·섞어찌개", price: "₩₩", naverMap: "https://naver.me/56R6warn" },
-        { name: "죠스떡볶이", emoji: "🌶️", category: "한식", description: "떡볶이·튀김", price: "₩", naverMap: "https://naver.me/G657eZBr" },
-        { name: "샐러디", emoji: "🥗", category: "샐러드", description: "샐러드·포케·프로틴박스", price: "₩₩", naverMap: "https://naver.me/59vQPd2h" },
-        { name: "세븐패티버거", emoji: "🍔", category: "양식", description: "스매시버거·멀티패티버거", price: "₩₩", naverMap: "https://naver.me/5apDhkjC" },
-        { name: "다운타우너", emoji: "🍔", category: "양식", description: "아보카도버거·더블버거", price: "₩₩", naverMap: "https://naver.me/xY4suE7O" },
-        { name: "도산분식", emoji: "🍜", category: "한식", description: "떡볶이·육회김밥", price: "₩₩", naverMap: "https://naver.me/5eUcprjo" },
-        { name: "쉐이크쉑", emoji: "🍔", category: "양식", description: "쉑버거·치즈프라이", price: "₩₩", naverMap: "https://naver.me/G58gYkfJ" },
-        { name: "얼오브샌드위치", emoji: "🥪", category: "양식", description: "핫샌드위치 전문점", price: "₩₩", naverMap: "https://naver.me/52R5GP91" },
-        { name: "루비떡볶이", emoji: "🌶️", category: "한식", description: "새우깡떡볶이·소세지김밥", price: "₩", naverMap: "https://naver.me/FUhsgOZ0" },
-        { name: "원조마포소금구이", emoji: "🥓", category: "한식", description: "뒷덜미살·갈매기살구이", price: "₩₩₩", naverMap: "https://naver.me/5xjpqOb4" },
-        { name: "애월식당", emoji: "🐷", category: "한식", description: "제주 오겹살·항정살", price: "₩₩₩", naverMap: "https://naver.me/GipBctR4" },
-        { name: "샤브인서울", emoji: "🍲", category: "한식", description: "프리미엄 샤브샤브", price: "₩₩₩", naverMap: "https://naver.me/xucp4nA0" },
-        { name: "도산정육", emoji: "🥩", category: "한식", description: "한우·제주삼겹살 정육식당", price: "₩₩₩", naverMap: "https://naver.me/FY3yD6Gz" },
-        { name: "상록수", emoji: "🍖", category: "한식", description: "항정살·비빔수제비", price: "₩₩", naverMap: "https://naver.me/Gq84EA4Q" },
-        { name: "롸카두들", emoji: "🍗", category: "양식", description: "내쉬빌핫치킨버거", price: "₩₩", naverMap: "https://naver.me/IxsqU1de" },
-        { name: "골드피쉬", emoji: "🥟", category: "중식", description: "딤섬·샤오롱포", price: "₩₩", naverMap: "https://naver.me/GlJIDKKR" },
-        { name: "영삼이네우정소갈비", emoji: "🍖", category: "한식", description: "마늘양념소갈비·정갈비", price: "₩₩₩", naverMap: "https://naver.me/G8s9wvev" },
-        { name: "발아메밀블라썸", emoji: "🍜", category: "한식", description: "메밀국수·막국수", price: "₩₩", naverMap: "https://naver.me/xUw1kjYo" },
-        { name: "스미카츠", emoji: "🍛", category: "일식", description: "돈까스·꽃목살카츠", price: "₩₩₩", naverMap: "https://naver.me/xbA5vSA1" },
-        { name: "추풍령칼삼겹살", emoji: "🥓", category: "한식", description: "칼삼겹살·항정살", price: "₩₩", naverMap: "https://naver.me/xNLZNOIT" },
-        { name: "봉추찜닭", emoji: "🍗", category: "한식", description: "찜닭·누룽지볶음밥", price: "₩₩", naverMap: "https://naver.me/FbONRdeL" },
-        { name: "호화반점", emoji: "🥟", category: "중식", description: "트러플짜장면·탕수육", price: "₩₩₩", naverMap: "https://naver.me/5UEc0fSt" },
-        { name: "센자이료쿠", emoji: "🍵", category: "일식", description: "라멘·마제소바", price: "₩", naverMap: "https://naver.me/Fio7B3xv" },
-        { name: "오만복국수", emoji: "🍜", category: "한식", description: "잔치국수·보쌈", price: "₩", naverMap: "https://naver.me/5WOkRcDp" },
-        { name: "뉴만두집", emoji: "🥟", category: "한식", description: "평양만두·만둣국", price: "₩", naverMap: "https://naver.me/5HkaOhnl" },
-        { name: "이가네양꼬치", emoji: "🍢", category: "중식", description: "양꼬치·양갈비", price: "₩₩", naverMap: "https://naver.me/5wWetdWj" },
-        { name: "꽃돌이네", emoji: "🥩", category: "한식", description: "한우모듬·특수부위", price: "₩₩₩₩", naverMap: "https://naver.me/53lKcfXi" },
-        { name: "압구정곱창", emoji: "🔥", category: "한식", description: "곱창·대창구이", price: "₩₩₩", naverMap: "https://naver.me/FvEgnTt6" },
-        { name: "묵전", emoji: "🍲", category: "한식", description: "묵사발·도토리묵전", price: "₩₩", naverMap: "https://naver.me/5bVsWw4I" },
-        { name: "강서면옥", emoji: "🍜", category: "한식", description: "평양냉면·소고기수육", price: "₩₩", naverMap: "https://naver.me/Fnm0z3hW" },
-        { name: "한솥도시락", emoji: "🍱", category: "한식", description: "도시락·덮밥", price: "₩", naverMap: "https://naver.me/FtTh8Z8a" },
-        { name: "호시카츠", emoji: "🍛", category: "일식", description: "로스카츠·히레카츠정식", price: "₩₩", naverMap: "https://naver.me/FV7YLbG0" },
-        { name: "청담고수", emoji: "🍖", category: "한식", description: "숙성목살·항정살구이", price: "₩₩", naverMap: "https://naver.me/513NwDpD" },
-        { name: "청담해정", emoji: "🍲", category: "한식", description: "선지해장국·한우곱창", price: "₩₩", naverMap: "https://naver.me/FW6hbr1n" },
-        { name: "hen", emoji: "🍗", category: "한식", description: "숯불닭구이·닭볶음탕", price: "₩₩", naverMap: "https://map.naver.com/p/search/청담 hen 숯불닭구이" },
-        { name: "성덕", emoji: "🥟", category: "중식", description: "샤오롱포·하가우딤섬", price: "₩₩", naverMap: "https://naver.me/58NdttAs" },
-        { name: "한사리감자탕", emoji: "🍲", category: "한식", description: "감자탕·뼈해장국", price: "₩₩", naverMap: "https://naver.me/GBFHlBQG" },
-        { name: "청담25", emoji: "🍱", category: "한식", description: "한정식·갈치구이", price: "₩₩₩", naverMap: "https://naver.me/xNLZHXq0" },
-        { name: "부흥왕족발", emoji: "🐷", category: "한식", description: "족발·막국수", price: "₩₩₩", naverMap: "https://naver.me/56R619MD" },
-        { name: "골목식당", emoji: "🍖", category: "한식", description: "제육볶음·김치찌개", price: "₩₩", naverMap: "https://naver.me/5ZJaPiwW" },
-        { name: "홍성원", emoji: "🥟", category: "중식", description: "짬뽕·탕수육", price: "₩₩₩", naverMap: "https://naver.me/GOPmMY5D" },
-        { name: "청담동칼국수", emoji: "🍜", category: "한식", description: "바지락칼국수·수제비", price: "₩", naverMap: "https://naver.me/xwmqcYOo" },
-        { name: "강강술래", emoji: "🍖", category: "한식", description: "양념갈비·떡갈비", price: "₩₩₩", naverMap: "https://naver.me/5CW7bJcA" },
-        { name: "청담동순도리", emoji: "🍖", category: "한식", description: "순대국·곱도리탕", price: "₩₩", naverMap: "https://naver.me/FtTh7Jlq" },
-        { name: "달구벌반점", emoji: "🥟", category: "중식", description: "고기짬뽕·탕수육", price: "₩₩", naverMap: "https://naver.me/G386bN4N" },
-        { name: "소스", emoji: "🍝", category: "양식", description: "돈까스·떡볶이", price: "₩₩", naverMap: "https://naver.me/xhzCxM66" },
-        { name: "오아시스", emoji: "🥐", category: "카페", description: "에그베네딕트·타이누들샐러드", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 오아시스 브런치" },
-        { name: "투아투아", emoji: "🧇", category: "카페", description: "바토네·치아바타·바게트", price: "₩", naverMap: "https://map.naver.com/p/search/압구정로데오 투아투아" },
-        { name: "타르틴베이커리 도산점", emoji: "☕", category: "카페", description: "크루아상·바나나크림타르트", price: "₩₩", naverMap: "https://map.naver.com/p/search/타르틴베이커리 도산점" },
-        { name: "호시", emoji: "🍣", category: "이자카야", description: "고등어봉초밥·묵은지광어김밥", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 호시 이자카야" },
-        { name: "이치에", emoji: "🍤", category: "이자카야", description: "우니소바·고등어볶음밥", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 이치에" },
-        { name: "도마야끼덕아웃", emoji: "🐙", category: "이자카야", description: "문어초회·크라운갈비", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 도마야끼덕아웃" },
-        { name: "태국당", emoji: "🍛", category: "아시안", description: "태국 가정식", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 태국당" },
-        { name: "소이연남 마오", emoji: "🍜", category: "아시안", description: "닭꼬치·항정살구이", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 소이연남 마오" },
-        { name: "레우레우", emoji: "🍲", category: "아시안", description: "카오소이·똠얌마마", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 레우레우" },
-        { name: "크레이지타이", emoji: "🌶️", category: "아시안", description: "똠양꿍·뿌팟퐁커리", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 크레이지타이" },
-        { name: "까폼", emoji: "🍜", category: "아시안", description: "랭쌥·카오카무", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 까폼" },
-        { name: "롱씨암", emoji: "🍛", category: "아시안", description: "모닝글로리튀김·호이라이팟", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 롱씨암" }
-    ];
-
-    // defaultRestaurants 내용이 수정될 때마다 이 값을 올리면,
-    // 브라우저에 저장된 예전 데이터(localStorage)를 최신 정보로 자동 동기화합니다.
-    const RESTAURANT_DATA_VERSION = 2;
-
-    let restaurants = JSON.parse(localStorage.getItem('restaurants')) || [...defaultRestaurants];
-    (function syncRestaurantDataWithDefaults() {
-        const storedVersion = Number(localStorage.getItem('restaurantsDataVersion')) || 0;
-        if (storedVersion >= RESTAURANT_DATA_VERSION) return;
-        const defaultsByName = new Map(defaultRestaurants.map(r => [r.name, r]));
-        restaurants = restaurants.map(r => defaultsByName.has(r.name) ? { ...defaultsByName.get(r.name) } : r);
-        localStorage.setItem('restaurants', JSON.stringify(restaurants));
-        localStorage.setItem('restaurantsDataVersion', String(RESTAURANT_DATA_VERSION));
-    })();
-    let isSpinning = false;
-    let history = JSON.parse(localStorage.getItem('lunchHistory')) || [];
-    let recentResults = JSON.parse(localStorage.getItem('recentResults')) || [];
-
-    // 1주일 지난 기록은 자동 삭제
-    (function pruneHistoryOnLoad() {
-        const now = Date.now();
-        const oneWeekAgo = now - 7 * 24 * 60 * 60 * 1000;
-        history = history.filter(item => item.timestamp && item.timestamp >= oneWeekAgo);
-        localStorage.setItem('lunchHistory', JSON.stringify(history));
-    })();
-
-    const foodEmojis = ['🍕', '🍣', '🍜', '🍝', '🍔', '🍱', '🥗', '🍲', '🥩', '🍛',
-                        '🌮', '🥟', '🐔', '🥐', '🍗', '🍖', '🦐', '🦞', '🍤', '🥘',
-                        '🍳', '🥓', '🧇', '🥞', '🍰', '🍩', '🍪', '☕', '🍵', '🥤',
-                        '🍽️', '🥄', '🍴', '🥢', '🌶️', '🍶', '🐙', '🍢', '🥪', '🔥', '🐷'];
-
-    let SLOT_HEIGHT = 250;
-
-    function updateSlotHeight() {
-        const slotEl = document.querySelector('.slot');
-        if (slotEl) {
-            SLOT_HEIGHT = slotEl.offsetHeight || 250;
-        }
-    }
-
-    const LOOPS = 20;
-    function getTotalItems() {
-        return Math.max(restaurants.length * LOOPS, restaurants.length);
-    }
-
-    // 날짜, 요일 표시
-    const today = new Date();
-    const days = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
-    document.getElementById('currentDate').textContent = `${today.getMonth() + 1}/${today.getDate()}`;
-    document.getElementById('currentDay').textContent = days[today.getDay()];
-
-    function displayRestaurants() {
-        const tableBody = document.getElementById('restaurantTableBody');
-        if (restaurants.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 20px; color: #999;">식당을 추가해주세요</td></tr>';
-            return;
-        }
-
-        tableBody.innerHTML = restaurants.map((restaurant, index) => `
-            <tr id="row-${index}">
-                <td class="emoji-cell">${restaurant.emoji}</td>
-                <td class="name-cell">${restaurant.name}</td>
-                <td class="category-cell">${restaurant.category}</td>
-                <td class="description-cell">${restaurant.description}</td>
-                <td class="price-cell">${restaurant.price}</td>
-                <td class="link-cell">
-                    ${restaurant.naverMap ? `<a href="${restaurant.naverMap}" target="_blank" class="map-link">📍 지도</a>` : '-'}
-                </td>
-                <td class="actions-cell">
-                    <button class="edit-button" onclick="editRestaurant(${index})">수정</button>
-                    <button class="delete-button-table" onclick="deleteRestaurant(${index})">삭제</button>
-                </td>
-            </tr>
-        `).join('');
-    }
-
-    function editRestaurant(index) {
-        const restaurant = restaurants[index];
-        const row = document.getElementById(`row-${index}`);
-
-        row.innerHTML = `
-            <td class="emoji-cell">
-                <select id="edit-emoji-${index}" class="edit-input" style="font-size: 1.5em; text-align: center;">
-                    ${foodEmojis.map(emoji => `<option value="${emoji}" ${emoji === restaurant.emoji ? 'selected' : ''}>${emoji}</option>`).join('')}
-                </select>
-            </td>
-            <td class="name-cell">
-                <input type="text" id="edit-name-${index}" class="edit-input" value="${restaurant.name}" maxlength="20">
-            </td>
-            <td class="category-cell">
-                <select id="edit-category-${index}" class="edit-input">
-                    <option value="한식" ${restaurant.category === '한식' ? 'selected' : ''}>한식</option>
-                    <option value="중식" ${restaurant.category === '중식' ? 'selected' : ''}>중식</option>
-                    <option value="일식" ${restaurant.category === '일식' ? 'selected' : ''}>일식</option>
-                    <option value="양식" ${restaurant.category === '양식' ? 'selected' : ''}>양식</option>
-                    <option value="카페" ${restaurant.category === '카페' ? 'selected' : ''}>카페</option>
-                    <option value="샐러드" ${restaurant.category === '샐러드' ? 'selected' : ''}>샐러드</option>
-                    <option value="아시안" ${restaurant.category === '아시안' ? 'selected' : ''}>아시안</option>
-                    <option value="이자카야" ${restaurant.category === '이자카야' ? 'selected' : ''}>이자카야</option>
-                </select>
-            </td>
-            <td class="description-cell">
-                <input type="text" id="edit-description-${index}" class="edit-input" value="${restaurant.description}" maxlength="30">
-            </td>
-            <td class="price-cell">
-                <select id="edit-price-${index}" class="edit-input">
-                    <option value="₩" ${restaurant.price === '₩' ? 'selected' : ''}>₩</option>
-                    <option value="₩₩" ${restaurant.price === '₩₩' ? 'selected' : ''}>₩₩</option>
-                    <option value="₩₩₩" ${restaurant.price === '₩₩₩' ? 'selected' : ''}>₩₩₩</option>
-                    <option value="₩₩₩₩" ${restaurant.price === '₩₩₩₩' ? 'selected' : ''}>₩₩₩₩</option>
-                </select>
-            </td>
-            <td class="link-cell">
-                <input type="url" id="edit-map-${index}" class="edit-input" value="${restaurant.naverMap || ''}" placeholder="지도 링크">
-            </td>
-            <td class="actions-cell">
-                <button class="save-button" onclick="saveRestaurant(${index})">저장</button>
-                <button class="cancel-button" onclick="displayRestaurants()">취소</button>
-            </td>
-        `;
-    }
-
-    function saveRestaurant(index) {
-        const emoji = document.getElementById(`edit-emoji-${index}`).value;
-        const name = document.getElementById(`edit-name-${index}`).value.trim();
-        const category = document.getElementById(`edit-category-${index}`).value.trim();
-        const description = document.getElementById(`edit-description-${index}`).value.trim();
-        const price = document.getElementById(`edit-price-${index}`).value;
-        const naverMap = document.getElementById(`edit-map-${index}`).value.trim();
-
-        if (!name) {
-            alert('식당 이름을 입력해주세요!');
-            return;
-        }
-        if (!category) {
-            alert('카테고리를 입력해주세요!');
-            return;
-        }
-
-        restaurants[index] = {
-            name,
-            emoji,
-            category,
-            description: description || '맛있는 식당',
-            price,
-            naverMap: naverMap || ''
+    <script>
+        // assets.js 로드
+        const assetsScript = document.createElement("script");
+        assetsScript.src = "https://jang1117.github.io/palm/assets.js?t=20250704";
+        assetsScript.async = false;
+        assetsScript.onerror = function() {
+            console.error("assets.js 로드 실패. 파일 경로 또는 구성을 확인하세요.");
+            alert("자산 데이터를 로드하지 못했습니다. assets.js 파일을 확인하세요.");
+            document.getElementById("millList").innerHTML = "<li>자산 데이터를 로드하지 못했습니다.</li>";
+            document.getElementById("millCount").textContent = "0";
         };
-
-        localStorage.setItem('restaurants', JSON.stringify(restaurants));
-        displayRestaurants();
-        initSlots();
-    }
-
-    function deleteRestaurant(index) {
-        const restaurant = restaurants[index];
-        if (confirm(`"${restaurant.name}"을(를) 삭제하시겠습니까?`)) {
-            restaurants.splice(index, 1);
-            localStorage.setItem('restaurants', JSON.stringify(restaurants));
-            displayRestaurants();
-            initSlots();
-        }
-    }
-
-    function initSlots() {
-        if (restaurants.length === 0) return;
-
-        updateSlotHeight();
-        const totalItems = getTotalItems();
-
-        for (let i = 1; i <= 3; i++) {
-            const slot = document.getElementById(`slot${i}`);
-            slot.innerHTML = '';
-
-            for (let j = 0; j < totalItems; j++) {
-                const restaurant = restaurants[j % restaurants.length];
-                const item = document.createElement('div');
-                item.className = 'slot-item';
-                item.innerHTML = `
-                    <div class="slot-emoji">${restaurant.emoji}</div>
-                    <div class="slot-name">${restaurant.name}</div>
-                    <div class="slot-category">${restaurant.category}</div>
-                `;
-                slot.appendChild(item);
-            }
-
-            slot.style.transform = 'translateY(0)';
-        }
-    }
-
-    function displayRecentResults() {
-        const recentResultsSection = document.getElementById('recentResults');
-        const recentResultsList = document.getElementById('recentResultsList');
-
-        if (recentResults.length === 0) {
-            recentResultsSection.style.display = 'none';
-            return;
-        }
-
-        recentResultsSection.style.display = 'block';
-        recentResultsList.innerHTML = recentResults.map((item, index) => `
-            <div class="recent-result-item">
-                <button class="recent-result-delete" onclick="deleteRecentResult(${index})" title="삭제">×</button>
-                <div class="recent-result-emoji">${item.emoji}</div>
-                <div class="recent-result-info">
-                    <div class="recent-result-name">${item.name}</div>
-                    <div class="recent-result-category">${item.category}</div>
-                </div>
-                <button class="recent-result-confirm" onclick="confirmVisit(${index})">✓ 방문 완료</button>
-            </div>
-        `).join('');
-    }
-
-    function deleteRecentResult(index) {
-        recentResults.splice(index, 1);
-        localStorage.setItem('recentResults', JSON.stringify(recentResults));
-        displayRecentResults();
-    }
-
-    function confirmVisit(index) {
-        const selected = recentResults[index];
-        const now = new Date();
-        const nowTs = now.getTime();
-        const oneWeekAgo = nowTs - 7 * 24 * 60 * 60 * 1000;
-
-        // 1주일 이전 기록 삭제
-        history = history.filter(h => h.timestamp && h.timestamp >= oneWeekAgo);
-
-        const dateString = `${now.getMonth() + 1}/${now.getDate()}`;
-        const weekday = days[now.getDay()];
-
-        history.push({
-            name: selected.name,
-            emoji: selected.emoji,
-            category: selected.category,
-            date: dateString,
-            weekday: weekday,
-            timestamp: nowTs
-        });
-        localStorage.setItem('lunchHistory', JSON.stringify(history));
-
-        recentResults.splice(index, 1);
-        localStorage.setItem('recentResults', JSON.stringify(recentResults));
-
-        displayRecentResults();
-        displayHistory();
-    }
-
-    function displayHistory() {
-        const tbody = document.getElementById('historyTableBody');
-        if (!tbody) return;
-
-        if (!history || history.length === 0) {
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="5" style="text-align: center; color: #999; padding: 10px;">
-                        아직 기록이 없습니다
-                    </td>
-                </tr>
-            `;
-            return;
-        }
-
-        const reversed = history.slice().reverse();
-
-        tbody.innerHTML = reversed.map((item, displayIndex) => {
-            const originalIndex = history.length - 1 - displayIndex;
-            return `
-                <tr>
-                    <td>${item.date || '-'}</td>
-                    <td>${item.weekday || '-'}</td>
-                    <td>${item.category || '-'}</td>
-                    <td>${item.emoji ? item.emoji + ' ' : ''}${item.name}</td>
-                    <td>
-                        <button class="history-delete-button" onclick="deleteHistory(${originalIndex})">
-                            삭제
-                        </button>
-                    </td>
-                </tr>
-            `;
-        }).join('');
-    }
-
-    function deleteHistory(index) {
-        history.splice(index, 1);
-        localStorage.setItem('lunchHistory', JSON.stringify(history));
-        displayHistory();
-    }
-
-    function getRecommendation(selected) {
-        const now = new Date();
-        const currentDay = days[now.getDay()];
-        let recommendation = '';
-
-        const recentVisits = history.filter(h => h.name === selected.name).length;
-        if (recentVisits >= 2) {
-            recommendation += `💡 ${selected.name}은(는) 최근에 ${recentVisits}번 방문하셨네요! `;
-        }
-
-        if (currentDay === '월요일' && selected.category === '샐러드') {
-            recommendation += '월요일에는 가벼운 샐러드가 좋은 선택이에요! ';
-        }
-        if (currentDay === '금요일' && selected.price === '₩₩₩₩') {
-            recommendation += '금요일에는 조금 특별한 식사가 어떨까요? ';
-        }
-
-        return recommendation || '오늘의 완벽한 선택입니다! 맛있게 드세요 😋';
-    }
-
-    function spin() {
-        if (isSpinning) return;
-        if (restaurants.length === 0) {
-            alert('식당을 먼저 추가해주세요!');
-            return;
-        }
-
-        isSpinning = true;
-        document.getElementById('spinButton').disabled = true;
-        document.getElementById('result').classList.remove('show');
-        document.getElementById('recommendation').style.display = 'none';
-
-        updateSlotHeight();
-
-        for (let i = 1; i <= 3; i++) {
-            const slot = document.getElementById(`slot${i}`);
-            slot.style.transition = 'none';
-            slot.style.transform = 'translateY(0)';
-        }
-
-        setTimeout(() => {
-            performSpin();
-        }, 100);
-    }
-
-    function performSpin() {
-        const spinDurations = [2000, 2500, 3000];
-        const finalIndexes = [];
-
-        let slot1Index, slot2Index, slot3Index;
-        do {
-            slot1Index = Math.floor(Math.random() * restaurants.length);
-            slot2Index = Math.floor(Math.random() * restaurants.length);
-            slot3Index = Math.floor(Math.random() * restaurants.length);
-        } while (
-            slot1Index !== slot2Index &&
-            slot2Index !== slot3Index &&
-            slot1Index !== slot3Index
-        );
-
-        finalIndexes.push(slot1Index, slot2Index, slot3Index);
-
-        const totalItems = getTotalItems();
-
-        for (let i = 1; i <= 3; i++) {
-            const slot = document.getElementById(`slot${i}`);
-            const duration = spinDurations[i - 1];
-            const finalIndex = finalIndexes[i - 1];
-
-            let spinCount = 0;
-            const maxSpins = Math.floor(duration / 50) + totalItems;
-
-            const spinInterval = setInterval(() => {
-                spinCount++;
-                const idx = spinCount % totalItems;
-                const currentPosition = -(idx * SLOT_HEIGHT);
-                slot.style.transition = 'none';
-                slot.style.transform = `translateY(${currentPosition}px)`;
-
-                if (spinCount > maxSpins) {
-                    spinCount = spinCount % totalItems;
+        assetsScript.onload = function() {
+            console.log("assets.js 로드 완료, 자산 수:", window.assets ? window.assets.length : 0);
+            window.assets.forEach((asset, index) => {
+                if (!asset.country || !asset.province || !asset.title || !asset.position || !asset.position.lat || !asset.position.lng) {
+                    console.warn(`자산 ${index}에 누락된 필드:`, asset);
                 }
-            }, 50);
-
-            setTimeout(() => {
-                clearInterval(spinInterval);
-
-                const lastLoopStart = totalItems - restaurants.length;
-                const targetIndex = lastLoopStart + finalIndex;
-                const finalPosition = -(targetIndex * SLOT_HEIGHT);
-
-                slot.style.transition = 'transform 0.5s ease-out';
-                slot.style.transform = `translateY(${finalPosition}px)`;
-            }, duration);
+            });
+            const mapsScript = document.createElement("script");
+            mapsScript.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBKZ64N6aTmQLaU312nCqXeyrNa-lol2IQ&callback=initMap&loading=async";
+            mapsScript.async = true;
+            mapsScript.onerror = function() {
+                console.error('Google Maps API 스크립트 로드 실패. 네트워크 또는 API 키를 확인하세요.');
+                alert('Google Maps API 로드에 실패했습니다. API 키를 확인하세요.');
+            };
+            document.head.appendChild(mapsScript);
+        };
+        document.head.appendChild(assetsScript);
+        let map;
+        let markers = [];
+        let selectedProvince = null;
+        let selectedCountry = null;
+        let searchQuery = "";
+        const defaultIcon = 'https://jang1117.github.io/palm/palm_tree.png';
+        const img = new Image();
+        img.src = defaultIcon;
+        img.onload = () => console.log("마커 이미지가 로드되었습니다: ", defaultIcon);
+        img.onerror = () => console.error("마커 이미지 로드 실패: ", defaultIcon);
+        window.addEventListener('error', (event) => {
+            if (event.message.includes('google is not defined') || event.message.includes('maps')) {
+                console.error('Google Maps API 로드 실패. API 키 또는 HTTP 리퍼러를 확인하세요.');
+                alert('Google Maps API를 로드하지 못했습니다. 네트워크 또는 API 키를 확인하세요.');
+            }
+        });
+        function calculateCenter(assets = window.assets) {
+            if (!assets || assets.length === 0) {
+                console.error("assets 데이터가 없거나 로드되지 않음");
+                return { lat: -3.81, lng: 119.9 };
+            }
+            const validAssets = assets.filter(asset => 
+                asset.position && asset.position.lat && asset.position.lng
+            );
+            if (validAssets.length === 0) {
+                console.error("유효한 좌표를 가진 자산이 없습니다.");
+                return { lat: -3.81, lng: 119.9 };
+            }
+            const total = validAssets.reduce((acc, asset) => ({
+                lat: acc.lat + asset.position.lat,
+                lng: acc.lng + asset.position.lng
+            }), { lat: 0, lng: 0 });
+            const center = {
+                lat: total.lat / validAssets.length,
+                lng: total.lng / validAssets.length
+            };
+            console.log("계산된 중심점:", center);
+            return center;
         }
-
-        setTimeout(() => {
-            let selected;
-            if (finalIndexes[0] === finalIndexes[1]) {
-                selected = restaurants[finalIndexes[0]];
-            } else if (finalIndexes[1] === finalIndexes[2]) {
-                selected = restaurants[finalIndexes[1]];
-            } else {
-                selected = restaurants[finalIndexes[0]];
+        
+        // 지도 표시용 필터링 함수 (검색어 + 국가/지역)
+        function getFilteredAssetsForMap() {
+            let assets = window.assets;
+            
+            // 검색어 필터 적용
+            if (searchQuery) {
+                assets = assets.filter(asset => 
+                    (asset.title && asset.title.toLowerCase().includes(searchQuery)) ||
+                    (asset.millCompanyName && asset.millCompanyName.toLowerCase().includes(searchQuery)) ||
+                    (asset.parentCompanyName && asset.parentCompanyName.toLowerCase().includes(searchQuery))
+                );
             }
-
-            document.getElementById('resultDetails').innerHTML = `
-                <div style="font-size: 3em; margin-bottom: 15px;">${selected.emoji}</div>
-                <div style="font-size: 1.8em; margin-bottom: 10px;">${selected.name}</div>
-                <div style="font-size: 1.2em; margin-bottom: 10px;">${selected.category} | ${selected.price}</div>
-                <div style="font-size: 1em; opacity: 0.9; margin-bottom: 15px;">${selected.description}</div>
-                ${selected.naverMap ? `<a href="${selected.naverMap}" target="_blank" style="display: inline-block; background: #03C75A; color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-size: 1.1em; font-weight: bold; margin-top: 10px;">📍 네이버 지도에서 보기</a>` : ''}
-            `;
-
-            document.getElementById('result').classList.add('show');
-
-            const recommendation = getRecommendation(selected);
-            document.getElementById('recommendation').textContent = recommendation;
-            document.getElementById('recommendation').style.display = 'block';
-
-            const isDuplicate = recentResults.some(item => item.name === selected.name);
-            if (!isDuplicate) {
-                recentResults.push({
-                    name: selected.name,
-                    emoji: selected.emoji,
-                    category: selected.category,
-                    timestamp: Date.now()
+            
+            // 지역 선택 필터 적용
+            if (selectedProvince) {
+                assets = assets.filter(asset => 
+                    asset.province && asset.province.toLowerCase().trim() === selectedProvince.toLowerCase().trim()
+                );
+            } else if (selectedCountry) {
+                // 국가 선택 필터 적용 (지역이 선택되지 않은 경우만)
+                assets = assets.filter(asset => 
+                    asset.country && asset.country.toLowerCase().trim() === selectedCountry.toLowerCase().trim()
+                );
+            }
+            
+            return assets;
+        }
+        
+        // 사이드바 목록용 필터링 함수 (검색어만 적용)
+        function getFilteredAssetsForSidebar() {
+            let assets = window.assets;
+            
+            // 검색어 필터만 적용
+            if (searchQuery) {
+                assets = assets.filter(asset => 
+                    (asset.title && asset.title.toLowerCase().includes(searchQuery)) ||
+                    (asset.millCompanyName && asset.millCompanyName.toLowerCase().includes(searchQuery)) ||
+                    (asset.parentCompanyName && asset.parentCompanyName.toLowerCase().includes(searchQuery))
+                );
+            }
+            
+            return assets;
+        }
+        
+        function closeOtherCountryDetails(currentCountry) {
+            const allCountryDetails = document.querySelectorAll('#millList details');
+            allCountryDetails.forEach(details => {
+                const summary = details.querySelector('summary');
+                if (summary && summary.classList.contains('country-summary')) {
+                    const countryName = summary.textContent.split(' (')[0];
+                    if (countryName !== currentCountry) {
+                        details.open = false;
+                    }
+                }
+            });
+        }
+        
+        function moveToCountry(country) {
+            if (!map) {
+                console.error("지도가 초기화되지 않았습니다.");
+                return;
+            }
+            
+            selectedProvince = null;
+            selectedCountry = country;
+            
+            closeOtherCountryDetails(country);
+            
+            // 지도 표시용 필터링된 자산 가져오기 (검색어 + 국가 조건)
+            const mapFilteredAssets = getFilteredAssetsForMap();
+            
+            if (mapFilteredAssets.length === 0) {
+                console.warn(`선택된 조건에 해당하는 자산이 없습니다.`);
+                alert(`선택된 조건에 해당하는 자산이 없습니다.`);
+                return;
+            }
+            
+            console.log(`국가 ${country} + 검색어 "${searchQuery}" 필터링된 자산 수: ${mapFilteredAssets.length}`, mapFilteredAssets);
+            
+            const bounds = new window.google.maps.LatLngBounds();
+            let validCount = 0;
+            
+            mapFilteredAssets.forEach(asset => {
+                if (asset.position && asset.position.lat && asset.position.lng) {
+                    bounds.extend(new window.google.maps.LatLng(asset.position.lat, asset.position.lng));
+                    validCount++;
+                } else {
+                    console.warn(`자산 ${asset.title}의 위치 데이터 누락:`, asset.position);
+                }
+            });
+            
+            if (validCount === 0) {
+                console.warn(`선택된 조건에 유효한 좌표가 있는 자산이 없습니다.`);
+                alert(`선택된 조건에 유효한 좌표가 있는 자산이 없습니다.`);
+                return;
+            }
+            
+            map.fitBounds(bounds);
+            updateFilteredMarkers(mapFilteredAssets);
+            
+            console.log(`국가 ${country}로 이동, 줌 레벨: ${map.getZoom()}`);
+        }
+        
+        function moveToProvince(province) {
+            if (!map) {
+                console.error("지도가 초기화되지 않았습니다.");
+                return;
+            }
+            
+            selectedProvince = province;
+            
+            // 지도 표시용 필터링된 자산 가져오기 (검색어 + 지역 조건)
+            const mapFilteredAssets = getFilteredAssetsForMap();
+            
+            if (mapFilteredAssets.length === 0) {
+                console.warn(`선택된 조건에 해당하는 자산이 없습니다.`);
+                alert(`선택된 조건에 해당하는 자산이 없습니다.`);
+                return;
+            }
+            
+            console.log(`지역 ${province} + 검색어 "${searchQuery}" 필터링된 자산 수: ${mapFilteredAssets.length}`, mapFilteredAssets);
+            
+            const bounds = new window.google.maps.LatLngBounds();
+            let validCount = 0;
+            
+            mapFilteredAssets.forEach(asset => {
+                if (asset.position && asset.position.lat && asset.position.lng) {
+                    bounds.extend(new window.google.maps.LatLng(asset.position.lat, asset.position.lng));
+                    validCount++;
+                } else {
+                    console.warn(`자산 ${asset.title}의 위치 데이터 누락:`, asset.position);
+                }
+            });
+            
+            if (validCount === 0) {
+                console.warn(`선택된 조건에 유효한 좌표가 있는 자산이 없습니다.`);
+                alert(`선택된 조건에 유효한 좌표가 있는 자산이 없습니다.`);
+                return;
+            }
+            
+            map.fitBounds(bounds);
+            updateFilteredMarkers(mapFilteredAssets);
+            
+            console.log(`지역 ${province}로 이동, 줌 레벨: ${map.getZoom()}`);
+        }
+        
+        function showHome() {
+            if (!map) {
+                console.error("지도가 초기화되지 않았습니다.");
+                return;
+            }
+            
+            selectedProvince = null;
+            selectedCountry = null;
+            searchQuery = "";
+            document.getElementById("searchInput").value = "";
+            
+            map.setCenter(calculateCenter());
+            map.setZoom(2);
+            
+            populateMillList(window.assets);
+            updateFilteredMarkers(window.assets);
+            showSidebar();
+            closePopup();
+            
+            console.log("Home 버튼 클릭, 초기 상태로 복원 - 중심점:", map.getCenter(), "줌 레벨:", map.getZoom());
+        }
+        function hideSidebar() {
+            document.getElementById("sidebar").style.visibility = "hidden";
+            document.getElementById("map").style.width = "100%";
+            document.getElementById("hideSidebarBtn").style.display = "none";
+            document.getElementById("showSidebarBtn").style.display = "block";
+            if (map) google.maps.event.trigger(map, "resize");
+        }
+        function showSidebar() {
+            document.getElementById("sidebar").style.visibility = "visible";
+            document.getElementById("map").style.width = "100%";
+            document.getElementById("hideSidebarBtn").style.display = "block";
+            document.getElementById("showSidebarBtn").style.display = "none";
+            if (map) google.maps.event.trigger(map, "resize");
+        }
+        function updateFilteredMarkers(assets) {
+            markers.forEach(marker => marker.setMap(null));
+            markers = [];
+            console.log("마커 업데이트 시작, 자산 수:", assets.length);
+            if (!assets || assets.length === 0) {
+                console.error("마커를 생성할 자산 데이터가 없습니다.");
+                return;
+            }
+            const zoom = map.getZoom();
+            let displayAssets = assets;
+            
+            if (zoom <= 7 && !selectedProvince && !selectedCountry) {
+                const groupedAssets = assets.reduce((groups, asset) => {
+                    const province = asset.province && asset.province.trim() ? asset.province : "Unknown Province";
+                    if (!groups[province]) groups[province] = [];
+                    groups[province].push(asset);
+                    return groups;
+                }, {});
+                Object.keys(groupedAssets).sort().forEach(province => {
+                    const provinceAssets = groupedAssets[province];
+                    let latSum = 0, lngSum = 0, validCount = 0;
+                    provinceAssets.forEach(asset => {
+                        if (asset.position && asset.position.lat && asset.position.lng) {
+                            latSum += asset.position.lat;
+                            lngSum += asset.position.lng;
+                            validCount++;
+                        }
+                    });
+                    if (validCount === 0) {
+                        console.warn(`지역 ${province}에 유효한 좌표가 있는 자산이 없습니다.`);
+                        return;
+                    }
+                    const center = {
+                        lat: latSum / validCount,
+                        lng: lngSum / validCount
+                    };
+                    const marker = new window.google.maps.Marker({
+                        position: center,
+                        map: map,
+                        title: `${province}: ${provinceAssets.length}개 자산`,
+                        icon: {
+                            url: defaultIcon,
+                            scaledSize: new window.google.maps.Size(40, 40),
+                            labelOrigin: new window.google.maps.Point(20, 50)
+                        },
+                        label: {
+                            text: `${province} (${provinceAssets.length})`,
+                            fontSize: "12px",
+                            fontWeight: "bold",
+                            color: "#000",
+                            fontFamily: "Arial, sans-serif"
+                        }
+                    });
+                    marker.addListener("click", () => moveToProvince(province));
+                    markers.push(marker);
                 });
-                localStorage.setItem('recentResults', JSON.stringify(recentResults));
-                displayRecentResults();
+                console.log(`줌 레벨 ${zoom}에서 지역 마커 생성: ${markers.length}개`);
+            } else {
+                displayAssets.forEach(asset => {
+                    if (!asset.position || !asset.position.lat || !asset.position.lng) {
+                        console.warn(`자산 ${asset.title}의 위치 데이터 누락:`, asset.position);
+                        return;
+                    }
+                    const markerIcon = {
+                        url: defaultIcon,
+                        scaledSize: new window.google.maps.Size(40, 40),
+                        labelOrigin: new window.google.maps.Point(20, 50)
+                    };
+                    const marker = new window.google.maps.Marker({
+                        position: asset.position,
+                        map: map,
+                        title: asset.title || "Unknown Title",
+                        icon: markerIcon,
+                        label: {
+                            text: asset.title || "Unknown Title",
+                            fontSize: "12px",
+                            fontWeight: "bold",
+                            color: "#000",
+                            fontFamily: "Arial, sans-serif"
+                        }
+                    });
+                    marker.addListener("click", () => {
+                        const formattedDesc = asset.description 
+                            ? `${asset.title || "Unknown Title"}은 ${asset.millCompanyName || "Unknown Company"} 소속의 팜 오일 생산 시설로, ${asset.parentCompanyName || "Unknown Parent"} 그룹의 일원입니다.<br>${asset.description.replace(/, /g, "<br>")}`
+                            : `${asset.title || "Unknown Title"}은 ${asset.millCompanyName || "Unknown Company"} 소속의 팜 오일 생산 시설로, ${asset.parentCompanyName || "Unknown Parent"} 그룹의 일원입니다.`;
+                        showPopup(asset.title || "Unknown Title", asset.title || "Unknown Title", formattedDesc, `
+                            <p><strong>회사명:</strong> ${asset.millCompanyName || "Unknown Company"}</p>
+                            <p><strong>모회사:</strong> ${asset.parentCompanyName || "Unknown Parent"}</p>
+                            <p><strong>지역:</strong> ${asset.province || "Unknown Province"}</p>
+                            <p><strong>국가:</strong> ${asset.country || "Unknown Country"}</p>`);
+                        map.setCenter(asset.position);
+                        map.setZoom(15);
+                    });
+                    markers.push(marker);
+                });
+                console.log(`줌 레벨 ${zoom}에서 개별 자산 마커 생성: ${markers.length}개`);
             }
-
-            isSpinning = false;
-            document.getElementById('spinButton').disabled = false;
-        }, 3500);
-    }
-
-    document.getElementById('spinButton').addEventListener('click', spin);
-
-    window.addEventListener('DOMContentLoaded', function() {
-        displayRestaurants();
-        initSlots();
-        displayRecentResults();
-        displayHistory();
-    });
-
-    window.addEventListener('resize', () => {
-        updateSlotHeight();
-    });
-</script>
-
+        }
+        function showPopup(id, title, description, extraContent) {
+            const popupOverlay = document.getElementById("popupOverlay");
+            const popupTitle = document.getElementById("popupTitle");
+            const popupDescription = document.getElementById("popupDescription");
+            const popupExtra = document.getElementById("popupExtra");
+            popupTitle.textContent = title;
+            popupDescription.innerHTML = description;
+            popupExtra.innerHTML = extraContent;
+            popupOverlay.style.display = "block";
+        }
+        function closePopup() {
+            document.getElementById("popupOverlay").style.display = "none";
+        }
+        document.getElementById("popupOverlay").addEventListener("click", (event) => {
+            if (event.target === document.getElementById("popupOverlay")) {
+                closePopup();
+            }
+        });
+        function moveToAssets(assets = window.assets) {
+            if (!map) {
+                console.error("지도가 초기화되지 않았습니다.");
+                return;
+            }
+            selectedProvince = null;
+            selectedCountry = null;
+            const bounds = new window.google.maps.LatLngBounds();
+            let validCount = 0;
+            assets.forEach(asset => {
+                if (asset.position && asset.position.lat && asset.position.lng) {
+                    bounds.extend(new window.google.maps.LatLng(asset.position.lat, asset.position.lng));
+                    validCount++;
+                }
+            });
+            if (validCount === 0) {
+                console.warn("유효한 좌표가 있는 자산이 없습니다.");
+                map.setCenter(calculateCenter(assets));
+                map.setZoom(2);
+            } else {
+                map.fitBounds(bounds);
+                const currentZoom = map.getZoom();
+                if (currentZoom > 10) map.setZoom(10);
+                if (currentZoom < 2) map.setZoom(2);
+            }
+            updateFilteredMarkers(assets);
+            console.log("moveToAssets 호출, 중심점:", map.getCenter(), "줌 레벨:", map.getZoom());
+        }
+        function dedupeAndSortAssets(assets) {
+            const uniqueAssets = [];
+            const seenTitles = new Set();
+            assets.forEach(asset => {
+                if (!seenTitles.has(asset.title)) {
+                    seenTitles.add(asset.title);
+                    uniqueAssets.push(asset);
+                }
+            });
+            return uniqueAssets.sort((a, b) => (a.title || "Unknown Title").localeCompare(b.title || "Unknown Title"));
+        }
+        function groupAssetsByCountryAndProvince(assets) {
+            console.log("groupAssetsByCountryAndProvince 호출됨, 자산 수:", assets.length);
+            const groups = assets.reduce((groups, asset) => {
+                const country = asset.country && asset.country.trim() ? asset.country : "Unknown Country";
+                const province = asset.province && asset.province.trim() ? asset.province : "Unknown Province";
+                if (!groups[country]) groups[country] = {};
+                if (!groups[country][province]) groups[country][province] = [];
+                groups[country][province].push(asset);
+                return groups;
+            }, {});
+            const totalGroupedAssets = Object.values(groups).reduce((total, provinces) => 
+                total + Object.values(provinces).flat().length, 0);
+            console.log("그룹핑된 자산:", groups);
+            console.log(`그룹핑된 총 자산 수: ${totalGroupedAssets}, 원본 자산 수: ${assets.length}`);
+            return groups;
+        }
+        function populateMillList(filteredAssets = window.assets) {
+            console.log("populateMillList 호출됨, 필터링된 자산 수:", filteredAssets.length);
+            const millList = document.getElementById("millList");
+            const millCount = document.getElementById("millCount");
+            millList.innerHTML = "";
+            const uniqueAssets = dedupeAndSortAssets(filteredAssets);
+            const groupedAssets = groupAssetsByCountryAndProvince(uniqueAssets);
+            millCount.textContent = uniqueAssets.length;
+            if (Object.keys(groupedAssets).length === 0) {
+                console.warn("그룹핑된 자산이 없음");
+                millList.innerHTML = "<li>자산이 없습니다.</li>";
+                return;
+            }
+            Object.keys(groupedAssets).sort().forEach(country => {
+                const countryDetails = document.createElement("details");
+                const countrySummary = document.createElement("summary");
+                countrySummary.textContent = `${country} (${Object.values(groupedAssets[country]).flat().length})`;
+                countrySummary.classList.add("country-summary");
+                
+                countrySummary.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    moveToCountry(country);
+                    setTimeout(() => {
+                        countryDetails.open = true;
+                    }, 0);
+                });
+                
+                countryDetails.appendChild(countrySummary);
+                
+                // 검색어가 있을 때도 지역이 보이도록 수정
+                const countryUl = document.createElement("ul");
+                Object.keys(groupedAssets[country]).sort().forEach(province => {
+                    const provinceDetails = document.createElement("details");
+                    const provinceSummary = document.createElement("summary");
+                    provinceSummary.textContent = `${province} (${groupedAssets[country][province].length})`;
+                    provinceSummary.addEventListener("click", () => moveToProvince(province));
+                    provinceDetails.appendChild(provinceSummary);
+                    
+                    const provinceUl = document.createElement("ul");
+                    groupedAssets[country][province].sort((a, b) => 
+                        (a.title || "Unknown Title").localeCompare(b.title || "Unknown Title")
+                    ).forEach(asset => {
+                        const li = document.createElement("li");
+                        li.textContent = asset.title || "Unknown Title";
+                        li.addEventListener("click", () => {
+                            if (asset.position && asset.position.lat && asset.position.lng) {
+                                map.setCenter(asset.position);
+                                map.setZoom(15);
+                                showPopup(asset.title || "Unknown Title", asset.title || "Unknown Title", 
+                                    asset.description 
+                                        ? `${asset.title || "Unknown Title"}은 ${asset.millCompanyName || "Unknown Company"} 소속의 팜 오일 생산 시설로, ${asset.parentCompanyName || "Unknown Parent"} 그룹의 일원입니다.<br>${asset.description.replace(/, /g, "<br>")}`
+                                        : `${asset.title || "Unknown Title"}은 ${asset.millCompanyName || "Unknown Company"} 소속의 팜 오일 생산 시설로, ${asset.parentCompanyName || "Unknown Parent"} 그룹의 일원입니다.`, 
+                                    `<p><strong>회사명:</strong> ${asset.millCompanyName || "Unknown Company"}</p>
+                                     <p><strong>모회사:</strong> ${asset.parentCompanyName || "Unknown Parent"}</p>
+                                     <p><strong>지역:</strong> ${asset.province || "Unknown Province"}</p>
+                                     <p><strong>국가:</strong> ${asset.country || "Unknown Country"}</p>`);
+                            } else {
+                                console.warn(`자산 ${asset.title}의 위치 데이터 누락:`, asset.position);
+                                alert(`자산 ${asset.title}의 위치 데이터가 없습니다.`);
+                            }
+                        });
+                        provinceUl.appendChild(li);
+                    });
+                    provinceDetails.appendChild(provinceUl);
+                    countryUl.appendChild(provinceDetails);
+                });
+                countryDetails.appendChild(countryUl);
+                millList.appendChild(countryDetails);
+            });
+        }
+        function initializeSidebar() {
+            const millList = document.getElementById("millList");
+            const searchInput = document.getElementById("searchInput");
+            const millCount = document.getElementById("millCount");
+            if (!window.assets || window.assets.length === 0) {
+                console.error("assets 데이터가 없거나 비어 있음");
+                millList.innerHTML = "<li>자산 데이터를 로드하지 못했습니다.</li>";
+                millCount.textContent = "0";
+                return;
+            }
+            console.log(`초기 자산 수: ${window.assets.length}`);
+            populateMillList();
+            updateFilteredMarkers(window.assets);
+            
+            searchInput.addEventListener("input", () => {
+                searchQuery = searchInput.value.toLowerCase();
+                console.log("검색 쿼리:", searchQuery);
+                
+                // 사이드바는 검색어만 적용하여 모든 국가/지역 표시
+                const sidebarFilteredAssets = getFilteredAssetsForSidebar();
+                populateMillList(sidebarFilteredAssets);
+                
+                // 지도는 검색어 + 선택된 국가/지역 적용
+                const mapFilteredAssets = getFilteredAssetsForMap();
+                updateFilteredMarkers(mapFilteredAssets);
+                
+                if (mapFilteredAssets.length > 0) {
+                    moveToAssets(mapFilteredAssets);
+                } else {
+                    map.setCenter(calculateCenter());
+                    map.setZoom(2);
+                }
+            });
+        }
+        window.initMap = function() {
+            if (typeof window.google === 'undefined' || typeof window.google.maps === 'undefined') {
+                console.error('Google Maps API가 로드되지 않았습니다. API 키와 네트워크를 확인하세요.');
+                alert('Google Maps API 로드에 실패했습니다. API 키를 확인하세요.');
+                return;
+            }
+            if (!window.assets || window.assets.length === 0) {
+                console.error("assets 데이터가 없거나 비어 있음");
+                alert("자산 데이터를 로드하지 못했습니다. assets.js 파일을 확인하세요.");
+                document.getElementById("millList").innerHTML = "<li>자산 데이터를 로드하지 못했습니다.</li>";
+                document.getElementById("millCount").textContent = "0";
+                return;
+            }
+            map = new window.google.maps.Map(document.getElementById("map"), {
+                center: calculateCenter(),
+                zoom: 2,
+                fullscreenControl: false,
+                mapTypeId: window.google.maps.MapTypeId.ROADMAP
+            });
+            console.log("초기 중심:", calculateCenter());
+            console.log(`지도 초기화 완료.`);
+            moveToAssets();
+            initializeSidebar();
+            
+            map.addListener("zoom_changed", () => {
+                console.log(`줄 레벨 변경: ${map.getZoom()}`);
+                const mapFilteredAssets = getFilteredAssetsForMap();
+                updateFilteredMarkers(mapFilteredAssets);
+            });
+        };
+    </script>
 </body>
 </html>
