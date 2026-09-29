@@ -1854,7 +1854,7 @@
             let spinCount = 0;
             const maxSpins = Math.floor(duration / 50) + totalItems;
 
-            const spinInterval = setInterval(() => {
+            const tick = () => {
                 spinCount++;
                 const idx = spinCount % totalItems;
                 const currentPosition = -(idx * SLOT_HEIGHT);
@@ -1864,7 +1864,10 @@
                 if (spinCount > maxSpins) {
                     spinCount = spinCount % totalItems;
                 }
-            }, 50);
+            };
+            // 첫 틱을 동기적으로 적용: 777 다음 프레임부터 바로 스크롤 중인 화면이 보임
+            tick();
+            const spinInterval = setInterval(tick, 50);
 
             setTimeout(() => {
                 clearInterval(spinInterval);
