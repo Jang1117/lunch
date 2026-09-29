@@ -966,12 +966,12 @@
 
         <div class="mode-toggle">
             <div class="mode-segment">
-                <button class="mode-button active" id="modeLunch" onclick="setMode('lunch')">☀️ 점심</button>
-                <button class="mode-button" id="modeDinner" onclick="setMode('dinner')">🌙 저녁</button>
-                <button class="mode-button" id="modeDrink" onclick="setMode('drink')">🍺 술집만</button>
+                <button class="mode-button active" id="modeLunch" onclick="setMode('lunch')">🍱 밥집</button>
+                <button class="mode-button" id="modeDinner" onclick="setMode('dinner')">🍱🍺 밥집+술집</button>
+                <button class="mode-button" id="modeDrink" onclick="setMode('drink')">🍺 술집</button>
             </div>
         </div>
-        <div class="mode-hint" id="modeHint">☀️ 점심에는 밥집만 나와요</div>
+        <div class="mode-hint" id="modeHint">🍱 밥집만 나와요</div>
 
         <div class="slot-machine">
             <div class="slot">
@@ -1041,8 +1041,8 @@
                     </label>
                     <label>구분
                         <select id="add-type" class="edit-input">
-                            <option value="meal">🍱 밥집 (점심)</option>
-                            <option value="drink">🍺 술집 (저녁)</option>
+                            <option value="meal">🍱 밥집</option>
+                            <option value="drink">🍺 술집</option>
                         </select>
                     </label>
                     <label>종류
@@ -1505,7 +1505,7 @@
     const PRICE_OPTIONS = ['₩', '₩₩', '₩₩₩', '₩₩₩₩'];
     let activeCategory = '전체';
     let excludeRecent = false;
-    // 점심/저녁 모드: lunch = 밥집만, dinner = 밥집 + 술집
+    // 모드: lunch = 밥집만, dinner = 밥집 + 술집, drink = 술집만
     let mode = localStorage.getItem('lunchMode');
     if (mode !== 'lunch' && mode !== 'dinner' && mode !== 'drink') mode = 'lunch';
 
@@ -1590,8 +1590,8 @@
         document.getElementById('modeDinner').classList.toggle('active', mode === 'dinner');
         document.getElementById('modeDrink').classList.toggle('active', mode === 'drink');
         document.getElementById('modeHint').textContent =
-            mode === 'lunch' ? '☀️ 점심에는 밥집만 나와요' :
-            mode === 'dinner' ? '🌙 저녁에는 밥집 + 술집이 나와요' : '🍺 술집만 나와요';
+            mode === 'lunch' ? '🍱 밥집만 나와요' :
+            mode === 'dinner' ? '🍱🍺 밥집 + 술집이 나와요' : '🍺 술집만 나와요';
         updateRestaurantCount();
         displayRestaurants();
         initSlots();
