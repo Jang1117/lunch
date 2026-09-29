@@ -6,6 +6,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="압구정 로데오 주변 점심 맛집 룰렛 — 오늘 점심 뭐 먹을지 고민될 때 돌려보세요!">
+    <meta property="og:title" content="압구정 로데오 점심 룰렛 🎰">
+    <meta property="og:description" content="오늘 점심 뭐 먹을까? 룰렛을 돌려보세요!">
+    <meta property="og:type" content="website">
     <title>압구정 로데오 점심 룰렛 🎰</title>
     <style>
         * {
@@ -73,6 +77,65 @@
             font-size: 1.2em;
             font-weight: bold;
             color: #667eea;
+        }
+
+        /* 카테고리 필터 */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .filter-chip {
+            padding: 8px 14px;
+            border-radius: 20px;
+            border: 2px solid #e0e0e0;
+            background: #fff;
+            cursor: pointer;
+            font-size: 0.9em;
+            color: #666;
+            transition: all 0.2s;
+        }
+
+        .filter-chip:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .filter-chip.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+            font-weight: bold;
+        }
+
+        .filter-chip .count {
+            opacity: 0.7;
+            font-size: 0.85em;
+            margin-left: 4px;
+        }
+
+        .exclude-row {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .exclude-row label {
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .exclude-row input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #667eea;
+            cursor: pointer;
         }
 
         .slot-machine {
@@ -203,6 +266,66 @@
             color: #667eea;
             margin-bottom: 15px;
             font-size: 1.3em;
+        }
+
+        .add-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .add-button:hover {
+            background: #5568d3;
+            transform: translateY(-1px);
+        }
+
+        .add-form {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .add-form h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .add-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .add-form-grid label {
+            font-size: 0.85em;
+            color: #666;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .add-form-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .add-form-buttons .save-button,
+        .add-form-buttons .cancel-button {
+            display: inline-block;
+            width: auto;
+            padding: 10px 30px;
+            font-size: 1em;
+            margin: 0;
         }
 
         .restaurant-table-container {
@@ -596,6 +719,11 @@
                 font-size: 1em;
             }
 
+            .filter-chip {
+                padding: 6px 10px;
+                font-size: 0.8em;
+            }
+
             .slot-machine {
                 display: flex;
                 flex-direction: row;
@@ -654,6 +782,10 @@
 
             .manage-section {
                 padding: 16px;
+            }
+
+            .add-form-grid {
+                grid-template-columns: 1fr;
             }
 
             .history,
@@ -715,6 +847,69 @@
                 padding: 4px 8px;
             }
         }
+        .mode-toggle {
+            display: flex;
+            justify-content: center;
+            margin: 18px 0 4px;
+        }
+        .mode-segment {
+            display: inline-flex;
+            background: #f0f0f0;
+            border-radius: 30px;
+            padding: 4px;
+            gap: 4px;
+        }
+        .mode-button {
+            border: none;
+            background: transparent;
+            padding: 10px 30px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            color: #888;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .mode-button.active {
+            background: #fff;
+            color: #333;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .mode-hint {
+            text-align: center;
+            color: #999;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+        .type-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        .type-badge.meal {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        .type-badge.drink {
+            background: #fff3e0;
+            color: #e65100;
+        }
+        .restaurant-table tr.dimmed {
+            opacity: 0.45;
+        }
+        .slot-type {
+            font-size: 0.85em;
+            opacity: 0.75;
+            margin-bottom: 6px;
+        }
+        .type-cell {
+            text-align: center;
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
@@ -731,7 +926,24 @@
                 <div class="info-label">요일</div>
                 <div class="info-value" id="currentDay"></div>
             </div>
+            <div class="info-item">
+                <div class="info-label">등록 맛집</div>
+                <div class="info-value" id="restaurantCount"></div>
+            </div>
         </div>
+
+        <div class="filter-bar" id="filterBar"></div>
+        <div class="exclude-row">
+            <label><input type="checkbox" id="excludeRecent" onchange="toggleExcludeRecent()"> 최근 1주일 방문한 곳 제외</label>
+        </div>
+
+        <div class="mode-toggle">
+            <div class="mode-segment">
+                <button class="mode-button active" id="modeLunch" onclick="setMode('lunch')">☀️ 점심</button>
+                <button class="mode-button" id="modeDinner" onclick="setMode('dinner')">🌙 저녁</button>
+            </div>
+        </div>
+        <div class="mode-hint" id="modeHint">☀️ 점심에는 밥집만 나와요</div>
 
         <div class="slot-machine">
             <div class="slot">
@@ -787,12 +999,49 @@
 
         <div class="manage-section">
             <h3>⭐ 내 맛집 관리</h3>
+            <div style="margin-bottom: 15px;">
+                <button class="add-button" onclick="toggleAddForm()">＋ 맛집 추가</button>
+            </div>
+            <div class="add-form" id="addForm" style="display: none;">
+                <h4>새 맛집 추가</h4>
+                <div class="add-form-grid">
+                    <label>이름
+                        <input type="text" id="add-name" class="edit-input" maxlength="20" placeholder="예) 압구정맛집">
+                    </label>
+                    <label>이모지
+                        <select id="add-emoji" class="edit-input"></select>
+                    </label>
+                    <label>구분
+                        <select id="add-type" class="edit-input">
+                            <option value="meal">🍱 밥집 (점심)</option>
+                            <option value="drink">🍺 술집 (저녁)</option>
+                        </select>
+                    </label>
+                    <label>종류
+                        <select id="add-category" class="edit-input"></select>
+                    </label>
+                    <label>설명
+                        <input type="text" id="add-description" class="edit-input" maxlength="30" placeholder="예) 대표메뉴">
+                    </label>
+                    <label>가격대
+                        <select id="add-price" class="edit-input"></select>
+                    </label>
+                    <label>지도 링크
+                        <input type="url" id="add-map" class="edit-input" placeholder="https://...">
+                    </label>
+                </div>
+                <div class="add-form-buttons">
+                    <button class="save-button" onclick="saveNewRestaurant()">저장</button>
+                    <button class="cancel-button" onclick="toggleAddForm()">취소</button>
+                </div>
+            </div>
             <div class="restaurant-table-container">
                 <table class="restaurant-table">
                     <thead>
                         <tr>
                             <th>🎭</th>
                             <th>이름</th>
+                            <th>구분</th>
                             <th>종류</th>
                             <th>설명</th>
                             <th>가격</th>
@@ -809,105 +1058,250 @@
 <script>
     // 기본 식당 리스트
     const defaultRestaurants = [
-        { name: "창고43", emoji: "🍖", category: "한식", description: "창고43스페셜·깍두기볶음밥", price: "₩₩₩", naverMap: "https://naver.me/FSw7K4zM" },
-        { name: "흑우정", emoji: "🥩", category: "한식", description: "블랙앵거스·꽃갈비살", price: "₩₩₩₩", naverMap: "https://naver.me/G2EwpJwu" },
-        { name: "청담만옥", emoji: "🍲", category: "한식", description: "해물탕·차돌미나리전", price: "₩₩₩", naverMap: "https://naver.me/x67yoaKp" },
-        { name: "화연산장", emoji: "🍖", category: "한식", description: "짚불구이·갈비", price: "₩₩₩", naverMap: "https://naver.me/GoD7l9CG" },
-        { name: "수다 청담점", emoji: "🍢", category: "이자카야", description: "감자전·모둠꼬치", price: "₩₩", naverMap: "https://naver.me/FjbnBQLO" },
-        { name: "우정", emoji: "🥩", category: "한식", description: "한우불고기·곱창전골", price: "₩₩₩₩", naverMap: "https://naver.me/I55a4iNs" },
-        { name: "정식당", emoji: "🍱", category: "한식", description: "모듬김밥·문어감태국수", price: "₩₩₩₩", naverMap: "https://naver.me/xv3DHt17" },
-        { name: "썬더버드", emoji: "🍗", category: "양식", description: "크리스피치킨·프라이드치킨", price: "₩₩", naverMap: "https://naver.me/GtURVvOw" },
-        { name: "팔십상", emoji: "🍣", category: "일식", description: "참치사시미·참치코스", price: "₩₩₩", naverMap: "https://naver.me/502MZmLA" },
-        { name: "옛날집", emoji: "🍖", category: "한식", description: "명란젓정식·떡갈비", price: "₩₩", naverMap: "https://naver.me/5A3pZkyy" },
-        { name: "돈블랑", emoji: "🥓", category: "한식", description: "삼겹살·항정살모둠", price: "₩₩", naverMap: "https://naver.me/xTT6MS4T" },
-        { name: "두루", emoji: "🍲", category: "한식", description: "국시·소고기국밥", price: "₩₩₩", naverMap: "https://naver.me/Fjbn5tnH" },
-        { name: "영동교집", emoji: "🥓", category: "한식", description: "흑돼지삼겹살·통껍데기", price: "₩₩", naverMap: "https://naver.me/5iTd44gb" },
-        { name: "마오", emoji: "🍜", category: "중식", description: "북경오리·마오짬뽕", price: "₩₩", naverMap: "https://naver.me/IItceslH" },
-        { name: "무안회관", emoji: "🍲", category: "한식", description: "한우곰탕·낙지볶음", price: "₩₩₩", naverMap: "https://naver.me/FJb4ZfX4" },
-        { name: "이모가있는집", emoji: "🍖", category: "한식", description: "부대찌개·섞어찌개", price: "₩₩", naverMap: "https://naver.me/56R6warn" },
-        { name: "죠스떡볶이", emoji: "🌶️", category: "한식", description: "떡볶이·튀김", price: "₩", naverMap: "https://naver.me/G657eZBr" },
-        { name: "샐러디", emoji: "🥗", category: "샐러드", description: "샐러드·포케·프로틴박스", price: "₩₩", naverMap: "https://naver.me/59vQPd2h" },
-        { name: "세븐패티버거", emoji: "🍔", category: "양식", description: "스매시버거·멀티패티버거", price: "₩₩", naverMap: "https://naver.me/5apDhkjC" },
-        { name: "다운타우너", emoji: "🍔", category: "양식", description: "아보카도버거·더블버거", price: "₩₩", naverMap: "https://naver.me/xY4suE7O" },
-        { name: "도산분식", emoji: "🍜", category: "한식", description: "떡볶이·육회김밥", price: "₩₩", naverMap: "https://naver.me/5eUcprjo" },
-        { name: "쉐이크쉑", emoji: "🍔", category: "양식", description: "쉑버거·치즈프라이", price: "₩₩", naverMap: "https://naver.me/G58gYkfJ" },
-        { name: "얼오브샌드위치", emoji: "🥪", category: "양식", description: "핫샌드위치 전문점", price: "₩₩", naverMap: "https://naver.me/52R5GP91" },
-        { name: "루비떡볶이", emoji: "🌶️", category: "한식", description: "새우깡떡볶이·소세지김밥", price: "₩", naverMap: "https://naver.me/FUhsgOZ0" },
-        { name: "원조마포소금구이", emoji: "🥓", category: "한식", description: "뒷덜미살·갈매기살구이", price: "₩₩₩", naverMap: "https://naver.me/5xjpqOb4" },
-        { name: "애월식당", emoji: "🐷", category: "한식", description: "제주 오겹살·항정살", price: "₩₩₩", naverMap: "https://naver.me/GipBctR4" },
-        { name: "샤브인서울", emoji: "🍲", category: "한식", description: "프리미엄 샤브샤브", price: "₩₩₩", naverMap: "https://naver.me/xucp4nA0" },
-        { name: "도산정육", emoji: "🥩", category: "한식", description: "한우·제주삼겹살 정육식당", price: "₩₩₩", naverMap: "https://naver.me/FY3yD6Gz" },
-        { name: "상록수", emoji: "🍖", category: "한식", description: "항정살·비빔수제비", price: "₩₩", naverMap: "https://naver.me/Gq84EA4Q" },
-        { name: "롸카두들", emoji: "🍗", category: "양식", description: "내쉬빌핫치킨버거", price: "₩₩", naverMap: "https://naver.me/IxsqU1de" },
-        { name: "골드피쉬", emoji: "🥟", category: "중식", description: "딤섬·샤오롱포", price: "₩₩", naverMap: "https://naver.me/GlJIDKKR" },
-        { name: "영삼이네우정소갈비", emoji: "🍖", category: "한식", description: "마늘양념소갈비·정갈비", price: "₩₩₩", naverMap: "https://naver.me/G8s9wvev" },
-        { name: "발아메밀블라썸", emoji: "🍜", category: "한식", description: "메밀국수·막국수", price: "₩₩", naverMap: "https://naver.me/xUw1kjYo" },
-        { name: "스미카츠", emoji: "🍛", category: "일식", description: "돈까스·꽃목살카츠", price: "₩₩₩", naverMap: "https://naver.me/xbA5vSA1" },
-        { name: "추풍령칼삼겹살", emoji: "🥓", category: "한식", description: "칼삼겹살·항정살", price: "₩₩", naverMap: "https://naver.me/xNLZNOIT" },
-        { name: "봉추찜닭", emoji: "🍗", category: "한식", description: "찜닭·누룽지볶음밥", price: "₩₩", naverMap: "https://naver.me/FbONRdeL" },
-        { name: "호화반점", emoji: "🥟", category: "중식", description: "트러플짜장면·탕수육", price: "₩₩₩", naverMap: "https://naver.me/5UEc0fSt" },
-        { name: "센자이료쿠", emoji: "🍵", category: "일식", description: "라멘·마제소바", price: "₩", naverMap: "https://naver.me/Fio7B3xv" },
-        { name: "오만복국수", emoji: "🍜", category: "한식", description: "잔치국수·보쌈", price: "₩", naverMap: "https://naver.me/5WOkRcDp" },
-        { name: "뉴만두집", emoji: "🥟", category: "한식", description: "평양만두·만둣국", price: "₩", naverMap: "https://naver.me/5HkaOhnl" },
-        { name: "이가네양꼬치", emoji: "🍢", category: "중식", description: "양꼬치·양갈비", price: "₩₩", naverMap: "https://naver.me/5wWetdWj" },
-        { name: "꽃돌이네", emoji: "🥩", category: "한식", description: "한우모듬·특수부위", price: "₩₩₩₩", naverMap: "https://naver.me/53lKcfXi" },
-        { name: "압구정곱창", emoji: "🔥", category: "한식", description: "곱창·대창구이", price: "₩₩₩", naverMap: "https://naver.me/FvEgnTt6" },
-        { name: "묵전", emoji: "🍲", category: "한식", description: "묵사발·도토리묵전", price: "₩₩", naverMap: "https://naver.me/5bVsWw4I" },
-        { name: "강서면옥", emoji: "🍜", category: "한식", description: "평양냉면·소고기수육", price: "₩₩", naverMap: "https://naver.me/Fnm0z3hW" },
-        { name: "한솥도시락", emoji: "🍱", category: "한식", description: "도시락·덮밥", price: "₩", naverMap: "https://naver.me/FtTh8Z8a" },
-        { name: "호시카츠", emoji: "🍛", category: "일식", description: "로스카츠·히레카츠정식", price: "₩₩", naverMap: "https://naver.me/FV7YLbG0" },
-        { name: "청담고수", emoji: "🍖", category: "한식", description: "숙성목살·항정살구이", price: "₩₩", naverMap: "https://naver.me/513NwDpD" },
-        { name: "청담해정", emoji: "🍲", category: "한식", description: "선지해장국·한우곱창", price: "₩₩", naverMap: "https://naver.me/FW6hbr1n" },
-        { name: "hen", emoji: "🍗", category: "한식", description: "숯불닭구이·닭볶음탕", price: "₩₩", naverMap: "https://map.naver.com/p/search/청담 hen 숯불닭구이" },
-        { name: "성덕", emoji: "🥟", category: "중식", description: "샤오롱포·하가우딤섬", price: "₩₩", naverMap: "https://naver.me/58NdttAs" },
-        { name: "한사리감자탕", emoji: "🍲", category: "한식", description: "감자탕·뼈해장국", price: "₩₩", naverMap: "https://naver.me/GBFHlBQG" },
-        { name: "청담25", emoji: "🍱", category: "한식", description: "한정식·갈치구이", price: "₩₩₩", naverMap: "https://naver.me/xNLZHXq0" },
-        { name: "부흥왕족발", emoji: "🐷", category: "한식", description: "족발·막국수", price: "₩₩₩", naverMap: "https://naver.me/56R619MD" },
-        { name: "골목식당", emoji: "🍖", category: "한식", description: "제육볶음·김치찌개", price: "₩₩", naverMap: "https://naver.me/5ZJaPiwW" },
-        { name: "홍성원", emoji: "🥟", category: "중식", description: "짬뽕·탕수육", price: "₩₩₩", naverMap: "https://naver.me/GOPmMY5D" },
-        { name: "청담동칼국수", emoji: "🍜", category: "한식", description: "바지락칼국수·수제비", price: "₩", naverMap: "https://naver.me/xwmqcYOo" },
-        { name: "강강술래", emoji: "🍖", category: "한식", description: "양념갈비·떡갈비", price: "₩₩₩", naverMap: "https://naver.me/5CW7bJcA" },
-        { name: "청담동순도리", emoji: "🍖", category: "한식", description: "순대국·곱도리탕", price: "₩₩", naverMap: "https://naver.me/FtTh7Jlq" },
-        { name: "달구벌반점", emoji: "🥟", category: "중식", description: "고기짬뽕·탕수육", price: "₩₩", naverMap: "https://naver.me/G386bN4N" },
-        { name: "소스", emoji: "🍝", category: "양식", description: "돈까스·떡볶이", price: "₩₩", naverMap: "https://naver.me/xhzCxM66" },
-        { name: "오아시스", emoji: "🥐", category: "카페", description: "에그베네딕트·타이누들샐러드", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 오아시스 브런치" },
-        { name: "투아투아", emoji: "🧇", category: "카페", description: "바토네·치아바타·바게트", price: "₩", naverMap: "https://map.naver.com/p/search/압구정로데오 투아투아" },
-        { name: "타르틴베이커리 도산점", emoji: "☕", category: "카페", description: "크루아상·바나나크림타르트", price: "₩₩", naverMap: "https://map.naver.com/p/search/타르틴베이커리 도산점" },
-        { name: "호시", emoji: "🍣", category: "이자카야", description: "고등어봉초밥·묵은지광어김밥", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 호시 이자카야" },
-        { name: "이치에", emoji: "🍤", category: "이자카야", description: "우니소바·고등어볶음밥", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 이치에" },
-        { name: "도마야끼덕아웃", emoji: "🐙", category: "이자카야", description: "문어초회·크라운갈비", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 도마야끼덕아웃" },
-        { name: "태국당", emoji: "🍛", category: "아시안", description: "태국 가정식", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 태국당" },
-        { name: "소이연남 마오", emoji: "🍜", category: "아시안", description: "닭꼬치·항정살구이", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 소이연남 마오" },
-        { name: "레우레우", emoji: "🍲", category: "아시안", description: "카오소이·똠얌마마", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 레우레우" },
-        { name: "크레이지타이", emoji: "🌶️", category: "아시안", description: "똠양꿍·뿌팟퐁커리", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 크레이지타이" },
-        { name: "까폼", emoji: "🍜", category: "아시안", description: "랭쌥·카오카무", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 까폼" },
-        { name: "롱씨암", emoji: "🍛", category: "아시안", description: "모닝글로리튀김·호이라이팟", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 롱씨암" }
+        { type: "meal", name: "창고43", emoji: "🍖", category: "한식", description: "창고43스페셜·깍두기볶음밥", price: "₩₩₩", naverMap: "https://naver.me/FSw7K4zM" },
+        { type: "meal", name: "흑우정", emoji: "🥩", category: "한식", description: "블랙앵거스·꽃갈비살", price: "₩₩₩₩", naverMap: "https://naver.me/G2EwpJwu" },
+        { type: "meal", name: "청담만옥", emoji: "🍲", category: "한식", description: "해물탕·차돌미나리전", price: "₩₩₩", naverMap: "https://naver.me/x67yoaKp" },
+        { type: "meal", name: "화연산장", emoji: "🍖", category: "한식", description: "짚불구이·갈비", price: "₩₩₩", naverMap: "https://naver.me/GoD7l9CG" },
+        { type: "meal", name: "수다 청담점", emoji: "🍢", category: "이자카야", description: "감자전·모둠꼬치", price: "₩₩", naverMap: "https://naver.me/FjbnBQLO" },
+        { type: "meal", name: "우정", emoji: "🥩", category: "한식", description: "한우불고기·곱창전골", price: "₩₩₩₩", naverMap: "https://naver.me/I55a4iNs" },
+        { type: "meal", name: "정식당", emoji: "🍱", category: "한식", description: "모듬김밥·문어감태국수", price: "₩₩₩₩", naverMap: "https://naver.me/xv3DHt17" },
+        { type: "meal", name: "썬더버드", emoji: "🍗", category: "양식", description: "크리스피치킨·프라이드치킨", price: "₩₩", naverMap: "https://naver.me/GtURVvOw" },
+        { type: "meal", name: "팔십상", emoji: "🍣", category: "일식", description: "참치사시미·참치코스", price: "₩₩₩", naverMap: "https://naver.me/502MZmLA" },
+        { type: "meal", name: "옛날집", emoji: "🍖", category: "한식", description: "명란젓정식·떡갈비", price: "₩₩", naverMap: "https://naver.me/5A3pZkyy" },
+        { type: "meal", name: "돈블랑", emoji: "🥓", category: "한식", description: "삼겹살·항정살모둠", price: "₩₩", naverMap: "https://naver.me/xTT6MS4T" },
+        { type: "meal", name: "두루", emoji: "🍲", category: "한식", description: "국시·소고기국밥", price: "₩₩₩", naverMap: "https://naver.me/Fjbn5tnH" },
+        { type: "meal", name: "영동교집", emoji: "🥓", category: "한식", description: "흑돼지삼겹살·통껍데기", price: "₩₩", naverMap: "https://naver.me/5iTd44gb" },
+        { type: "meal", name: "마오", emoji: "🍜", category: "중식", description: "북경오리·마오짬뽕", price: "₩₩", naverMap: "https://naver.me/IItceslH" },
+        { type: "meal", name: "무안회관", emoji: "🍲", category: "한식", description: "한우곰탕·낙지볶음", price: "₩₩₩", naverMap: "https://naver.me/FJb4ZfX4" },
+        { type: "meal", name: "이모가있는집", emoji: "🍖", category: "한식", description: "부대찌개·섞어찌개", price: "₩₩", naverMap: "https://naver.me/56R6warn" },
+        { type: "meal", name: "죠스떡볶이", emoji: "🌶️", category: "한식", description: "떡볶이·튀김", price: "₩", naverMap: "https://naver.me/G657eZBr" },
+        { type: "meal", name: "샐러디", emoji: "🥗", category: "샐러드", description: "샐러드·포케·프로틴박스", price: "₩₩", naverMap: "https://naver.me/59vQPd2h" },
+        { type: "meal", name: "세븐패티버거", emoji: "🍔", category: "양식", description: "스매시버거·멀티패티버거", price: "₩₩", naverMap: "https://naver.me/5apDhkjC" },
+        { type: "meal", name: "다운타우너", emoji: "🍔", category: "양식", description: "아보카도버거·더블버거", price: "₩₩", naverMap: "https://naver.me/xY4suE7O" },
+        { type: "meal", name: "도산분식", emoji: "🍜", category: "한식", description: "떡볶이·육회김밥", price: "₩₩", naverMap: "https://naver.me/5eUcprjo" },
+        { type: "meal", name: "쉐이크쉑", emoji: "🍔", category: "양식", description: "쉑버거·치즈프라이", price: "₩₩", naverMap: "https://naver.me/G58gYkfJ" },
+        { type: "meal", name: "얼오브샌드위치", emoji: "🥪", category: "양식", description: "핫샌드위치 전문점", price: "₩₩", naverMap: "https://naver.me/52R5GP91" },
+        { type: "meal", name: "루비떡볶이", emoji: "🌶️", category: "한식", description: "새우깡떡볶이·소세지김밥", price: "₩", naverMap: "https://naver.me/FUhsgOZ0" },
+        { type: "meal", name: "원조마포소금구이", emoji: "🥓", category: "한식", description: "뒷덜미살·갈매기살구이", price: "₩₩₩", naverMap: "https://naver.me/5xjpqOb4" },
+        { type: "meal", name: "애월식당", emoji: "🐷", category: "한식", description: "제주 오겹살·항정살", price: "₩₩₩", naverMap: "https://naver.me/GipBctR4" },
+        { type: "meal", name: "샤브인서울", emoji: "🍲", category: "한식", description: "프리미엄 샤브샤브", price: "₩₩₩", naverMap: "https://naver.me/xucp4nA0" },
+        { type: "meal", name: "도산정육", emoji: "🥩", category: "한식", description: "한우·제주삼겹살 정육식당", price: "₩₩₩", naverMap: "https://naver.me/FY3yD6Gz" },
+        { type: "meal", name: "상록수", emoji: "🍖", category: "한식", description: "항정살·비빔수제비", price: "₩₩", naverMap: "https://naver.me/Gq84EA4Q" },
+        { type: "meal", name: "롸카두들", emoji: "🍗", category: "양식", description: "내쉬빌핫치킨버거", price: "₩₩", naverMap: "https://naver.me/IxsqU1de" },
+        { type: "meal", name: "골드피쉬", emoji: "🥟", category: "중식", description: "딤섬·샤오롱포", price: "₩₩", naverMap: "https://naver.me/GlJIDKKR" },
+        { type: "meal", name: "영삼이네우정소갈비", emoji: "🍖", category: "한식", description: "마늘양념소갈비·정갈비", price: "₩₩₩", naverMap: "https://naver.me/G8s9wvev" },
+        { type: "meal", name: "발아메밀블라썸", emoji: "🍜", category: "한식", description: "메밀국수·막국수", price: "₩₩", naverMap: "https://naver.me/xUw1kjYo" },
+        { type: "meal", name: "스미카츠", emoji: "🍛", category: "일식", description: "돈까스·꽃목살카츠", price: "₩₩₩", naverMap: "https://naver.me/xbA5vSA1" },
+        { type: "meal", name: "추풍령칼삼겹살", emoji: "🥓", category: "한식", description: "칼삼겹살·항정살", price: "₩₩", naverMap: "https://naver.me/xNLZNOIT" },
+        { type: "meal", name: "봉추찜닭", emoji: "🍗", category: "한식", description: "찜닭·누룽지볶음밥", price: "₩₩", naverMap: "https://naver.me/FbONRdeL" },
+        { type: "meal", name: "호화반점", emoji: "🥟", category: "중식", description: "트러플짜장면·탕수육", price: "₩₩₩", naverMap: "https://naver.me/5UEc0fSt" },
+        { type: "meal", name: "센자이료쿠", emoji: "🍵", category: "일식", description: "라멘·마제소바", price: "₩", naverMap: "https://naver.me/Fio7B3xv" },
+        { type: "meal", name: "오만복국수", emoji: "🍜", category: "한식", description: "잔치국수·보쌈", price: "₩", naverMap: "https://naver.me/5WOkRcDp" },
+        { type: "meal", name: "뉴만두집", emoji: "🥟", category: "한식", description: "평양만두·만둣국", price: "₩", naverMap: "https://naver.me/5HkaOhnl" },
+        { type: "meal", name: "이가네양꼬치", emoji: "🍢", category: "중식", description: "양꼬치·양갈비", price: "₩₩", naverMap: "https://naver.me/5wWetdWj" },
+        { type: "meal", name: "꽃돌이네", emoji: "🥩", category: "한식", description: "한우모듬·특수부위", price: "₩₩₩₩", naverMap: "https://naver.me/53lKcfXi" },
+        { type: "meal", name: "압구정곱창", emoji: "🔥", category: "한식", description: "곱창·대창구이", price: "₩₩₩", naverMap: "https://naver.me/FvEgnTt6" },
+        { type: "meal", name: "묵전", emoji: "🍲", category: "한식", description: "묵사발·도토리묵전", price: "₩₩", naverMap: "https://naver.me/5bVsWw4I" },
+        { type: "meal", name: "강서면옥", emoji: "🍜", category: "한식", description: "평양냉면·소고기수육", price: "₩₩", naverMap: "https://naver.me/Fnm0z3hW" },
+        { type: "meal", name: "한솥도시락", emoji: "🍱", category: "한식", description: "도시락·덮밥", price: "₩", naverMap: "https://naver.me/FtTh8Z8a" },
+        { type: "meal", name: "호시카츠", emoji: "🍛", category: "일식", description: "로스카츠·히레카츠정식", price: "₩₩", naverMap: "https://naver.me/FV7YLbG0" },
+        { type: "meal", name: "청담고수", emoji: "🍖", category: "한식", description: "숙성목살·항정살구이", price: "₩₩", naverMap: "https://naver.me/513NwDpD" },
+        { type: "meal", name: "청담해정", emoji: "🍲", category: "한식", description: "선지해장국·한우곱창", price: "₩₩", naverMap: "https://naver.me/FW6hbr1n" },
+        { type: "meal", name: "hen", emoji: "🍗", category: "한식", description: "숯불닭구이·닭볶음탕", price: "₩₩", naverMap: "https://map.naver.com/p/search/청담 hen 숯불닭구이" },
+        { type: "meal", name: "성덕", emoji: "🥟", category: "중식", description: "샤오롱포·하가우딤섬", price: "₩₩", naverMap: "https://naver.me/58NdttAs" },
+        { type: "meal", name: "한사리감자탕", emoji: "🍲", category: "한식", description: "감자탕·뼈해장국", price: "₩₩", naverMap: "https://naver.me/GBFHlBQG" },
+        { type: "meal", name: "청담25", emoji: "🍱", category: "한식", description: "한정식·갈치구이", price: "₩₩₩", naverMap: "https://naver.me/xNLZHXq0" },
+        { type: "meal", name: "부흥왕족발", emoji: "🐷", category: "한식", description: "족발·막국수", price: "₩₩₩", naverMap: "https://naver.me/56R619MD" },
+        { type: "meal", name: "골목식당", emoji: "🍖", category: "한식", description: "제육볶음·김치찌개", price: "₩₩", naverMap: "https://naver.me/5ZJaPiwW" },
+        { type: "meal", name: "홍성원", emoji: "🥟", category: "중식", description: "짬뽕·탕수육", price: "₩₩₩", naverMap: "https://naver.me/GOPmMY5D" },
+        { type: "meal", name: "청담동칼국수", emoji: "🍜", category: "한식", description: "바지락칼국수·수제비", price: "₩", naverMap: "https://naver.me/xwmqcYOo" },
+        { type: "meal", name: "강강술래", emoji: "🍖", category: "한식", description: "양념갈비·떡갈비", price: "₩₩₩", naverMap: "https://naver.me/5CW7bJcA" },
+        { type: "meal", name: "청담동순도리", emoji: "🍖", category: "한식", description: "순대국·곱도리탕", price: "₩₩", naverMap: "https://naver.me/FtTh7Jlq" },
+        { type: "meal", name: "달구벌반점", emoji: "🥟", category: "중식", description: "고기짬뽕·탕수육", price: "₩₩", naverMap: "https://naver.me/G386bN4N" },
+        { type: "meal", name: "소스", emoji: "🍝", category: "양식", description: "돈까스·떡볶이", price: "₩₩", naverMap: "https://naver.me/xhzCxM66" },
+        { type: "meal", name: "오아시스", emoji: "🥐", category: "카페", description: "에그베네딕트·타이누들샐러드", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 오아시스 브런치" },
+        { type: "meal", name: "투아투아", emoji: "🧇", category: "카페", description: "바토네·치아바타·바게트", price: "₩", naverMap: "https://map.naver.com/p/search/압구정로데오 투아투아" },
+        { type: "meal", name: "타르틴베이커리 도산점", emoji: "☕", category: "카페", description: "크루아상·바나나크림타르트", price: "₩₩", naverMap: "https://map.naver.com/p/search/타르틴베이커리 도산점" },
+        { type: "meal", name: "호시", emoji: "🍣", category: "이자카야", description: "고등어봉초밥·묵은지광어김밥", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 호시 이자카야" },
+        { type: "meal", name: "이치에", emoji: "🍤", category: "이자카야", description: "우니소바·고등어볶음밥", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 이치에" },
+        { type: "meal", name: "도마야끼덕아웃", emoji: "🐙", category: "이자카야", description: "문어초회·크라운갈비", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 도마야끼덕아웃" },
+        { type: "meal", name: "태국당", emoji: "🍛", category: "아시안", description: "태국 가정식", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 태국당" },
+        { type: "meal", name: "소이연남 마오", emoji: "🍜", category: "아시안", description: "닭꼬치·항정살구이", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 소이연남 마오" },
+        { type: "meal", name: "레우레우", emoji: "🍲", category: "아시안", description: "카오소이·똠얌마마", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 레우레우" },
+        { type: "meal", name: "크레이지타이", emoji: "🌶️", category: "아시안", description: "똠양꿍·뿌팟퐁커리", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 크레이지타이" },
+        { type: "meal", name: "까폼", emoji: "🍜", category: "아시안", description: "랭쌥·카오카무", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 까폼" },
+        { type: "meal", name: "롱씨암", emoji: "🍛", category: "아시안", description: "모닝글로리튀김·호이라이팟", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 롱씨암" },
+        { type: "meal", name: "일일향 압구정본점", emoji: "🥟", category: "중식", description: "어향동고·찹쌀탕수육", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 일일향" },
+        { type: "meal", name: "미르차이9", emoji: "🦐", category: "중식", description: "짬뽕투명만두·파향탕수육", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 미르차이9" },
+        { type: "meal", name: "도산뚝배기", emoji: "🍲", category: "한식", description: "깍둑등심·차돌소국밥", price: "₩₩", naverMap: "https://map.naver.com/p/search/청담 도산뚝배기" },
+        { type: "meal", name: "압구정하루", emoji: "🍱", category: "일식", description: "돈까스·냉모밀", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 압구정하루" },
+        { type: "meal", name: "송옥", emoji: "🍜", category: "일식", description: "냉메밀·옛날돈가스", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 송옥" },
+        { type: "meal", name: "지강한식당 압구정본점", emoji: "🍲", category: "한식", description: "철판 임실치즈 낚지볶음", price: "₩₩", naverMap: "https://map.naver.com/p/search/지강한식당 압구정본점" },
+        { type: "meal", name: "신사동 보석 수제비", emoji: "🍲", category: "한식", description: "수제비+불고기 9,900원", price: "₩", naverMap: "https://map.naver.com/p/search/신사동 보석 수제비" },
+        { type: "meal", name: "딩딤1968", emoji: "🥟", category: "중식", description: "홍콩식 딤섬 세트", price: "₩₩", naverMap: "https://map.naver.com/p/search/딩딤1968" },
+        { type: "meal", name: "정돈프리미엄 신사점", emoji: "🍖", category: "일식", description: "두툼 돈까스", price: "₩₩", naverMap: "https://map.naver.com/p/search/정돈프리미엄 신사점" },
+        { type: "meal", name: "마담타이 신사점", emoji: "🍜", category: "기타", description: "태국 음식", price: "₩₩", naverMap: "https://map.naver.com/p/search/마담타이 신사점" },
+        { type: "meal", name: "온기정", emoji: "🍜", category: "일식", description: "냉우동 맛집", price: "₩", naverMap: "https://map.naver.com/p/search/온기정" },
+        { type: "meal", name: "멘야하나비", emoji: "🍜", category: "일식", description: "마제소바", price: "₩", naverMap: "https://map.naver.com/p/search/멘야하나비" },
+        { type: "meal", name: "일일시호일", emoji: "🍜", category: "일식", description: "직접 제면 츠케멘", price: "₩", naverMap: "https://map.naver.com/p/search/일일시호일" },
+        { type: "meal", name: "지구당", emoji: "🍱", category: "일식", description: "가성비 일식", price: "₩", naverMap: "https://map.naver.com/p/search/지구당" },
+        { type: "meal", name: "한우리 본점", emoji: "🍲", category: "한식", description: "국수전골", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/한우리 본점" },
+        { type: "meal", name: "영천영화 청담점", emoji: "🍚", category: "한식", description: "한우 육회비빔밥", price: "₩₩", naverMap: "https://map.naver.com/p/search/영천영화 청담점" },
+        { type: "meal", name: "강강술래 청담점", emoji: "🥩", category: "한식", description: "통양념구이 정식", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/강강술래 청담점" },
+        { type: "meal", name: "페코리노", emoji: "🍝", category: "양식", description: "생면 파스타", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/페코리노" },
+        { type: "meal", name: "을지다락 압구정도산공원", emoji: "🍳", category: "양식", description: "오므라이스", price: "₩₩", naverMap: "https://map.naver.com/p/search/을지다락 압구정도산공원" },
+        { type: "meal", name: "이끼 롤까스", emoji: "🍖", category: "일식", description: "고구마치즈돈까스", price: "₩", naverMap: "https://map.naver.com/p/search/이끼 롤까스" },
+        { type: "meal", name: "트라가", emoji: "🥘", category: "양식", description: "스페인 세트", price: "₩₩", naverMap: "https://map.naver.com/p/search/트라가" },
+        { type: "meal", name: "포케올데이 신사점", emoji: "🥗", category: "기타", description: "포케 전문점", price: "₩", naverMap: "https://map.naver.com/p/search/포케올데이 신사점" },
+        { type: "drink", name: "갓포준", emoji: "🍶", category: "일식", description: "이자카야, 후토마끼", price: "₩₩₩₩", naverMap: "https://map.naver.com/p/search/갓포준" },
+        { type: "drink", name: "코슌", emoji: "🍶", category: "일식", description: "이자카야, 규카츠", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/코슌" },
+        { type: "drink", name: "네기실비 신사", emoji: "🦐", category: "한식", description: "제철 해산물 포차", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/네기실비 신사" },
+        { type: "drink", name: "춘식당 가로수길본점", emoji: "🍻", category: "한식", description: "야장 감성 요리주점", price: "₩₩", naverMap: "https://map.naver.com/p/search/춘식당 가로수길본점" },
+        { type: "drink", name: "베르노 도산", emoji: "🍷", category: "양식", description: "와인 다이닝", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/베르노 도산" },
+        { type: "drink", name: "로우앤리얼", emoji: "🍷", category: "양식", description: "와인바+젤라또", price: "₩₩", naverMap: "https://map.naver.com/p/search/로우앤리얼" },
+        { type: "drink", name: "도파민", emoji: "🍷", category: "양식", description: "캐주얼 와인바", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/도파민" },
+        { type: "drink", name: "르루아", emoji: "🍷", category: "양식", description: "와인 다이닝", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/르루아" },
+        { type: "drink", name: "압구정 수족관", emoji: "🐟", category: "한식", description: "제철 해산물 횟집", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정 수족관" },
+        { type: "drink", name: "도산포차", emoji: "🍻", category: "한식", description: "대창곱도리탕", price: "₩₩", naverMap: "https://map.naver.com/p/search/도산포차" },
+        { type: "drink", name: "압구정 오렌지포차", emoji: "🍻", category: "한식", description: "한우곱도리탕", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정 오렌지포차" },
+        { type: "drink", name: "술속의밤 더블랙 압구정직영점", emoji: "🍢", category: "한식", description: "오뎅바 무한리필", price: "₩", naverMap: "https://map.naver.com/p/search/술속의밤 더블랙 압구정직영점" },
+        { type: "drink", name: "유희", emoji: "🍶", category: "일식", description: "사케 이자카야", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/유희" },
+        { type: "drink", name: "LU307", emoji: "🍺", category: "일식", description: "하이볼 이자카야", price: "₩₩", naverMap: "https://map.naver.com/p/search/LU307" },
     ];
 
     // defaultRestaurants 내용이 수정될 때마다 이 값을 올리면,
     // 브라우저에 저장된 예전 데이터(localStorage)를 최신 정보로 자동 동기화합니다.
-    const RESTAURANT_DATA_VERSION = 2;
+    // v3부터는 사용자가 직접 수정/삭제한 항목은 건드리지 않고 병합합니다.
+    const RESTAURANT_DATA_VERSION = 4;
 
-    let restaurants = JSON.parse(localStorage.getItem('restaurants')) || [...defaultRestaurants];
+    // ---- 안전 헬퍼 ----
+
+    // localStorage 파싱 실패해도 페이지가 죽지 않도록
+    function safeParse(key, fallback) {
+        try {
+            const raw = localStorage.getItem(key);
+            if (!raw) return fallback;
+            const parsed = JSON.parse(raw);
+            return parsed === null || parsed === undefined ? fallback : parsed;
+        } catch (e) {
+            return fallback;
+        }
+    }
+
+    // XSS 방지: 사용자 입력(식당 이름/설명 등)을 HTML에 삽입할 때 사용
+    function escapeHtml(str) {
+        return String(str === null || str === undefined ? '' : str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    // 지도 링크는 http/https만 허용 (javascript: 스킴 차단)
+    function safeMapUrl(url) {
+        if (!url) return '';
+        try {
+            const u = new URL(url, location.href);
+            if (u.protocol === 'http:' || u.protocol === 'https:') return u.href;
+        } catch (e) { /* fall through */ }
+        return '';
+    }
+
+    function typeBadge(type) {
+        return type === 'drink'
+            ? '<span class="type-badge drink">🍺 술집</span>'
+            : '<span class="type-badge meal">🍱 밥집</span>';
+    }
+
+    function mapLinkHtml(url) {
+        const safe = safeMapUrl(url);
+        if (!safe) return '-';
+        return `<a href="${escapeHtml(safe)}" target="_blank" rel="noopener" class="map-link">📍 지도</a>`;
+    }
+
+    // ---- 상태 ----
+
+    let restaurants = safeParse('restaurants', null);
+    if (!Array.isArray(restaurants)) restaurants = defaultRestaurants.map(r => ({ ...r }));
+
+    // 사용자가 직접 수정한 식당 이름 / 삭제한 기본 식당 이름 추적
+    const customizedNames = new Set(safeParse('restaurantCustomized', []));
+    const deletedDefaultNames = new Set(safeParse('restaurantDeletedDefaults', []));
+
+    function persistCustomMeta() {
+        localStorage.setItem('restaurantCustomized', JSON.stringify([...customizedNames]));
+        localStorage.setItem('restaurantDeletedDefaults', JSON.stringify([...deletedDefaultNames]));
+    }
+
+    function isDefaultName(name) {
+        return defaultRestaurants.some(d => d.name === name);
+    }
+
     (function syncRestaurantDataWithDefaults() {
         const storedVersion = Number(localStorage.getItem('restaurantsDataVersion')) || 0;
         if (storedVersion >= RESTAURANT_DATA_VERSION) return;
+        // v4: 기존 항목에 구분(type) 백필 — 없으면 밥집
+        restaurants.forEach(r => {
+            if (r && typeof r === 'object' && r.type !== 'meal' && r.type !== 'drink') {
+                r.type = 'meal';
+            }
+        });
         const defaultsByName = new Map(defaultRestaurants.map(r => [r.name, r]));
-        restaurants = restaurants.map(r => defaultsByName.has(r.name) ? { ...defaultsByName.get(r.name) } : r);
+        // 1) 기본 목록에 있고 사용자가 수정하지 않은 항목만 최신 기본값으로 갱신
+        restaurants = restaurants.map(r =>
+            (defaultsByName.has(r.name) && !customizedNames.has(r.name))
+                ? { ...defaultsByName.get(r.name) }
+                : r
+        );
+        // 2) 새로 추가된 기본 맛집은 사용자가 삭제한 적 없을 때만 추가
+        const currentNames = new Set(restaurants.map(r => r.name));
+        defaultRestaurants.forEach(d => {
+            if (!currentNames.has(d.name) && !deletedDefaultNames.has(d.name)) {
+                restaurants.push({ ...d });
+            }
+        });
         localStorage.setItem('restaurants', JSON.stringify(restaurants));
         localStorage.setItem('restaurantsDataVersion', String(RESTAURANT_DATA_VERSION));
     })();
+
     let isSpinning = false;
-    let history = JSON.parse(localStorage.getItem('lunchHistory')) || [];
-    let recentResults = JSON.parse(localStorage.getItem('recentResults')) || [];
+    let history = safeParse('lunchHistory', []);
+    if (!Array.isArray(history)) history = [];
+    let recentResults = safeParse('recentResults', []);
+    if (!Array.isArray(recentResults)) recentResults = [];
 
     // 1주일 지난 기록은 자동 삭제
     (function pruneHistoryOnLoad() {
         const now = Date.now();
         const oneWeekAgo = now - 7 * 24 * 60 * 60 * 1000;
-        history = history.filter(item => item.timestamp && item.timestamp >= oneWeekAgo);
+        history = history.filter(item => item && item.timestamp && item.timestamp >= oneWeekAgo);
         localStorage.setItem('lunchHistory', JSON.stringify(history));
     })();
+
+    // 카테고리 필터 / 최근 방문 제외 상태
+    const CATEGORY_ORDER = ['전체', '한식', '중식', '일식', '양식', '아시안', '이자카야', '카페', '샐러드', '기타'];
+    const PRICE_OPTIONS = ['₩', '₩₩', '₩₩₩', '₩₩₩₩'];
+    let activeCategory = '전체';
+    let excludeRecent = false;
+    // 점심/저녁 모드: lunch = 밥집만, dinner = 밥집 + 술집
+    let mode = localStorage.getItem('lunchMode');
+    if (mode !== 'lunch' && mode !== 'dinner') mode = 'lunch';
+
+    function getPool() {
+        let pool = restaurants;
+        if (mode === 'lunch') {
+            pool = pool.filter(r => (r.type || 'meal') === 'meal');
+        }
+        if (activeCategory !== '전체') {
+            pool = pool.filter(r => r.category === activeCategory);
+        }
+        if (excludeRecent) {
+            const recentNames = new Set(history.map(h => h.name));
+            pool = pool.filter(r => !recentNames.has(r.name));
+        }
+        return pool;
+    }
 
     const foodEmojis = ['🍕', '🍣', '🍜', '🍝', '🍔', '🍱', '🥗', '🍲', '🥩', '🍛',
                         '🌮', '🥟', '🐔', '🥐', '🍗', '🍖', '🦐', '🦞', '🍤', '🥘',
@@ -924,9 +1318,6 @@
     }
 
     const LOOPS = 20;
-    function getTotalItems() {
-        return Math.max(restaurants.length * LOOPS, restaurants.length);
-    }
 
     // 날짜, 요일 표시
     const today = new Date();
@@ -934,22 +1325,67 @@
     document.getElementById('currentDate').textContent = `${today.getMonth() + 1}/${today.getDate()}`;
     document.getElementById('currentDay').textContent = days[today.getDay()];
 
+    function updateRestaurantCount() {
+        const el = document.getElementById('restaurantCount');
+        const meals = restaurants.filter(r => (r.type || 'meal') === 'meal').length;
+        const drinks = restaurants.length - meals;
+        el.textContent = mode === 'lunch'
+            ? `🍱 밥집 ${meals}곳`
+            : `🍱 ${meals}곳 · 🍺 ${drinks}곳`;
+    }
+
+    // 카테고리 필터 칩
+    function renderCategoryChips() {
+        const bar = document.getElementById('filterBar');
+        const counts = {};
+        restaurants.forEach(r => { counts[r.category] = (counts[r.category] || 0) + 1; });
+        const cats = CATEGORY_ORDER.filter(c => c === '전체' || counts[c]);
+        if (!cats.includes(activeCategory)) activeCategory = '전체';
+        bar.innerHTML = cats.map(c => {
+            const count = c === '전체' ? restaurants.length : counts[c];
+            return `<button class="filter-chip ${c === activeCategory ? 'active' : ''}" onclick="setCategory('${escapeHtml(c)}')">${escapeHtml(c)}<span class="count">${count}</span></button>`;
+        }).join('');
+    }
+
+    function setCategory(c) {
+        activeCategory = c;
+        renderCategoryChips();
+        initSlots();
+    }
+
+    function toggleExcludeRecent() {
+        excludeRecent = document.getElementById('excludeRecent').checked;
+        initSlots();
+    }
+
+    function setMode(m) {
+        mode = (m === 'dinner') ? 'dinner' : 'lunch';
+        localStorage.setItem('lunchMode', mode);
+        document.getElementById('modeLunch').classList.toggle('active', mode === 'lunch');
+        document.getElementById('modeDinner').classList.toggle('active', mode === 'dinner');
+        document.getElementById('modeHint').textContent =
+            mode === 'lunch' ? '☀️ 점심에는 밥집만 나와요' : '🌙 저녁에는 밥집 + 술집이 나와요';
+        updateRestaurantCount();
+        displayRestaurants();
+        initSlots();
+    }
     function displayRestaurants() {
         const tableBody = document.getElementById('restaurantTableBody');
         if (restaurants.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 20px; color: #999;">식당을 추가해주세요</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 20px; color: #999;">식당을 추가해주세요</td></tr>';
             return;
         }
 
         tableBody.innerHTML = restaurants.map((restaurant, index) => `
-            <tr id="row-${index}">
-                <td class="emoji-cell">${restaurant.emoji}</td>
-                <td class="name-cell">${restaurant.name}</td>
-                <td class="category-cell">${restaurant.category}</td>
-                <td class="description-cell">${restaurant.description}</td>
-                <td class="price-cell">${restaurant.price}</td>
+            <tr id="row-${index}"${mode === 'lunch' && restaurant.type === 'drink' ? ' class="dimmed"' : ''}>
+                <td class="emoji-cell">${escapeHtml(restaurant.emoji)}</td>
+                <td class="name-cell">${escapeHtml(restaurant.name)}</td>
+                <td class="type-cell">${typeBadge(restaurant.type)}</td>
+                <td class="category-cell">${escapeHtml(restaurant.category)}</td>
+                <td class="description-cell">${escapeHtml(restaurant.description)}</td>
+                <td class="price-cell">${escapeHtml(restaurant.price)}</td>
                 <td class="link-cell">
-                    ${restaurant.naverMap ? `<a href="${restaurant.naverMap}" target="_blank" class="map-link">📍 지도</a>` : '-'}
+                    ${mapLinkHtml(restaurant.naverMap)}
                 </td>
                 <td class="actions-cell">
                     <button class="edit-button" onclick="editRestaurant(${index})">수정</button>
@@ -970,33 +1406,29 @@
                 </select>
             </td>
             <td class="name-cell">
-                <input type="text" id="edit-name-${index}" class="edit-input" value="${restaurant.name}" maxlength="20">
+                <input type="text" id="edit-name-${index}" class="edit-input" value="${escapeHtml(restaurant.name)}" maxlength="20">
+            </td>
+            <td class="type-cell">
+                <select id="edit-type-${index}" class="edit-input">
+                    <option value="meal" ${restaurant.type !== 'drink' ? 'selected' : ''}>🍱 밥집</option>
+                    <option value="drink" ${restaurant.type === 'drink' ? 'selected' : ''}>🍺 술집</option>
+                </select>
             </td>
             <td class="category-cell">
                 <select id="edit-category-${index}" class="edit-input">
-                    <option value="한식" ${restaurant.category === '한식' ? 'selected' : ''}>한식</option>
-                    <option value="중식" ${restaurant.category === '중식' ? 'selected' : ''}>중식</option>
-                    <option value="일식" ${restaurant.category === '일식' ? 'selected' : ''}>일식</option>
-                    <option value="양식" ${restaurant.category === '양식' ? 'selected' : ''}>양식</option>
-                    <option value="카페" ${restaurant.category === '카페' ? 'selected' : ''}>카페</option>
-                    <option value="샐러드" ${restaurant.category === '샐러드' ? 'selected' : ''}>샐러드</option>
-                    <option value="아시안" ${restaurant.category === '아시안' ? 'selected' : ''}>아시안</option>
-                    <option value="이자카야" ${restaurant.category === '이자카야' ? 'selected' : ''}>이자카야</option>
+                    ${CATEGORY_ORDER.filter(c => c !== '전체').map(c => `<option value="${c}" ${restaurant.category === c ? 'selected' : ''}>${c}</option>`).join('')}
                 </select>
             </td>
             <td class="description-cell">
-                <input type="text" id="edit-description-${index}" class="edit-input" value="${restaurant.description}" maxlength="30">
+                <input type="text" id="edit-description-${index}" class="edit-input" value="${escapeHtml(restaurant.description)}" maxlength="30">
             </td>
             <td class="price-cell">
                 <select id="edit-price-${index}" class="edit-input">
-                    <option value="₩" ${restaurant.price === '₩' ? 'selected' : ''}>₩</option>
-                    <option value="₩₩" ${restaurant.price === '₩₩' ? 'selected' : ''}>₩₩</option>
-                    <option value="₩₩₩" ${restaurant.price === '₩₩₩' ? 'selected' : ''}>₩₩₩</option>
-                    <option value="₩₩₩₩" ${restaurant.price === '₩₩₩₩' ? 'selected' : ''}>₩₩₩₩</option>
+                    ${PRICE_OPTIONS.map(p => `<option value="${p}" ${restaurant.price === p ? 'selected' : ''}>${p}</option>`).join('')}
                 </select>
             </td>
             <td class="link-cell">
-                <input type="url" id="edit-map-${index}" class="edit-input" value="${restaurant.naverMap || ''}" placeholder="지도 링크">
+                <input type="url" id="edit-map-${index}" class="edit-input" value="${escapeHtml(restaurant.naverMap || '')}" placeholder="지도 링크">
             </td>
             <td class="actions-cell">
                 <button class="save-button" onclick="saveRestaurant(${index})">저장</button>
@@ -1006,12 +1438,14 @@
     }
 
     function saveRestaurant(index) {
+        const oldName = restaurants[index].name;
         const emoji = document.getElementById(`edit-emoji-${index}`).value;
         const name = document.getElementById(`edit-name-${index}`).value.trim();
         const category = document.getElementById(`edit-category-${index}`).value.trim();
         const description = document.getElementById(`edit-description-${index}`).value.trim();
         const price = document.getElementById(`edit-price-${index}`).value;
         const naverMap = document.getElementById(`edit-map-${index}`).value.trim();
+        const type = document.getElementById(`edit-type-${index}`).value === 'drink' ? 'drink' : 'meal';
 
         if (!name) {
             alert('식당 이름을 입력해주세요!');
@@ -1021,8 +1455,21 @@
             alert('카테고리를 입력해주세요!');
             return;
         }
+        if (name !== oldName && restaurants.some((r, i) => i !== index && r.name === name)) {
+            alert('이미 등록된 이름이에요!');
+            return;
+        }
+
+        // 사용자 수정 이력 추적 (향후 기본 데이터 업데이트 시 덮어쓰지 않기 위함)
+        if (oldName !== name) {
+            if (isDefaultName(oldName)) deletedDefaultNames.add(oldName);
+            customizedNames.delete(oldName);
+        }
+        customizedNames.add(name);
+        persistCustomMeta();
 
         restaurants[index] = {
+            type,
             name,
             emoji,
             category,
@@ -1033,37 +1480,122 @@
 
         localStorage.setItem('restaurants', JSON.stringify(restaurants));
         displayRestaurants();
+        renderCategoryChips();
+        updateRestaurantCount();
         initSlots();
     }
 
     function deleteRestaurant(index) {
         const restaurant = restaurants[index];
         if (confirm(`"${restaurant.name}"을(를) 삭제하시겠습니까?`)) {
+            // 기본 맛집을 삭제하면 향후 업데이트 때 다시 추가되지 않도록 기록
+            if (isDefaultName(restaurant.name)) {
+                deletedDefaultNames.add(restaurant.name);
+            }
+            customizedNames.delete(restaurant.name);
+            persistCustomMeta();
+
             restaurants.splice(index, 1);
             localStorage.setItem('restaurants', JSON.stringify(restaurants));
             displayRestaurants();
+            renderCategoryChips();
+            updateRestaurantCount();
             initSlots();
         }
     }
 
-    function initSlots() {
-        if (restaurants.length === 0) return;
+    // ---- 맛집 추가 폼 ----
 
+    function initAddForm() {
+        document.getElementById('add-emoji').innerHTML =
+            foodEmojis.map(emoji => `<option value="${emoji}">${emoji}</option>`).join('');
+        document.getElementById('add-category').innerHTML =
+            CATEGORY_ORDER.filter(c => c !== '전체').map(c => `<option value="${c}">${c}</option>`).join('');
+        document.getElementById('add-price').innerHTML =
+            PRICE_OPTIONS.map(p => `<option value="${p}" ${p === '₩₩' ? 'selected' : ''}>${p}</option>`).join('');
+    }
+
+    function toggleAddForm() {
+        const form = document.getElementById('addForm');
+        form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function saveNewRestaurant() {
+        const name = document.getElementById('add-name').value.trim();
+        const emoji = document.getElementById('add-emoji').value;
+        const category = document.getElementById('add-category').value;
+        const description = document.getElementById('add-description').value.trim();
+        const price = document.getElementById('add-price').value;
+        const naverMap = document.getElementById('add-map').value.trim();
+        const type = document.getElementById('add-type').value === 'drink' ? 'drink' : 'meal';
+
+        if (!name) {
+            alert('식당 이름을 입력해주세요!');
+            return;
+        }
+        if (restaurants.some(r => r.name === name)) {
+            alert('이미 등록된 이름이에요!');
+            return;
+        }
+
+        restaurants.push({
+            type,
+            name,
+            emoji,
+            category,
+            description: description || '맛있는 식당',
+            price,
+            naverMap: naverMap || ''
+        });
+        customizedNames.add(name);
+        persistCustomMeta();
+        localStorage.setItem('restaurants', JSON.stringify(restaurants));
+
+        document.getElementById('add-name').value = '';
+        document.getElementById('add-description').value = '';
+        document.getElementById('add-map').value = '';
+        toggleAddForm();
+
+        displayRestaurants();
+        renderCategoryChips();
+        updateRestaurantCount();
+        initSlots();
+    }
+
+    function initSlots() {
+        const pool = getPool();
         updateSlotHeight();
-        const totalItems = getTotalItems();
+
+        if (pool.length === 0) {
+            for (let i = 1; i <= 3; i++) {
+                const slot = document.getElementById(`slot${i}`);
+                slot.innerHTML = `
+                    <div class="slot-item">
+                        <div class="slot-emoji">🍽️</div>
+                        <div class="slot-name">조건에 맞는 맛집이 없어요</div>
+                        <div class="slot-category">필터를 변경해보세요</div>
+                    </div>
+                `;
+                slot.style.transform = 'translateY(0)';
+            }
+            return;
+        }
+
+        const totalItems = pool.length * LOOPS;
 
         for (let i = 1; i <= 3; i++) {
             const slot = document.getElementById(`slot${i}`);
             slot.innerHTML = '';
 
             for (let j = 0; j < totalItems; j++) {
-                const restaurant = restaurants[j % restaurants.length];
+                const restaurant = pool[j % pool.length];
                 const item = document.createElement('div');
                 item.className = 'slot-item';
                 item.innerHTML = `
-                    <div class="slot-emoji">${restaurant.emoji}</div>
-                    <div class="slot-name">${restaurant.name}</div>
-                    <div class="slot-category">${restaurant.category}</div>
+                    <div class="slot-emoji">${escapeHtml(restaurant.emoji)}</div>
+                    <div class="slot-name">${escapeHtml(restaurant.name)}</div>
+                    <div class="slot-type">${restaurant.type === 'drink' ? '🍺 술집' : '🍱 밥집'}</div>
+                    <div class="slot-category">${escapeHtml(restaurant.category)}</div>
                 `;
                 slot.appendChild(item);
             }
@@ -1085,10 +1617,10 @@
         recentResultsList.innerHTML = recentResults.map((item, index) => `
             <div class="recent-result-item">
                 <button class="recent-result-delete" onclick="deleteRecentResult(${index})" title="삭제">×</button>
-                <div class="recent-result-emoji">${item.emoji}</div>
+                <div class="recent-result-emoji">${escapeHtml(item.emoji)}</div>
                 <div class="recent-result-info">
-                    <div class="recent-result-name">${item.name}</div>
-                    <div class="recent-result-category">${item.category}</div>
+                    <div class="recent-result-name">${escapeHtml(item.name)}</div>
+                    <div class="recent-result-category">${escapeHtml(item.category)}${item.type === 'drink' ? ' · 🍺' : ''}</div>
                 </div>
                 <button class="recent-result-confirm" onclick="confirmVisit(${index})">✓ 방문 완료</button>
             </div>
@@ -1108,7 +1640,7 @@
         const oneWeekAgo = nowTs - 7 * 24 * 60 * 60 * 1000;
 
         // 1주일 이전 기록 삭제
-        history = history.filter(h => h.timestamp && h.timestamp >= oneWeekAgo);
+        history = history.filter(h => h && h.timestamp && h.timestamp >= oneWeekAgo);
 
         const dateString = `${now.getMonth() + 1}/${now.getDate()}`;
         const weekday = days[now.getDay()];
@@ -1151,10 +1683,10 @@
             const originalIndex = history.length - 1 - displayIndex;
             return `
                 <tr>
-                    <td>${item.date || '-'}</td>
-                    <td>${item.weekday || '-'}</td>
-                    <td>${item.category || '-'}</td>
-                    <td>${item.emoji ? item.emoji + ' ' : ''}${item.name}</td>
+                    <td>${escapeHtml(item.date || '-')}</td>
+                    <td>${escapeHtml(item.weekday || '-')}</td>
+                    <td>${escapeHtml(item.category || '-')}</td>
+                    <td>${item.emoji ? escapeHtml(item.emoji) + ' ' : ''}${escapeHtml(item.name)}</td>
                     <td>
                         <button class="history-delete-button" onclick="deleteHistory(${originalIndex})">
                             삭제
@@ -1193,8 +1725,9 @@
 
     function spin() {
         if (isSpinning) return;
-        if (restaurants.length === 0) {
-            alert('식당을 먼저 추가해주세요!');
+        const pool = getPool();
+        if (pool.length === 0) {
+            alert('조건에 맞는 맛집이 없어요. 필터를 변경해보세요!');
             return;
         }
 
@@ -1217,14 +1750,17 @@
     }
 
     function performSpin() {
+        const pool = getPool();
         const spinDurations = [2000, 2500, 3000];
         const finalIndexes = [];
 
+        // 세 슬롯 중 최소 두 개는 같은 식당이 나오도록 (당첨 연출)
+        // 각 식당이 뽑힐 확률은 동일하게 유지됨
         let slot1Index, slot2Index, slot3Index;
         do {
-            slot1Index = Math.floor(Math.random() * restaurants.length);
-            slot2Index = Math.floor(Math.random() * restaurants.length);
-            slot3Index = Math.floor(Math.random() * restaurants.length);
+            slot1Index = Math.floor(Math.random() * pool.length);
+            slot2Index = Math.floor(Math.random() * pool.length);
+            slot3Index = Math.floor(Math.random() * pool.length);
         } while (
             slot1Index !== slot2Index &&
             slot2Index !== slot3Index &&
@@ -1233,7 +1769,7 @@
 
         finalIndexes.push(slot1Index, slot2Index, slot3Index);
 
-        const totalItems = getTotalItems();
+        const totalItems = pool.length * LOOPS;
 
         for (let i = 1; i <= 3; i++) {
             const slot = document.getElementById(`slot${i}`);
@@ -1258,7 +1794,7 @@
             setTimeout(() => {
                 clearInterval(spinInterval);
 
-                const lastLoopStart = totalItems - restaurants.length;
+                const lastLoopStart = totalItems - pool.length;
                 const targetIndex = lastLoopStart + finalIndex;
                 const finalPosition = -(targetIndex * SLOT_HEIGHT);
 
@@ -1270,19 +1806,20 @@
         setTimeout(() => {
             let selected;
             if (finalIndexes[0] === finalIndexes[1]) {
-                selected = restaurants[finalIndexes[0]];
+                selected = pool[finalIndexes[0]];
             } else if (finalIndexes[1] === finalIndexes[2]) {
-                selected = restaurants[finalIndexes[1]];
+                selected = pool[finalIndexes[1]];
             } else {
-                selected = restaurants[finalIndexes[0]];
+                selected = pool[finalIndexes[0]];
             }
 
+            const mapUrl = safeMapUrl(selected.naverMap);
             document.getElementById('resultDetails').innerHTML = `
-                <div style="font-size: 3em; margin-bottom: 15px;">${selected.emoji}</div>
-                <div style="font-size: 1.8em; margin-bottom: 10px;">${selected.name}</div>
-                <div style="font-size: 1.2em; margin-bottom: 10px;">${selected.category} | ${selected.price}</div>
-                <div style="font-size: 1em; opacity: 0.9; margin-bottom: 15px;">${selected.description}</div>
-                ${selected.naverMap ? `<a href="${selected.naverMap}" target="_blank" style="display: inline-block; background: #03C75A; color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-size: 1.1em; font-weight: bold; margin-top: 10px;">📍 네이버 지도에서 보기</a>` : ''}
+                <div style="font-size: 3em; margin-bottom: 15px;">${escapeHtml(selected.emoji)}</div>
+                <div style="font-size: 1.8em; margin-bottom: 10px;">${escapeHtml(selected.name)}</div>
+                <div style="font-size: 1.2em; margin-bottom: 10px;">${selected.type === 'drink' ? '🍺 술집' : '🍱 밥집'} · ${escapeHtml(selected.category)} | ${escapeHtml(selected.price)}</div>
+                <div style="font-size: 1em; opacity: 0.9; margin-bottom: 15px;">${escapeHtml(selected.description)}</div>
+                ${mapUrl ? `<a href="${escapeHtml(mapUrl)}" target="_blank" rel="noopener" style="display: inline-block; background: #03C75A; color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-size: 1.1em; font-weight: bold; margin-top: 10px;">📍 네이버 지도에서 보기</a>` : ''}
             `;
 
             document.getElementById('result').classList.add('show');
@@ -1297,6 +1834,7 @@
                     name: selected.name,
                     emoji: selected.emoji,
                     category: selected.category,
+                    type: selected.type === 'drink' ? 'drink' : 'meal',
                     timestamp: Date.now()
                 });
                 localStorage.setItem('recentResults', JSON.stringify(recentResults));
@@ -1311,8 +1849,9 @@
     document.getElementById('spinButton').addEventListener('click', spin);
 
     window.addEventListener('DOMContentLoaded', function() {
-        displayRestaurants();
-        initSlots();
+        renderCategoryChips();
+        initAddForm();
+        setMode(mode);
         displayRecentResults();
         displayHistory();
     });
