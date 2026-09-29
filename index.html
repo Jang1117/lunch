@@ -1086,151 +1086,99 @@
 <script>
     // 기본 식당 리스트
     const defaultRestaurants = [
-        { type: "meal", name: "창고43", emoji: "🍖", category: "한식", description: "창고43스페셜·깍두기볶음밥", price: "₩₩₩", naverMap: "https://naver.me/FSw7K4zM" },
-        { type: "meal", name: "흑우정", emoji: "🥩", category: "한식", description: "블랙앵거스·꽃갈비살", price: "₩₩₩₩", naverMap: "https://naver.me/G2EwpJwu" },
-        { type: "meal", name: "청담만옥", emoji: "🍲", category: "한식", description: "해물탕·차돌미나리전", price: "₩₩₩", naverMap: "https://naver.me/x67yoaKp" },
-        { type: "meal", name: "화연산장", emoji: "🍖", category: "한식", description: "짚불구이·갈비", price: "₩₩₩", naverMap: "https://naver.me/GoD7l9CG" },
-        { type: "drink", name: "수다 청담점", emoji: "🍢", category: "이자카야", description: "감자전·모둠꼬치", price: "₩₩", naverMap: "https://naver.me/FjbnBQLO" },
-        { type: "meal", name: "우정", emoji: "🥩", category: "한식", description: "한우불고기·곱창전골", price: "₩₩₩₩", naverMap: "https://naver.me/I55a4iNs" },
-        { type: "meal", name: "정식당", emoji: "🍱", category: "한식", description: "모듬김밥·문어감태국수", price: "₩₩₩₩", naverMap: "https://naver.me/xv3DHt17" },
-        { type: "meal", name: "썬더버드", emoji: "🍗", category: "양식", description: "크리스피치킨·프라이드치킨", price: "₩₩", naverMap: "https://naver.me/GtURVvOw" },
-        { type: "meal", name: "팔십상", emoji: "🍣", category: "일식", description: "참치사시미·참치코스", price: "₩₩₩", naverMap: "https://naver.me/502MZmLA" },
-        { type: "meal", name: "옛날집", emoji: "🍖", category: "한식", description: "명란젓정식·떡갈비", price: "₩₩", naverMap: "https://naver.me/5A3pZkyy" },
-        { type: "meal", name: "돈블랑", emoji: "🥓", category: "한식", description: "삼겹살·항정살모둠", price: "₩₩", naverMap: "https://naver.me/xTT6MS4T" },
-        { type: "meal", name: "두루", emoji: "🍲", category: "한식", description: "국시·소고기국밥", price: "₩₩₩", naverMap: "https://naver.me/Fjbn5tnH" },
-        { type: "meal", name: "영동교집", emoji: "🥓", category: "한식", description: "흑돼지삼겹살·통껍데기", price: "₩₩", naverMap: "https://naver.me/5iTd44gb" },
-        { type: "meal", name: "마오", emoji: "🍜", category: "중식", description: "북경오리·마오짬뽕", price: "₩₩", naverMap: "https://naver.me/IItceslH" },
-        { type: "meal", name: "무안회관", emoji: "🍲", category: "한식", description: "한우곰탕·낙지볶음", price: "₩₩₩", naverMap: "https://naver.me/FJb4ZfX4" },
-        { type: "meal", name: "이모가있는집", emoji: "🍖", category: "한식", description: "부대찌개·섞어찌개", price: "₩₩", naverMap: "https://naver.me/56R6warn" },
-        { type: "meal", name: "죠스떡볶이", emoji: "🌶️", category: "한식", description: "떡볶이·튀김", price: "₩", naverMap: "https://naver.me/G657eZBr" },
-        { type: "meal", name: "샐러디", emoji: "🥗", category: "샐러드", description: "샐러드·포케·프로틴박스", price: "₩₩", naverMap: "https://naver.me/59vQPd2h" },
-        { type: "meal", name: "세븐패티버거", emoji: "🍔", category: "양식", description: "스매시버거·멀티패티버거", price: "₩₩", naverMap: "https://naver.me/5apDhkjC" },
-        { type: "meal", name: "다운타우너", emoji: "🍔", category: "양식", description: "아보카도버거·더블버거", price: "₩₩", naverMap: "https://naver.me/xY4suE7O" },
-        { type: "meal", name: "도산분식", emoji: "🍜", category: "한식", description: "떡볶이·육회김밥", price: "₩₩", naverMap: "https://naver.me/5eUcprjo" },
-        { type: "meal", name: "쉐이크쉑", emoji: "🍔", category: "양식", description: "쉑버거·치즈프라이", price: "₩₩", naverMap: "https://naver.me/G58gYkfJ" },
-        { type: "meal", name: "얼오브샌드위치", emoji: "🥪", category: "양식", description: "핫샌드위치 전문점", price: "₩₩", naverMap: "https://naver.me/52R5GP91" },
-        { type: "meal", name: "루비떡볶이", emoji: "🌶️", category: "한식", description: "새우깡떡볶이·소세지김밥", price: "₩", naverMap: "https://naver.me/FUhsgOZ0" },
-        { type: "meal", name: "원조마포소금구이", emoji: "🥓", category: "한식", description: "뒷덜미살·갈매기살구이", price: "₩₩₩", naverMap: "https://naver.me/5xjpqOb4" },
-        { type: "meal", name: "애월식당", emoji: "🐷", category: "한식", description: "제주 오겹살·항정살", price: "₩₩₩", naverMap: "https://naver.me/GipBctR4" },
-        { type: "meal", name: "샤브인서울", emoji: "🍲", category: "한식", description: "프리미엄 샤브샤브", price: "₩₩₩", naverMap: "https://naver.me/xucp4nA0" },
-        { type: "meal", name: "도산정육", emoji: "🥩", category: "한식", description: "한우·제주삼겹살 정육식당", price: "₩₩₩", naverMap: "https://naver.me/FY3yD6Gz" },
-        { type: "meal", name: "상록수", emoji: "🍖", category: "한식", description: "항정살·비빔수제비", price: "₩₩", naverMap: "https://naver.me/Gq84EA4Q" },
-        { type: "meal", name: "롸카두들", emoji: "🍗", category: "양식", description: "내쉬빌핫치킨버거", price: "₩₩", naverMap: "https://naver.me/IxsqU1de" },
-        { type: "meal", name: "골드피쉬", emoji: "🥟", category: "중식", description: "딤섬·샤오롱포", price: "₩₩", naverMap: "https://naver.me/GlJIDKKR" },
-        { type: "meal", name: "영삼이네우정소갈비", emoji: "🍖", category: "한식", description: "마늘양념소갈비·정갈비", price: "₩₩₩", naverMap: "https://naver.me/G8s9wvev" },
-        { type: "meal", name: "발아메밀블라썸", emoji: "🍜", category: "한식", description: "메밀국수·막국수", price: "₩₩", naverMap: "https://naver.me/xUw1kjYo" },
-        { type: "meal", name: "스미카츠", emoji: "🍛", category: "일식", description: "돈까스·꽃목살카츠", price: "₩₩₩", naverMap: "https://naver.me/xbA5vSA1" },
-        { type: "meal", name: "추풍령칼삼겹살", emoji: "🥓", category: "한식", description: "칼삼겹살·항정살", price: "₩₩", naverMap: "https://naver.me/xNLZNOIT" },
-        { type: "meal", name: "봉추찜닭", emoji: "🍗", category: "한식", description: "찜닭·누룽지볶음밥", price: "₩₩", naverMap: "https://naver.me/FbONRdeL" },
-        { type: "meal", name: "호화반점", emoji: "🥟", category: "중식", description: "트러플짜장면·탕수육", price: "₩₩₩", naverMap: "https://naver.me/5UEc0fSt" },
-        { type: "meal", name: "센자이료쿠", emoji: "🍵", category: "일식", description: "라멘·마제소바", price: "₩", naverMap: "https://naver.me/Fio7B3xv" },
-        { type: "meal", name: "오만복국수", emoji: "🍜", category: "한식", description: "잔치국수·보쌈", price: "₩", naverMap: "https://naver.me/5WOkRcDp" },
-        { type: "meal", name: "뉴만두집", emoji: "🥟", category: "한식", description: "평양만두·만둣국", price: "₩", naverMap: "https://naver.me/5HkaOhnl" },
-        { type: "meal", name: "이가네양꼬치", emoji: "🍢", category: "중식", description: "양꼬치·양갈비", price: "₩₩", naverMap: "https://naver.me/5wWetdWj" },
-        { type: "meal", name: "꽃돌이네", emoji: "🥩", category: "한식", description: "한우모듬·특수부위", price: "₩₩₩₩", naverMap: "https://naver.me/53lKcfXi" },
-        { type: "meal", name: "압구정곱창", emoji: "🔥", category: "한식", description: "곱창·대창구이", price: "₩₩₩", naverMap: "https://naver.me/FvEgnTt6" },
-        { type: "meal", name: "묵전", emoji: "🍲", category: "한식", description: "묵사발·도토리묵전", price: "₩₩", naverMap: "https://naver.me/5bVsWw4I" },
-        { type: "meal", name: "강서면옥", emoji: "🍜", category: "한식", description: "평양냉면·소고기수육", price: "₩₩", naverMap: "https://naver.me/Fnm0z3hW" },
-        { type: "meal", name: "한솥도시락", emoji: "🍱", category: "한식", description: "도시락·덮밥", price: "₩", naverMap: "https://naver.me/FtTh8Z8a" },
-        { type: "meal", name: "호시카츠", emoji: "🍛", category: "일식", description: "로스카츠·히레카츠정식", price: "₩₩", naverMap: "https://naver.me/FV7YLbG0" },
-        { type: "meal", name: "청담고수", emoji: "🍖", category: "한식", description: "숙성목살·항정살구이", price: "₩₩", naverMap: "https://naver.me/513NwDpD" },
-        { type: "meal", name: "청담해정", emoji: "🍲", category: "한식", description: "선지해장국·한우곱창", price: "₩₩", naverMap: "https://naver.me/FW6hbr1n" },
-        { type: "meal", name: "hen", emoji: "🍗", category: "한식", description: "숯불닭구이·닭볶음탕", price: "₩₩", naverMap: "https://map.naver.com/p/search/청담 hen 숯불닭구이" },
-        { type: "meal", name: "성덕", emoji: "🥟", category: "중식", description: "샤오롱포·하가우딤섬", price: "₩₩", naverMap: "https://naver.me/58NdttAs" },
-        { type: "meal", name: "한사리감자탕", emoji: "🍲", category: "한식", description: "감자탕·뼈해장국", price: "₩₩", naverMap: "https://naver.me/GBFHlBQG" },
-        { type: "meal", name: "청담25", emoji: "🍱", category: "한식", description: "한정식·갈치구이", price: "₩₩₩", naverMap: "https://naver.me/xNLZHXq0" },
-        { type: "meal", name: "부흥왕족발", emoji: "🐷", category: "한식", description: "족발·막국수", price: "₩₩₩", naverMap: "https://naver.me/56R619MD" },
-        { type: "meal", name: "골목식당", emoji: "🍖", category: "한식", description: "제육볶음·김치찌개", price: "₩₩", naverMap: "https://naver.me/5ZJaPiwW" },
-        { type: "meal", name: "홍성원", emoji: "🥟", category: "중식", description: "짬뽕·탕수육", price: "₩₩₩", naverMap: "https://naver.me/GOPmMY5D" },
-        { type: "meal", name: "청담동칼국수", emoji: "🍜", category: "한식", description: "바지락칼국수·수제비", price: "₩", naverMap: "https://naver.me/xwmqcYOo" },
-        { type: "meal", name: "강강술래", emoji: "🍖", category: "한식", description: "양념갈비·떡갈비", price: "₩₩₩", naverMap: "https://naver.me/5CW7bJcA" },
-        { type: "meal", name: "청담동순도리", emoji: "🍖", category: "한식", description: "순대국·곱도리탕", price: "₩₩", naverMap: "https://naver.me/FtTh7Jlq" },
-        { type: "meal", name: "달구벌반점", emoji: "🥟", category: "중식", description: "고기짬뽕·탕수육", price: "₩₩", naverMap: "https://naver.me/G386bN4N" },
-        { type: "meal", name: "소스", emoji: "🍝", category: "양식", description: "돈까스·떡볶이", price: "₩₩", naverMap: "https://naver.me/xhzCxM66" },
-        { type: "meal", name: "오아시스", emoji: "🥐", category: "카페", description: "에그베네딕트·타이누들샐러드", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 오아시스 브런치" },
-        { type: "meal", name: "투아투아", emoji: "🧇", category: "카페", description: "바토네·치아바타·바게트", price: "₩", naverMap: "https://map.naver.com/p/search/압구정로데오 투아투아" },
-        { type: "meal", name: "타르틴베이커리 도산점", emoji: "☕", category: "카페", description: "크루아상·바나나크림타르트", price: "₩₩", naverMap: "https://map.naver.com/p/search/타르틴베이커리 도산점" },
-        { type: "drink", name: "호시", emoji: "🍣", category: "이자카야", description: "고등어봉초밥·묵은지광어김밥", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 호시 이자카야" },
-        { type: "meal", name: "이치에", emoji: "🍤", category: "이자카야", description: "우니소바·고등어볶음밥", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 이치에" },
-        { type: "meal", name: "도마야끼덕아웃", emoji: "🐙", category: "이자카야", description: "문어초회·크라운갈비", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 도마야끼덕아웃" },
-        { type: "meal", name: "태국당", emoji: "🍛", category: "아시안", description: "태국 가정식", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 태국당" },
-        { type: "meal", name: "소이연남 마오", emoji: "🍜", category: "아시안", description: "닭꼬치·항정살구이", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 소이연남 마오" },
-        { type: "meal", name: "레우레우", emoji: "🍲", category: "아시안", description: "카오소이·똠얌마마", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 레우레우" },
-        { type: "meal", name: "크레이지타이", emoji: "🌶️", category: "아시안", description: "똠양꿍·뿌팟퐁커리", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 크레이지타이" },
-        { type: "meal", name: "까폼", emoji: "🍜", category: "아시안", description: "랭쌥·카오카무", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 까폼" },
-        { type: "meal", name: "롱씨암", emoji: "🍛", category: "아시안", description: "모닝글로리튀김·호이라이팟", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 롱씨암" },
-        { type: "meal", name: "일일향 압구정본점", emoji: "🥟", category: "중식", description: "어향동고·찹쌀탕수육", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 일일향" },
-        { type: "meal", name: "미르차이9", emoji: "🦐", category: "중식", description: "짬뽕투명만두·파향탕수육", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 미르차이9" },
-        { type: "meal", name: "도산뚝배기", emoji: "🍲", category: "한식", description: "깍둑등심·차돌소국밥", price: "₩₩", naverMap: "https://map.naver.com/p/search/청담 도산뚝배기" },
-        { type: "meal", name: "압구정하루", emoji: "🍱", category: "일식", description: "돈까스·냉모밀", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 압구정하루" },
-        { type: "meal", name: "송옥", emoji: "🍜", category: "일식", description: "냉메밀·옛날돈가스", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정로데오 송옥" },
-        { type: "meal", name: "지강한식당 압구정본점", emoji: "🍲", category: "한식", description: "철판 임실치즈 낚지볶음", price: "₩₩", naverMap: "https://map.naver.com/p/search/지강한식당 압구정본점" },
-        { type: "meal", name: "신사동 보석 수제비", emoji: "🍲", category: "한식", description: "수제비+불고기 9,900원", price: "₩", naverMap: "https://map.naver.com/p/search/신사동 보석 수제비" },
-        { type: "meal", name: "딩딤1968", emoji: "🥟", category: "중식", description: "홍콩식 딤섬 세트", price: "₩₩", naverMap: "https://map.naver.com/p/search/딩딤1968" },
-        { type: "meal", name: "정돈프리미엄 신사점", emoji: "🍖", category: "일식", description: "두툼 돈까스", price: "₩₩", naverMap: "https://map.naver.com/p/search/정돈프리미엄 신사점" },
-        { type: "meal", name: "마담타이 신사점", emoji: "🍜", category: "기타", description: "태국 음식", price: "₩₩", naverMap: "https://map.naver.com/p/search/마담타이 신사점" },
-        { type: "meal", name: "온기정", emoji: "🍜", category: "일식", description: "냉우동 맛집", price: "₩", naverMap: "https://map.naver.com/p/search/온기정" },
-        { type: "meal", name: "멘야하나비", emoji: "🍜", category: "일식", description: "마제소바", price: "₩", naverMap: "https://map.naver.com/p/search/멘야하나비" },
-        { type: "meal", name: "일일시호일", emoji: "🍜", category: "일식", description: "직접 제면 츠케멘", price: "₩", naverMap: "https://map.naver.com/p/search/일일시호일" },
-        { type: "meal", name: "지구당", emoji: "🍱", category: "일식", description: "가성비 일식", price: "₩", naverMap: "https://map.naver.com/p/search/지구당" },
-        { type: "meal", name: "한우리 본점", emoji: "🍲", category: "한식", description: "국수전골", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/한우리 본점" },
-        { type: "meal", name: "영천영화 청담점", emoji: "🍚", category: "한식", description: "한우 육회비빔밥", price: "₩₩", naverMap: "https://map.naver.com/p/search/영천영화 청담점" },
-        { type: "meal", name: "강강술래 청담점", emoji: "🥩", category: "한식", description: "통양념구이 정식", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/강강술래 청담점" },
-        { type: "meal", name: "페코리노", emoji: "🍝", category: "양식", description: "생면 파스타", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/페코리노" },
-        { type: "meal", name: "을지다락 압구정도산공원", emoji: "🍳", category: "양식", description: "오므라이스", price: "₩₩", naverMap: "https://map.naver.com/p/search/을지다락 압구정도산공원" },
-        { type: "meal", name: "이끼 롤까스", emoji: "🍖", category: "일식", description: "고구마치즈돈까스", price: "₩", naverMap: "https://map.naver.com/p/search/이끼 롤까스" },
-        { type: "meal", name: "트라가", emoji: "🥘", category: "양식", description: "스페인 세트", price: "₩₩", naverMap: "https://map.naver.com/p/search/트라가" },
-        { type: "meal", name: "포케올데이 신사점", emoji: "🥗", category: "기타", description: "포케 전문점", price: "₩", naverMap: "https://map.naver.com/p/search/포케올데이 신사점" },
-        { type: "drink", name: "갓포준", emoji: "🍶", category: "일식", description: "이자카야, 후토마끼", price: "₩₩₩₩", naverMap: "https://map.naver.com/p/search/갓포준" },
-        { type: "drink", name: "코슌", emoji: "🍶", category: "일식", description: "이자카야, 규카츠", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/코슌" },
-        { type: "drink", name: "네기실비 신사", emoji: "🦐", category: "한식", description: "제철 해산물 포차", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/네기실비 신사" },
-        { type: "drink", name: "춘식당 가로수길본점", emoji: "🍻", category: "한식", description: "야장 감성 요리주점", price: "₩₩", naverMap: "https://map.naver.com/p/search/춘식당 가로수길본점" },
-        { type: "drink", name: "베르노 도산", emoji: "🍷", category: "양식", description: "와인 다이닝", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/베르노 도산" },
-        { type: "drink", name: "로우앤리얼", emoji: "🍷", category: "양식", description: "와인바+젤라또", price: "₩₩", naverMap: "https://map.naver.com/p/search/로우앤리얼" },
-        { type: "drink", name: "도파민", emoji: "🍷", category: "양식", description: "캐주얼 와인바", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/도파민" },
-        { type: "drink", name: "르루아", emoji: "🍷", category: "양식", description: "와인 다이닝", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/르루아" },
-        { type: "drink", name: "압구정 수족관", emoji: "🐟", category: "한식", description: "제철 해산물 횟집", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/압구정 수족관" },
-        { type: "drink", name: "도산포차", emoji: "🍻", category: "한식", description: "대창곱도리탕", price: "₩₩", naverMap: "https://map.naver.com/p/search/도산포차" },
-        { type: "drink", name: "압구정 오렌지포차", emoji: "🍻", category: "한식", description: "한우곱도리탕", price: "₩₩", naverMap: "https://map.naver.com/p/search/압구정 오렌지포차" },
-        { type: "drink", name: "술속의밤 더블랙 압구정직영점", emoji: "🍢", category: "한식", description: "오뎅바 무한리필", price: "₩", naverMap: "https://map.naver.com/p/search/술속의밤 더블랙 압구정직영점" },
-        { type: "drink", name: "유희", emoji: "🍶", category: "일식", description: "사케 이자카야", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/유희" },
-        { type: "drink", name: "LU307", emoji: "🍺", category: "일식", description: "하이볼 이자카야", price: "₩₩", naverMap: "https://map.naver.com/p/search/LU307" },
-        { type: "drink", name: "야키토리 스미", emoji: "🍢", category: "일식", description: "토종닭 야키토리 코스", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/야키토리 스미" },
-        { type: "drink", name: "청담 마코토", emoji: "🍲", category: "일식", description: "관서풍 스키야키·사시미", price: "₩₩₩₩", naverMap: "https://map.naver.com/p/search/청담 마코토" },
-        { type: "drink", name: "와라야키 쿠이신보", emoji: "🍶", category: "일식", description: "볏짚타다키·사케", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/와라야키 쿠이신보" },
-        { type: "drink", name: "로바타 리브라", emoji: "🐟", category: "일식", description: "금태원시구이·사시미", price: "₩₩₩₩", naverMap: "https://map.naver.com/p/search/로바타 리브라" },
-        { type: "drink", name: "유메오뎅 압구정로데오점", emoji: "🍻", category: "일식", description: "매운오뎅·생맥주", price: "₩₩", naverMap: "https://map.naver.com/p/search/유메오뎅 압구정로데오점" },
-        { type: "drink", name: "베베르", emoji: "🍣", category: "일식", description: "숙성회·짬뽕나베", price: "₩₩", naverMap: "https://map.naver.com/p/search/베베르" },
-        { type: "drink", name: "아루", emoji: "🍱", category: "일식", description: "사시미·우니크림파스타", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/아루" },
-        { type: "drink", name: "네기다이닝라운지", emoji: "🍸", category: "일식", description: "제철사시미·사바산도", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/네기다이닝라운지" },
-        { type: "drink", name: "르글라스 압구정", emoji: "🍷", category: "양식", description: "코라뱅 글라스와인", price: "₩₩", naverMap: "https://map.naver.com/p/search/르글라스 압구정" },
-        { type: "drink", name: "몽리 신사점", emoji: "🍕", category: "양식", description: "이탈리아 와인·파스타", price: "₩₩", naverMap: "https://map.naver.com/p/search/몽리 신사점" },
-        { type: "drink", name: "고요 청담점", emoji: "🥩", category: "양식", description: "생면파스타·채끝스테이크", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/고요 청담점" },
-        { type: "drink", name: "맥켄지와인바", emoji: "🧀", category: "양식", description: "우드파이어·맥켄치즈", price: "₩₩", naverMap: "https://map.naver.com/p/search/맥켄지와인바" },
-        { type: "drink", name: "까사델비노", emoji: "🍷", category: "양식", description: "터키식 수제 카이막", price: "₩₩", naverMap: "https://map.naver.com/p/search/까사델비노" },
-        { type: "drink", name: "바하방", emoji: "🍇", category: "양식", description: "내추럴와인·와인안주", price: "₩₩", naverMap: "https://map.naver.com/p/search/바하방" },
-        { type: "drink", name: "화이트와인개러지", emoji: "🥂", category: "양식", description: "우니파스타·오레키에테", price: "₩₩", naverMap: "https://map.naver.com/p/search/화이트와인개러지" },
-        { type: "drink", name: "55° Wine & Dine 청담", emoji: "🥩", category: "양식", description: "런치·디너 와인코스", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/55° Wine & Dine 청담" },
-        { type: "drink", name: "모던오뎅 신사점", emoji: "🍢", category: "한식", description: "수제오뎅·오뎅탕", price: "₩₩", naverMap: "https://map.naver.com/p/search/모던오뎅 신사점" },
-        { type: "drink", name: "청담포차81", emoji: "🍡", category: "한식", description: "순대포차", price: "₩₩", naverMap: "https://map.naver.com/p/search/청담포차81" },
-        { type: "drink", name: "춘풍월", emoji: "🍣", category: "한식", description: "모둠사시미·꼬치", price: "₩₩", naverMap: "https://map.naver.com/p/search/춘풍월" },
-        { type: "drink", name: "뻐꾸기 신사본점", emoji: "🍗", category: "한식", description: "통마늘닭똥집", price: "₩₩", naverMap: "https://map.naver.com/p/search/뻐꾸기 신사본점" },
-        { type: "drink", name: "한추", emoji: "🌶️", category: "한식", description: "고추튀김·치킨", price: "₩", naverMap: "https://map.naver.com/p/search/한추" },
-        { type: "drink", name: "김작가의이중생활 청담점", emoji: "🧄", category: "한식", description: "갈릭소곱창", price: "₩₩", naverMap: "https://map.naver.com/p/search/김작가의이중생활 청담점" },
-        { type: "drink", name: "하이볼가든", emoji: "🥃", category: "양식", description: "하이볼 20종·위스키", price: "₩₩", naverMap: "https://map.naver.com/p/search/하이볼가든" },
-        { type: "drink", name: "앨리스 청담", emoji: "🍸", category: "양식", description: "앨리스 테마 칵테일", price: "₩₩₩₩", naverMap: "https://map.naver.com/p/search/앨리스 청담" },
-        { type: "drink", name: "바 티센트", emoji: "🍵", category: "양식", description: "티 베이스 칵테일", price: "₩₩₩₩", naverMap: "https://map.naver.com/p/search/바 티센트" },
-        { type: "drink", name: "컬렉션라운지", emoji: "🍷", category: "양식", description: "과일안주·칵테일와인", price: "₩₩", naverMap: "https://map.naver.com/p/search/컬렉션라운지" },
-        { type: "drink", name: "제스트 서울", emoji: "🍋", category: "양식", description: "제로웨이스트 칵테일", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/제스트 서울" },
-        { type: "drink", name: "르챔버", emoji: "🍹", category: "양식", description: "클래식 칵테일·피아노", price: "₩₩₩₩", naverMap: "https://map.naver.com/p/search/르챔버" },
-        { type: "drink", name: "폴스타", emoji: "🍶", category: "일식", description: "가츠샌드·클래식 칵테일", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/폴스타" },
-        { type: "drink", name: "화이트 바", emoji: "🥂", category: "양식", description: "진 칵테일 전문", price: "₩₩₩", naverMap: "https://map.naver.com/p/search/화이트 바" },
+        {"type": "meal", "name": "흑우정 압구정로데오점", "emoji": "🥩", "category": "한식", "description": "와규·흑우·블랙앵거스·티슈브레드쌈", "price": "₩₩₩₩", "naverMap": "https://map.naver.com/p/search/%ED%9D%91%EC%9A%B0%EC%A0%95%20%EC%95%95%EA%B5%AC%EC%A0%95%EB%A1%9C%EB%8D%B0%EC%98%A4%EC%A0%90"},
+        {"type": "meal", "name": "청담만옥", "emoji": "🍲", "category": "한식", "description": "차돌미나리전·제육치즈김치전", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%EC%B2%AD%EB%8B%B4%EB%A7%8C%EC%98%A5"},
+        {"type": "meal", "name": "화연산장", "emoji": "🍖", "category": "한식", "description": "대형 화로에 구워내는 고기구이", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%ED%99%94%EC%97%B0%EC%82%B0%EC%9E%A5"},
+        {"type": "meal", "name": "정식당", "emoji": "🍱", "category": "한식", "description": "미슐랭2스타·코스요리", "price": "₩₩₩₩", "naverMap": "https://map.naver.com/p/search/%EC%A0%95%EC%8B%9D%EB%8B%B9"},
+        {"type": "meal", "name": "옛날집", "emoji": "🍖", "category": "한식", "description": "해물차돌된장찌개·고갈비정식", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%98%9B%EB%82%A0%EC%A7%91"},
+        {"type": "meal", "name": "두루", "emoji": "🍲", "category": "한식", "description": "국수·갈비찜·수육", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%EB%91%90%EB%A3%A8"},
+        {"type": "meal", "name": "영동교집 청담직영점", "emoji": "🥓", "category": "한식", "description": "흑돼지삼겹살·통껍데기", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%98%81%EB%8F%99%EA%B5%90%EC%A7%91%20%EC%B2%AD%EB%8B%B4%EC%A7%81%EC%98%81%EC%A0%90"},
+        {"type": "meal", "name": "마오 청담동점", "emoji": "🍜", "category": "중식", "description": "북경오리·꿔바로우·코스요리", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EB%A7%88%EC%98%A4%20%EC%B2%AD%EB%8B%B4%EB%8F%99%EC%A0%90"},
+        {"type": "meal", "name": "무안회관 청담점", "emoji": "🍲", "category": "한식", "description": "한우곰탕·낙지볶음", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%EB%AC%B4%EC%95%88%ED%9A%8C%EA%B4%80%20%EC%B2%AD%EB%8B%B4%EC%A0%90"},
+        {"type": "meal", "name": "세븐패티버거 압구정로데오점", "emoji": "🍔", "category": "양식", "description": "7장패티 버거·수제버거", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%84%B8%EB%B8%90%ED%8C%A8%ED%8B%B0%EB%B2%84%EA%B1%B0%20%EC%95%95%EA%B5%AC%EC%A0%95%EB%A1%9C%EB%8D%B0%EC%98%A4%EC%A0%90"},
+        {"type": "meal", "name": "다운타우너 청담", "emoji": "🍔", "category": "양식", "description": "수제버거·트러플프라이", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EB%8B%A4%EC%9A%B4%ED%83%80%EC%9A%B0%EB%84%88%20%EC%B2%AD%EB%8B%B4"},
+        {"type": "meal", "name": "도산분식 도산공원점", "emoji": "🍜", "category": "한식", "description": "육회김밥·마제비빔면·무침만두", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EB%8F%84%EC%82%B0%EB%B6%84%EC%8B%9D%20%EB%8F%84%EC%82%B0%EA%B3%B5%EC%9B%90%EC%A0%90"},
+        {"type": "meal", "name": "쉐이크쉑 청담점", "emoji": "🍔", "category": "양식", "description": "쉑버거·치즈프라이", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%89%90%EC%9D%B4%ED%81%AC%EC%89%91%20%EC%B2%AD%EB%8B%B4%EC%A0%90"},
+        {"type": "meal", "name": "루비떡볶이", "emoji": "🌶️", "category": "한식", "description": "새우깡떡볶이·소세지김밥", "price": "₩", "naverMap": "https://map.naver.com/p/search/%EB%A3%A8%EB%B9%84%EB%96%A1%EB%B3%B6%EC%9D%B4"},
+        {"type": "meal", "name": "원조마포소금구이 도산점", "emoji": "🥓", "category": "한식", "description": "특수부위·고기구이", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%EC%9B%90%EC%A1%B0%EB%A7%88%ED%8F%AC%EC%86%8C%EA%B8%88%EA%B5%AC%EC%9D%B4%20%EB%8F%84%EC%82%B0%EC%A0%90"},
+        {"type": "meal", "name": "도산정육 청담본점", "emoji": "🥩", "category": "한식", "description": "삼겹살·목살·정육식당", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%EB%8F%84%EC%82%B0%EC%A0%95%EC%9C%A1%20%EC%B2%AD%EB%8B%B4%EB%B3%B8%EC%A0%90"},
+        {"type": "meal", "name": "골드피쉬 딤섬퀴진", "emoji": "🥟", "category": "중식", "description": "새우딤섬·소룡포·구채교", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EA%B3%A8%EB%93%9C%ED%94%BC%EC%89%AC%20%EB%94%A4%EC%84%AC%ED%80%B4%EC%A7%84"},
+        {"type": "meal", "name": "영삼이네우정소갈비 압구정직영점", "emoji": "🍖", "category": "한식", "description": "안동식 마늘양념 소갈비", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%EC%98%81%EC%82%BC%EC%9D%B4%EB%84%A4%EC%9A%B0%EC%A0%95%EC%86%8C%EA%B0%88%EB%B9%84%20%EC%95%95%EA%B5%AC%EC%A0%95%EC%A7%81%EC%98%81%EC%A0%90"},
+        {"type": "meal", "name": "발아메밀블라썸", "emoji": "🍜", "category": "한식", "description": "메밀국수·막국수", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EB%B0%9C%EC%95%84%EB%A9%94%EB%B0%80%EB%B8%94%EB%9D%BC%EC%8D%B8"},
+        {"type": "meal", "name": "스미카츠 압구정 본점", "emoji": "🍛", "category": "일식", "description": "돈카츠·쿠시카츠", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%EC%8A%A4%EB%AF%B8%EC%B9%B4%EC%B8%A0%20%EC%95%95%EA%B5%AC%EC%A0%95%20%EB%B3%B8%EC%A0%90"},
+        {"type": "meal", "name": "추풍령칼삼겹살 압구정점", "emoji": "🥓", "category": "한식", "description": "칼삼겹살·항정살", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%B6%94%ED%92%8D%EB%A0%B9%EC%B9%BC%EC%82%BC%EA%B2%B9%EC%82%B4%20%EC%95%95%EA%B5%AC%EC%A0%95%EC%A0%90"},
+        {"type": "meal", "name": "봉추찜닭 압구정로데오점", "emoji": "🍗", "category": "한식", "description": "찜닭·누룽지볶음밥", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EB%B4%89%EC%B6%94%EC%B0%9C%EB%8B%AD%20%EC%95%95%EA%B5%AC%EC%A0%95%EB%A1%9C%EB%8D%B0%EC%98%A4%EC%A0%90"},
+        {"type": "meal", "name": "호화반점", "emoji": "🥟", "category": "중식", "description": "짜장면·만두·딤섬", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%ED%98%B8%ED%99%94%EB%B0%98%EC%A0%90"},
+        {"type": "meal", "name": "뉴만두집", "emoji": "🥟", "category": "한식", "description": "평양만두·만둣국", "price": "₩", "naverMap": "https://map.naver.com/p/search/%EB%89%B4%EB%A7%8C%EB%91%90%EC%A7%91"},
+        {"type": "meal", "name": "꽃돌이네", "emoji": "🥩", "category": "한식", "description": "한우모듬·특수부위", "price": "₩₩₩₩", "naverMap": "https://map.naver.com/p/search/%EA%BD%83%EB%8F%8C%EC%9D%B4%EB%84%A4"},
+        {"type": "meal", "name": "압구정곱창", "emoji": "🔥", "category": "한식", "description": "곱창·대창구이", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%EC%95%95%EA%B5%AC%EC%A0%95%EA%B3%B1%EC%B0%BD"},
+        {"type": "meal", "name": "강서면옥 압구정", "emoji": "🍜", "category": "한식", "description": "평양냉면·만두·양념갈비", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EA%B0%95%EC%84%9C%EB%A9%B4%EC%98%A5%20%EC%95%95%EA%B5%AC%EC%A0%95"},
+        {"type": "drink", "name": "청담고수 청담점", "emoji": "🍖", "category": "한식", "description": "숙성목살·항정살구이", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%B2%AD%EB%8B%B4%EA%B3%A0%EC%88%98%20%EC%B2%AD%EB%8B%B4%EC%A0%90"},
+        {"type": "meal", "name": "청담해정", "emoji": "🍲", "category": "한식", "description": "한우곱창·곱창전골", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%B2%AD%EB%8B%B4%ED%95%B4%EC%A0%95"},
+        {"type": "meal", "name": "성덕", "emoji": "🥟", "category": "중식", "description": "샤오롱포·하가우딤섬", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%84%B1%EB%8D%95"},
+        {"type": "meal", "name": "한사리감자탕&뼈구이 청담점", "emoji": "🍲", "category": "한식", "description": "감자탕·뼈구이", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%ED%95%9C%EC%82%AC%EB%A6%AC%EA%B0%90%EC%9E%90%ED%83%95%26%EB%BC%88%EA%B5%AC%EC%9D%B4%20%EC%B2%AD%EB%8B%B4%EC%A0%90"},
+        {"type": "meal", "name": "청담25", "emoji": "🍱", "category": "한식", "description": "가정식 한정식·갈치구이", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%EC%B2%AD%EB%8B%B425"},
+        {"type": "meal", "name": "부흥왕족발", "emoji": "🐷", "category": "한식", "description": "족발·보쌈", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%EB%B6%80%ED%9D%A5%EC%99%95%EC%A1%B1%EB%B0%9C"},
+        {"type": "meal", "name": "골목식당", "emoji": "🍖", "category": "한식", "description": "불고기", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EA%B3%A8%EB%AA%A9%EC%8B%9D%EB%8B%B9"},
+        {"type": "meal", "name": "청담동칼국수", "emoji": "🍜", "category": "한식", "description": "바지락칼국수·수제비", "price": "₩", "naverMap": "https://map.naver.com/p/search/%EC%B2%AD%EB%8B%B4%EB%8F%99%EC%B9%BC%EA%B5%AD%EC%88%98"},
+        {"type": "meal", "name": "청담동순도리 청담점", "emoji": "🍖", "category": "한식", "description": "순대국 전문점", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%B2%AD%EB%8B%B4%EB%8F%99%EC%88%9C%EB%8F%84%EB%A6%AC%20%EC%B2%AD%EB%8B%B4%EC%A0%90"},
+        {"type": "meal", "name": "달구벌반점", "emoji": "🥟", "category": "중식", "description": "고기짬뽕·탕수육", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EB%8B%AC%EA%B5%AC%EB%B2%8C%EB%B0%98%EC%A0%90"},
+        {"type": "meal", "name": "소스", "emoji": "🍝", "category": "양식", "description": "돈까스·함박·카레", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%86%8C%EC%8A%A4"},
+        {"type": "meal", "name": "오아시스 청담점", "emoji": "🥐", "category": "카페", "description": "에그베네딕트·타이누들샐러드", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%98%A4%EC%95%84%EC%8B%9C%EC%8A%A4%20%EC%B2%AD%EB%8B%B4%EC%A0%90"},
+        {"type": "meal", "name": "투아투아", "emoji": "🧇", "category": "카페", "description": "바토네·치아바타·바게트", "price": "₩", "naverMap": "https://map.naver.com/p/search/%ED%88%AC%EC%95%84%ED%88%AC%EC%95%84"},
+        {"type": "drink", "name": "호시청담", "emoji": "🍣", "category": "이자카야", "description": "고등어봉초밥·묵은지광어김밥", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%ED%98%B8%EC%8B%9C%EC%B2%AD%EB%8B%B4"},
+        {"type": "meal", "name": "이치에", "emoji": "🍤", "category": "이자카야", "description": "우니·돈까스·시오라멘", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%EC%9D%B4%EC%B9%98%EC%97%90"},
+        {"type": "meal", "name": "도마야끼덕아웃", "emoji": "🐙", "category": "이자카야", "description": "일식·사케바", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EB%8F%84%EB%A7%88%EC%95%BC%EB%81%BC%EB%8D%95%EC%95%84%EC%9B%83"},
+        {"type": "meal", "name": "태국당", "emoji": "🍛", "category": "아시안", "description": "태국 가정식", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%ED%83%9C%EA%B5%AD%EB%8B%B9%20%EC%B2%AD%EB%8B%B4"},
+        {"type": "meal", "name": "까폼", "emoji": "🍜", "category": "아시안", "description": "랭쌥·카오카무", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EA%B9%8C%ED%8F%BC"},
+        {"type": "meal", "name": "일일향 압구정본점", "emoji": "🥟", "category": "중식", "description": "어향동고·찹쌀탕수육", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%EC%9D%BC%EC%9D%BC%ED%96%A5%20%EC%95%95%EA%B5%AC%EC%A0%95%EB%B3%B8%EC%A0%90"},
+        {"type": "meal", "name": "도산뚝배기 청담", "emoji": "🍲", "category": "한식", "description": "깍둑등심·차돌소국밥", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EB%8F%84%EC%82%B0%EB%9A%9D%EB%B0%B0%EA%B8%B0%20%EC%B2%AD%EB%8B%B4"},
+        {"type": "meal", "name": "압구정하루", "emoji": "🍱", "category": "일식", "description": "소바·일식", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%95%95%EA%B5%AC%EC%A0%95%ED%95%98%EB%A3%A8"},
+        {"type": "meal", "name": "송옥 압구정분점", "emoji": "🍜", "category": "일식", "description": "냉메밀·옛날돈가스", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%86%A1%EC%98%A5%20%EC%95%95%EA%B5%AC%EC%A0%95%EB%B6%84%EC%A0%90"},
+        {"type": "meal", "name": "지강한식당 압구정본점", "emoji": "🍲", "category": "한식", "description": "낙곱새·솥밥", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%A7%80%EA%B0%95%ED%95%9C%EC%8B%9D%EB%8B%B9%20%EC%95%95%EA%B5%AC%EC%A0%95%EB%B3%B8%EC%A0%90"},
+        {"type": "meal", "name": "영천영화 청담점", "emoji": "🍚", "category": "한식", "description": "한우 육회비빔밥", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%98%81%EC%B2%9C%EC%98%81%ED%99%94%20%EC%B2%AD%EB%8B%B4%EC%A0%90"},
+        {"type": "meal", "name": "을지다락 압구정도산공원", "emoji": "🍳", "category": "양식", "description": "오므라이스", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%9D%84%EC%A7%80%EB%8B%A4%EB%9D%BD%20%EC%95%95%EA%B5%AC%EC%A0%95%EB%8F%84%EC%82%B0%EA%B3%B5%EC%9B%90"},
+        {"type": "meal", "name": "트라가 가로수길점", "emoji": "🥘", "category": "양식", "description": "스페인 세트", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%ED%8A%B8%EB%9D%BC%EA%B0%80%20%EA%B0%80%EB%A1%9C%EC%88%98%EA%B8%B8%EC%A0%90"},
+        {"type": "meal", "name": "포케올데이 샐러드&도시락 신사점", "emoji": "🥗", "category": "기타", "description": "포케 전문점", "price": "₩", "naverMap": "https://map.naver.com/p/search/%ED%8F%AC%EC%BC%80%EC%98%AC%EB%8D%B0%EC%9D%B4%20%EC%83%90%EB%9F%AC%EB%93%9C%26%EB%8F%84%EC%8B%9C%EB%9D%BD%20%EC%8B%A0%EC%82%AC%EC%A0%90"},
+        {"type": "drink", "name": "야키토리 코슌", "emoji": "🍶", "category": "일식", "description": "이자카야, 규카츠", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%EC%95%BC%ED%82%A4%ED%86%A0%EB%A6%AC%20%EC%BD%94%EC%8A%8C"},
+        {"type": "drink", "name": "베르노 도산점", "emoji": "🍷", "category": "양식", "description": "오클라호마 스매시버거", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%EB%B2%A0%EB%A5%B4%EB%85%B8%20%EB%8F%84%EC%82%B0%EC%A0%90"},
+        {"type": "drink", "name": "르루아", "emoji": "🍷", "category": "양식", "description": "와인 다이닝", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%EB%A5%B4%EB%A3%A8%EC%95%84"},
+        {"type": "drink", "name": "도산포차", "emoji": "🍻", "category": "한식", "description": "대창·봉골레·떡볶이", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EB%8F%84%EC%82%B0%ED%8F%AC%EC%B0%A8"},
+        {"type": "drink", "name": "압구정 오렌지포차 술집", "emoji": "🍻", "category": "한식", "description": "한우곱도리탕", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%95%95%EA%B5%AC%EC%A0%95%20%EC%98%A4%EB%A0%8C%EC%A7%80%ED%8F%AC%EC%B0%A8%20%EC%88%A0%EC%A7%91"},
+        {"type": "drink", "name": "Lu307", "emoji": "🍺", "category": "일식", "description": "하이볼 이자카야", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/Lu307"},
+        {"type": "drink", "name": "야키토리스미", "emoji": "🍢", "category": "일식", "description": "야키토리·꼬치구이 코스", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%EC%95%BC%ED%82%A4%ED%86%A0%EB%A6%AC%EC%8A%A4%EB%AF%B8"},
+        {"type": "drink", "name": "청담 마코토", "emoji": "🍲", "category": "일식", "description": "관서풍 스키야키·사시미", "price": "₩₩₩₩", "naverMap": "https://map.naver.com/p/search/%EC%B2%AD%EB%8B%B4%20%EB%A7%88%EC%BD%94%ED%86%A0"},
+        {"type": "drink", "name": "로바타 라이브라 카운터", "emoji": "🐟", "category": "일식", "description": "금태원시구이·사시미", "price": "₩₩₩₩", "naverMap": "https://map.naver.com/p/search/%EB%A1%9C%EB%B0%94%ED%83%80%20%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9D%BC%20%EC%B9%B4%EC%9A%B4%ED%84%B0"},
+        {"type": "drink", "name": "유메오뎅 압구정로데오", "emoji": "🍻", "category": "일식", "description": "오뎅·오뎅국물", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%9C%A0%EB%A9%94%EC%98%A4%EB%8E%85%20%EC%95%95%EA%B5%AC%EC%A0%95%EB%A1%9C%EB%8D%B0%EC%98%A4"},
+        {"type": "drink", "name": "아루일식", "emoji": "🍱", "category": "일식", "description": "사시미·우니크림파스타", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%EC%95%84%EB%A3%A8%EC%9D%BC%EC%8B%9D"},
+        {"type": "drink", "name": "르글라스 압구정점", "emoji": "🍷", "category": "양식", "description": "코라뱅 글라스와인", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EB%A5%B4%EA%B8%80%EB%9D%BC%EC%8A%A4%20%EC%95%95%EA%B5%AC%EC%A0%95%EC%A0%90"},
+        {"type": "drink", "name": "맥켄지", "emoji": "🧀", "category": "양식", "description": "훈연요리·와인바", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EB%A7%A5%EC%BC%84%EC%A7%80"},
+        {"type": "drink", "name": "까사델비노 청담점", "emoji": "🍷", "category": "양식", "description": "이베리코·타르타르·와인", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EA%B9%8C%EC%82%AC%EB%8D%B8%EB%B9%84%EB%85%B8%20%EC%B2%AD%EB%8B%B4%EC%A0%90"},
+        {"type": "drink", "name": "와인바 바하방", "emoji": "🍇", "category": "양식", "description": "와인바·와인안주", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%99%80%EC%9D%B8%EB%B0%94%20%EB%B0%94%ED%95%98%EB%B0%A9"},
+        {"type": "drink", "name": "화이트와인개러지", "emoji": "🥂", "category": "양식", "description": "제철 식재료 와인 다이닝·수제 뇨끼", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%ED%99%94%EC%9D%B4%ED%8A%B8%EC%99%80%EC%9D%B8%EA%B0%9C%EB%9F%AC%EC%A7%80"},
+        {"type": "drink", "name": "앨리스 청담", "emoji": "🍸", "category": "양식", "description": "앨리스 테마 칵테일", "price": "₩₩₩₩", "naverMap": "https://map.naver.com/p/search/%EC%95%A8%EB%A6%AC%EC%8A%A4%20%EC%B2%AD%EB%8B%B4"},
+        {"type": "drink", "name": "바티센트", "emoji": "🍵", "category": "양식", "description": "티 베이스 칵테일", "price": "₩₩₩₩", "naverMap": "https://map.naver.com/p/search/%EB%B0%94%ED%8B%B0%EC%84%BC%ED%8A%B8"},
+        {"type": "drink", "name": "제스트", "emoji": "🍋", "category": "양식", "description": "칵테일바", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%EC%A0%9C%EC%8A%A4%ED%8A%B8"},
+        {"type": "drink", "name": "르챔버", "emoji": "🍹", "category": "양식", "description": "클래식 칵테일·피아노", "price": "₩₩₩₩", "naverMap": "https://map.naver.com/p/search/%EB%A5%B4%EC%B1%94%EB%B2%84"},
+        {"type": "drink", "name": "폴스타", "emoji": "🍶", "category": "일식", "description": "가츠샌드·클래식 칵테일", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%ED%8F%B4%EC%8A%A4%ED%83%80"},
+        {"type": "meal", "name": "땀땀 갤러리아백화점 명품관 WEST점", "emoji": "🍜", "category": "아시안", "description": "소곱창 쌀국수 맛집", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EB%95%80%EB%95%80%20%EA%B0%A4%EB%9F%AC%EB%A6%AC%EC%95%84%EB%B0%B1%ED%99%94%EC%A0%90%20%EB%AA%85%ED%92%88%EA%B4%80%20WEST%EC%A0%90"},
+        {"type": "meal", "name": "서원", "emoji": "🍣", "category": "일식", "description": "모둠초밥 스키야키", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%EC%84%9C%EC%9B%90"},
+        {"type": "meal", "name": "하모", "emoji": "🍚", "category": "한식", "description": "차돌박이 비빔밥 맛집", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%ED%95%98%EB%AA%A8"},
+        {"type": "meal", "name": "한미옥", "emoji": "🥩", "category": "한식", "description": "차돌구절판 한우 맛집", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%ED%95%9C%EB%AF%B8%EC%98%A5"},
+        {"type": "meal", "name": "잠수교집 압구정 직영점", "emoji": "🥓", "category": "한식", "description": "냉삼 오봉쟁반 원조", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%9E%A0%EC%88%98%EA%B5%90%EC%A7%91%20%EC%95%95%EA%B5%AC%EC%A0%95%20%EC%A7%81%EC%98%81%EC%A0%90"},
+        {"type": "meal", "name": "아베크 청담", "emoji": "🍝", "category": "양식", "description": "브런치 파스타 와인", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%EC%95%84%EB%B2%A0%ED%81%AC%20%EC%B2%AD%EB%8B%B4"},
+        {"type": "meal", "name": "이태리국시 도산", "emoji": "🍝", "category": "양식", "description": "퓨전 파스타 맛집", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%9D%B4%ED%83%9C%EB%A6%AC%EA%B5%AD%EC%8B%9C%20%EB%8F%84%EC%82%B0"},
+        {"type": "meal", "name": "더타코부스 NYC 압구정점", "emoji": "🌮", "category": "양식", "description": "타코 퀘사디야 맛집", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EB%8D%94%ED%83%80%EC%BD%94%EB%B6%80%EC%8A%A4%20NYC%20%EC%95%95%EA%B5%AC%EC%A0%95%EC%A0%90"},
+        {"type": "meal", "name": "벽돌해피푸드 압구정점", "emoji": "🍜", "category": "중식", "description": "토마토계란밥 우육면", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EB%B2%BD%EB%8F%8C%ED%95%B4%ED%94%BC%ED%91%B8%EB%93%9C%20%EC%95%95%EA%B5%AC%EC%A0%95%EC%A0%90"},
+        {"type": "meal", "name": "레스쁘아", "emoji": "🍷", "category": "양식", "description": "프렌치런치코스", "price": "₩₩₩₩", "naverMap": "https://map.naver.com/p/search/%EB%A0%88%EC%8A%A4%EC%81%98%EC%95%84"},
+        {"type": "meal", "name": "몽중헌 청담점", "emoji": "🥟", "category": "중식", "description": "정통딤섬·중화요리", "price": "₩₩₩", "naverMap": "https://map.naver.com/p/search/%EB%AA%BD%EC%A4%91%ED%97%8C%20%EC%B2%AD%EB%8B%B4%EC%A0%90"},
+        {"type": "meal", "name": "압구정 영양센터", "emoji": "🐔", "category": "한식", "description": "삼계탕·통닭정식", "price": "₩₩", "naverMap": "https://map.naver.com/p/search/%EC%95%95%EA%B5%AC%EC%A0%95%20%EC%98%81%EC%96%91%EC%84%BC%ED%84%B0"}
     ];
 
     // defaultRestaurants 내용이 수정될 때마다 이 값을 올리면,
     // 브라우저에 저장된 예전 데이터(localStorage)를 최신 정보로 자동 동기화합니다.
     // v3부터는 사용자가 직접 수정/삭제한 항목은 건드리지 않고 병합합니다.
-    const RESTAURANT_DATA_VERSION = 5;
+    const RESTAURANT_DATA_VERSION = 7;
 
     // ---- 안전 헬퍼 ----
 
@@ -1305,6 +1253,221 @@
                 r.type = 'meal';
             }
         });
+
+        // v6: 1km 반경 정리 + 상호명 정정 마이그레이션
+        // - 상호가 정정된 26곳: 사용자가 수정하지 않은 항목은 새 이름의 최신 정보로 교체
+        // - 제외된 54곳(폐업·검색불가·1km 초과): 사용자가 직접 수정한 항목만 남기고 정리
+        const RENAMED_V6 = {
+            "55° Wine & Dine 청담": "55° Wine & Dine",
+            "고요 청담점": "고요 (GOYOH)",
+            "골드피쉬": "골드피쉬 딤섬퀴진",
+            "다운타우너": "다운타우너 청담점",
+            "도산정육": "도산부처",
+            "르글라스 압구정": "르 글라스 압구정",
+            "마오": "마오 청담동점",
+            "맥켄지와인바": "청담 맥켄지 (Mckenzie)",
+            "무안회관": "무안회관 청담점",
+            "베르노 도산": "베르노 압구정로데오점",
+            "봉추찜닭": "봉추찜닭 압구정로데오점",
+            "세븐패티버거": "세븐패티버거 압구정로데오점",
+            "소이연남 마오": "소이연남마오",
+            "송옥": "송옥 압구정점",
+            "쉐이크쉑": "쉐이크쉑 청담점",
+            "영동교집": "영동교집 청담직영점",
+            "영삼이네우정소갈비": "우정소갈비 압구정로데오점",
+            "원조마포소금구이": "원조마포소금구이 도산점",
+            "을지다락 압구정도산공원": "을지다락 도산공원점",
+            "청담 마코토": "마코토 청담점",
+            "청담포차81": "청담포차",
+            "코슌": "야키토리 다이닝 코슌",
+            "트라가": "트라가 가로수길점",
+            "한사리감자탕": "한사리감자탕&뼈구이 청담점",
+            "화이트 바": "화이트바",
+            "흑우정": "흑우정 압구정로데오점"
+        };
+        const REMOVED_V6 = new Set([
+            "hen",
+            "갓포준",
+            "강강술래",
+            "강강술래 청담점",
+            "김작가의이중생활 청담점",
+            "네기다이닝라운지",
+            "네기실비 신사",
+            "도파민",
+            "돈블랑",
+            "딩딤1968",
+            "레우레우",
+            "로우앤리얼",
+            "롱씨암",
+            "롸카두들",
+            "마담타이 신사점",
+            "멘야하나비",
+            "모던오뎅 신사점",
+            "몽리 신사점",
+            "베베르",
+            "뻐꾸기 신사본점",
+            "상록수",
+            "샐러디",
+            "샤브인서울",
+            "술속의밤 더블랙 압구정직영점",
+            "신사동 보석 수제비",
+            "썬더버드",
+            "압구정 수족관",
+            "애월식당",
+            "얼오브샌드위치",
+            "오만복국수",
+            "온기정",
+            "와라야키 쿠이신보",
+            "우정",
+            "유희",
+            "이가네양꼬치",
+            "이끼 롤까스",
+            "이모가있는집",
+            "일일시호일",
+            "정돈프리미엄 신사점",
+            "죠스떡볶이",
+            "지구당",
+            "창고43",
+            "춘식당 가로수길본점",
+            "춘풍월",
+            "컬렉션라운지",
+            "크레이지타이",
+            "타르틴베이커리 도산점",
+            "팔십상",
+            "페코리노",
+            "하이볼가든",
+            "한솥도시락",
+            "한우리 본점",
+            "한추",
+            "홍성원"
+        ]);
+        if (storedVersion < 6) {
+            const defaultsByNameV6 = new Map(defaultRestaurants.map(r => [r.name, r]));
+            const currentByName = new Map();
+            restaurants.forEach(r => { if (r && r.name) currentByName.set(r.name, r); });
+            // 0a) 상호 정정
+            Object.keys(RENAMED_V6).forEach(oldName => {
+                const newName = RENAMED_V6[oldName];
+                const r = currentByName.get(oldName);
+                if (!r) return;
+                if (currentByName.has(newName)) {
+                    r._removeV6 = true;
+                } else if (customizedNames.has(oldName)) {
+                    r.name = newName;
+                    r.naverMap = 'https://map.naver.com/p/search/' + encodeURIComponent(newName);
+                    customizedNames.delete(oldName);
+                    customizedNames.add(newName);
+                    currentByName.delete(oldName);
+                    currentByName.set(newName, r);
+                } else {
+                    const fresh = defaultsByNameV6.get(newName);
+                    if (fresh) {
+                        Object.keys(r).forEach(k => delete r[k]);
+                        Object.assign(r, { ...fresh });
+                    } else {
+                        // v7에서 이름이 또 바뀐 경우: 데이터는 v7 블록에서 채움
+                        r.name = newName;
+                    }
+                    currentByName.delete(oldName);
+                    currentByName.set(newName, r);
+                }
+            });
+            // 0b) 제외된 기본 맛집 정리
+            restaurants = restaurants.filter(r =>
+                !(r && (r._removeV6 || (REMOVED_V6.has(r.name) && !customizedNames.has(r.name))))
+            );
+            persistCustomMeta();
+        }
+
+        // v7: 네이버 지도 실측 재검증 반영 (2026-09-29)
+        // - 공식 등록명으로 37곳 상호 정정 (예: 도산부처→도산정육 청담본점)
+        // - 미등록·폐업·타지역·1km 초과 12곳 제외 (사용자 직접 수정 항목은 유지)
+        const RENAMED_V7 = {
+            "LU307": "Lu307",
+            "강서면옥": "강서면옥 압구정",
+            "까사델비노": "까사델비노 청담점",
+            "다운타우너 청담점": "다운타우너 청담",
+            "더 타코부스": "더타코부스 NYC 압구정점",
+            "도산뚝배기": "도산뚝배기 청담",
+            "도산부처": "도산정육 청담본점",
+            "도산분식": "도산분식 도산공원점",
+            "도산정육": "도산정육 청담본점",
+            "땀땀 갤러리아 WEST 고메이494": "땀땀 갤러리아백화점 명품관 WEST점",
+            "레스쁘아 뒤 이부": "레스쁘아",
+            "로바타 리브라": "로바타 라이브라 카운터",
+            "르 글라스 압구정": "르글라스 압구정점",
+            "마코토 청담점": "청담 마코토",
+            "바 티센트": "바티센트",
+            "바하방": "와인바 바하방",
+            "베르노 압구정로데오점": "베르노 도산점",
+            "서원 압구정로데오": "서원",
+            "송옥 압구정점": "송옥 압구정분점",
+            "스미카츠": "스미카츠 압구정 본점",
+            "아루": "아루일식",
+            "압구정 오렌지포차": "압구정 오렌지포차 술집",
+            "야키토리 다이닝 코슌": "야키토리 코슌",
+            "야키토리 스미": "야키토리스미",
+            "영양센터 압구정점": "압구정 영양센터",
+            "오아시스": "오아시스 청담점",
+            "우정소갈비 압구정로데오점": "영삼이네우정소갈비 압구정직영점",
+            "유메오뎅 압구정로데오점": "유메오뎅 압구정로데오",
+            "을지다락 도산공원점": "을지다락 압구정도산공원",
+            "제스트 서울": "제스트",
+            "청담 맥켄지 (Mckenzie)": "맥켄지",
+            "청담고수": "청담고수 청담점",
+            "청담동순도리": "청담동순도리 청담점",
+            "추풍령칼삼겹살": "추풍령칼삼겹살 압구정점",
+            "포케올데이 신사점": "포케올데이 샐러드&도시락 신사점",
+            "한미옥 청담본점": "한미옥",
+            "해피푸드 압구정점": "벽돌해피푸드 압구정점",
+            "호시": "호시청담"
+        };
+        const REMOVED_V7 = new Set([
+            "55° Wine & Dine",
+            "고요 (GOYOH)",
+            "묵전",
+            "미르차이9",
+            "센자이료쿠",
+            "소이연남마오",
+            "수다 청담점",
+            "이국 도산",
+            "청담포차",
+            "피자힙 압구정점",
+            "호시카츠",
+            "화이트바"
+        ]);
+        if (storedVersion < 7) {
+            const defaultsByNameV7 = new Map(defaultRestaurants.map(r => [r.name, r]));
+            const currentByNameV7 = new Map();
+            restaurants.forEach(r => { if (r && r.name) currentByNameV7.set(r.name, r); });
+            Object.keys(RENAMED_V7).forEach(oldName => {
+                const newName = RENAMED_V7[oldName];
+                const r = currentByNameV7.get(oldName);
+                if (!r) return;
+                if (currentByNameV7.has(newName)) {
+                    r._removeV7 = true;
+                } else if (customizedNames.has(oldName)) {
+                    r.name = newName;
+                    r.naverMap = 'https://map.naver.com/p/search/' + encodeURIComponent(newName);
+                    customizedNames.delete(oldName);
+                    customizedNames.add(newName);
+                    currentByNameV7.delete(oldName);
+                    currentByNameV7.set(newName, r);
+                } else {
+                    const fresh = defaultsByNameV7.get(newName);
+                    if (fresh) {
+                        Object.keys(r).forEach(k => delete r[k]);
+                        Object.assign(r, { ...fresh });
+                    }
+                    currentByNameV7.delete(oldName);
+                    currentByNameV7.set(newName, r);
+                }
+            });
+            restaurants = restaurants.filter(r =>
+                !(r && (r._removeV7 || (REMOVED_V7.has(r.name) && !customizedNames.has(r.name))))
+            );
+            persistCustomMeta();
+        }
         const defaultsByName = new Map(defaultRestaurants.map(r => [r.name, r]));
         // 1) 기본 목록에 있고 사용자가 수정하지 않은 항목만 최신 기본값으로 갱신
         restaurants = restaurants.map(r =>
