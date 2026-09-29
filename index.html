@@ -491,6 +491,46 @@
             border-radius: 4px;
             font-size: 0.85em;
         }
+        /* 수정 행: 전체 너비를 쓰는 넉넉한 편집 폼 */
+        .edit-cell {
+            background: #f0f3ff !important;
+            padding: 12px !important;
+        }
+        .edit-form {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        .edit-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+        }
+        .edit-field.wide {
+            grid-column: span 2;
+        }
+        .edit-field label {
+            font-size: 0.75em;
+            color: #667eea;
+            font-weight: bold;
+        }
+        .edit-field .edit-input {
+            font-size: 1em;
+            padding: 8px 10px;
+        }
+        .edit-actions {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            margin-top: 4px;
+        }
+        @media (max-width: 700px) {
+            .edit-form {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
 
         .history {
             margin-top: 30px;
@@ -1627,39 +1667,50 @@
         const row = document.getElementById(`row-${index}`);
 
         row.innerHTML = `
-            <td class="emoji-cell">
-                <select id="edit-emoji-${index}" class="edit-input" style="font-size: 1.5em; text-align: center;">
-                    ${foodEmojis.map(emoji => `<option value="${emoji}" ${emoji === restaurant.emoji ? 'selected' : ''}>${emoji}</option>`).join('')}
-                </select>
-            </td>
-            <td class="name-cell">
-                <input type="text" id="edit-name-${index}" class="edit-input" value="${escapeHtml(restaurant.name)}" maxlength="20">
-            </td>
-            <td class="type-cell">
-                <select id="edit-type-${index}" class="edit-input">
-                    <option value="meal" ${restaurant.type !== 'drink' ? 'selected' : ''}>🍱 밥집</option>
-                    <option value="drink" ${restaurant.type === 'drink' ? 'selected' : ''}>🍺 술집</option>
-                </select>
-            </td>
-            <td class="category-cell">
-                <select id="edit-category-${index}" class="edit-input">
-                    ${CATEGORY_ORDER.filter(c => c !== '전체').map(c => `<option value="${c}" ${restaurant.category === c ? 'selected' : ''}>${c}</option>`).join('')}
-                </select>
-            </td>
-            <td class="description-cell">
-                <input type="text" id="edit-description-${index}" class="edit-input" value="${escapeHtml(restaurant.description)}" maxlength="30">
-            </td>
-            <td class="price-cell">
-                <select id="edit-price-${index}" class="edit-input">
-                    ${PRICE_OPTIONS.map(p => `<option value="${p}" ${restaurant.price === p ? 'selected' : ''}>${p}</option>`).join('')}
-                </select>
-            </td>
-            <td class="link-cell">
-                <input type="url" id="edit-map-${index}" class="edit-input" value="${escapeHtml(restaurant.naverMap || '')}" placeholder="지도 링크">
-            </td>
-            <td class="actions-cell">
-                <button class="save-button" onclick="saveRestaurant(${index})">저장</button>
-                <button class="cancel-button" onclick="displayRestaurants()">취소</button>
+            <td colspan="8" class="edit-cell">
+                <div class="edit-form">
+                    <div class="edit-field">
+                        <label>이모지</label>
+                        <select id="edit-emoji-${index}" class="edit-input" style="font-size: 1.5em; text-align: center;">
+                            ${foodEmojis.map(emoji => `<option value="${emoji}" ${emoji === restaurant.emoji ? 'selected' : ''}>${emoji}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="edit-field wide">
+                        <label>이름</label>
+                        <input type="text" id="edit-name-${index}" class="edit-input" value="${escapeHtml(restaurant.name)}" maxlength="20">
+                    </div>
+                    <div class="edit-field">
+                        <label>구분</label>
+                        <select id="edit-type-${index}" class="edit-input">
+                            <option value="meal" ${restaurant.type !== 'drink' ? 'selected' : ''}>🍱 밥집</option>
+                            <option value="drink" ${restaurant.type === 'drink' ? 'selected' : ''}>🍺 술집</option>
+                        </select>
+                    </div>
+                    <div class="edit-field">
+                        <label>카테고리</label>
+                        <select id="edit-category-${index}" class="edit-input">
+                            ${CATEGORY_ORDER.filter(c => c !== '전체').map(c => `<option value="${c}" ${restaurant.category === c ? 'selected' : ''}>${c}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="edit-field wide">
+                        <label>설명</label>
+                        <input type="text" id="edit-description-${index}" class="edit-input" value="${escapeHtml(restaurant.description)}" maxlength="30">
+                    </div>
+                    <div class="edit-field">
+                        <label>가격</label>
+                        <select id="edit-price-${index}" class="edit-input">
+                            ${PRICE_OPTIONS.map(p => `<option value="${p}" ${restaurant.price === p ? 'selected' : ''}>${p}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="edit-field wide">
+                        <label>네이버 지도 링크</label>
+                        <input type="url" id="edit-map-${index}" class="edit-input" value="${escapeHtml(restaurant.naverMap || '')}" placeholder="https://...">
+                    </div>
+                    <div class="edit-actions">
+                        <button class="save-button" onclick="saveRestaurant(${index})">저장</button>
+                        <button class="cancel-button" onclick="displayRestaurants()">취소</button>
+                    </div>
+                </div>
             </td>
         `;
     }
