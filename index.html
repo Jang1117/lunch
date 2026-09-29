@@ -910,6 +910,27 @@
             text-align: center;
             white-space: nowrap;
         }
+        .slot-777 {
+            font-size: 5em;
+            font-weight: 900;
+            color: #d4af37;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
+            line-height: 1;
+        }
+        .slot-777-sub {
+            margin-top: 12px;
+            font-size: 0.95em;
+            color: #999;
+        }
+        @media (max-width: 480px) {
+            .mode-button {
+                padding: 10px 16px;
+                font-size: 0.9em;
+            }
+            .slot-777 {
+                font-size: 3.5em;
+            }
+        }
     </style>
 </head>
 <body>
@@ -941,6 +962,7 @@
             <div class="mode-segment">
                 <button class="mode-button active" id="modeLunch" onclick="setMode('lunch')">☀️ 점심</button>
                 <button class="mode-button" id="modeDinner" onclick="setMode('dinner')">🌙 저녁</button>
+                <button class="mode-button" id="modeDrink" onclick="setMode('drink')">🍺 술집만</button>
             </div>
         </div>
         <div class="mode-hint" id="modeHint">☀️ 점심에는 밥집만 나와요</div>
@@ -1316,12 +1338,14 @@
     let excludeRecent = false;
     // 점심/저녁 모드: lunch = 밥집만, dinner = 밥집 + 술집
     let mode = localStorage.getItem('lunchMode');
-    if (mode !== 'lunch' && mode !== 'dinner') mode = 'lunch';
+    if (mode !== 'lunch' && mode !== 'dinner' && mode !== 'drink') mode = 'lunch';
 
     function getPool() {
         let pool = restaurants;
         if (mode === 'lunch') {
             pool = pool.filter(r => (r.type || 'meal') === 'meal');
+        } else if (mode === 'drink') {
+            pool = pool.filter(r => r.type === 'drink');
         }
         if (activeCategory !== '전체') {
             pool = pool.filter(r => r.category === activeCategory);
@@ -1361,7 +1385,9 @@
         const drinks = restaurants.length - meals;
         el.textContent = mode === 'lunch'
             ? `🍱 밥집 ${meals}곳`
-            : `🍱 ${meals}곳 · 🍺 ${drinks}곳`;
+            : mode === 'dinner'
+            ? `🍱 ${meals}곳 · 🍺 ${drinks}곳`
+            : `🍺 술집 ${drinks}곳`;
     }
 
     // 카테고리 필터 칩
@@ -1389,12 +1415,14 @@
     }
 
     function setMode(m) {
-        mode = (m === 'dinner') ? 'dinner' : 'lunch';
+        mode = (m === 'drink') ? 'drink' : (m === 'dinner') ? 'dinner' : 'lunch';
         localStorage.setItem('lunchMode', mode);
         document.getElementById('modeLunch').classList.toggle('active', mode === 'lunch');
         document.getElementById('modeDinner').classList.toggle('active', mode === 'dinner');
+        document.getElementById('modeDrink').classList.toggle('active', mode === 'drink');
         document.getElementById('modeHint').textContent =
-            mode === 'lunch' ? '☀️ 점심에는 밥집만 나와요' : '🌙 저녁에는 밥집 + 술집이 나와요';
+            mode === 'lunch' ? '☀️ 점심에는 밥집만 나와요' :
+            mode === 'dinner' ? '🌙 저녁에는 밥집 + 술집이 나와요' : '🍺 술집만 나와요';
         updateRestaurantCount();
         displayRestaurants();
         initSlots();
@@ -1407,7 +1435,7 @@
         }
 
         tableBody.innerHTML = restaurants.map((restaurant, index) => `
-            <tr id="row-${index}"${mode === 'lunch' && restaurant.type === 'drink' ? ' class="dimmed"' : ''}>
+            <tr id="row-${index}"${((mode === 'lunch' && restaurant.type === 'drink') || (mode === 'drink' && restaurant.type !== 'drink')) ? ' class="dimmed"' : ''}>
                 <td class="emoji-cell">${escapeHtml(restaurant.emoji)}</td>
                 <td class="name-cell">${escapeHtml(restaurant.name)}</td>
                 <td class="type-cell">${typeBadge(restaurant.type)}</td>
@@ -1611,26 +1639,17 @@
             return;
         }
 
-        const totalItems = pool.length * LOOPS;
-
+        // 초기 상태: 슬롯머신처럼 777 표시 (룰렛을 돌리면 가게가 나옴)
         for (let i = 1; i <= 3; i++) {
             const slot = document.getElementById(`slot${i}`);
-            slot.innerHTML = '';
-
-            for (let j = 0; j < totalItems; j++) {
-                const restaurant = pool[j % pool.length];
-                const item = document.createElement('div');
-                item.className = 'slot-item';
-                item.innerHTML = `
-                    <div class="slot-emoji">${escapeHtml(restaurant.emoji)}</div>
-                    <div class="slot-name">${escapeHtml(restaurant.name)}</div>
-                    <div class="slot-type">${restaurant.type === 'drink' ? '🍺 술집' : '🍱 밥집'}</div>
-                    <div class="slot-category">${escapeHtml(restaurant.category)}</div>
-                `;
-                slot.appendChild(item);
-            }
-
+            slot.style.transition = 'none';
             slot.style.transform = 'translateY(0)';
+            slot.innerHTML = `
+                <div class="slot-item">
+                    <div class="slot-777">7</div>
+                    <div class="slot-777-sub">룰렛을 돌려보세요!</div>
+                </div>
+            `;
         }
     }
 
@@ -1800,6 +1819,26 @@
         finalIndexes.push(slot1Index, slot2Index, slot3Index);
 
         const totalItems = pool.length * LOOPS;
+
+        // 777 초기 화면을 실제 가게 목록으로 교체
+        for (let i = 1; i <= 3; i++) {
+            const slot = document.getElementById(`slot${i}`);
+            slot.innerHTML = '';
+            for (let j = 0; j < totalItems; j++) {
+                const restaurant = pool[j % pool.length];
+                const item = document.createElement('div');
+                item.className = 'slot-item';
+                item.innerHTML = `
+                    <div class="slot-emoji">${escapeHtml(restaurant.emoji)}</div>
+                    <div class="slot-name">${escapeHtml(restaurant.name)}</div>
+                    <div class="slot-type">${restaurant.type === 'drink' ? '🍺 술집' : '🍱 밥집'}</div>
+                    <div class="slot-category">${escapeHtml(restaurant.category)}</div>
+                `;
+                slot.appendChild(item);
+            }
+            slot.style.transition = 'none';
+            slot.style.transform = 'translateY(0)';
+        }
 
         for (let i = 1; i <= 3; i++) {
             const slot = document.getElementById(`slot${i}`);
