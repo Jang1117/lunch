@@ -82,13 +82,17 @@
         /* 카테고리 필터 */
         .filter-bar {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             gap: 8px;
-            justify-content: center;
+            justify-content: safe center;
             margin-bottom: 12px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            scrollbar-width: thin;
         }
 
         .filter-chip {
+            flex-shrink: 0;
             padding: 8px 14px;
             border-radius: 20px;
             border: 2px solid #e0e0e0;
