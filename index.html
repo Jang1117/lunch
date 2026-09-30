@@ -1570,6 +1570,14 @@
     })();
 
     let isSpinning = false;
+    // 스핀 세대 토큰: 룰렛 도는 중 모드/카테고리 변경 시 옛 타이머 콜백을 무효화
+    let spinToken = 0;
+    function cancelSpin() {
+        if (!isSpinning) return;
+        spinToken++;
+        isSpinning = false;
+        document.getElementById('spinButton').disabled = false;
+    }
     let history = safeParse('lunchHistory', []);
     if (!Array.isArray(history)) history = [];
     let recentResults = safeParse('recentResults', []);
@@ -1656,17 +1664,20 @@
     }
 
     function setCategory(c) {
+        cancelSpin();
         activeCategory = c;
         renderCategoryChips();
         initSlots();
     }
 
     function toggleExcludeRecent() {
+        cancelSpin();
         excludeRecent = document.getElementById('excludeRecent').checked;
         initSlots();
     }
 
     function setMode(m) {
+        cancelSpin();
         mode = (m === 'drink') ? 'drink' : (m === 'dinner') ? 'dinner' : 'lunch';
         localStorage.setItem('lunchMode', mode);
         document.getElementById('modeLunch').classList.toggle('active', mode === 'lunch');
@@ -1759,6 +1770,7 @@
     }
 
     function saveRestaurant(index) {
+        cancelSpin();
         const oldName = restaurants[index].name;
         const emoji = document.getElementById(`edit-emoji-${index}`).value;
         const name = document.getElementById(`edit-name-${index}`).value.trim();
@@ -1807,6 +1819,7 @@
     }
 
     function deleteRestaurant(index) {
+        cancelSpin();
         const restaurant = restaurants[index];
         if (confirm(`"${restaurant.name}"을(를) 삭제하시겠습니까?`)) {
             // 기본 맛집을 삭제하면 향후 업데이트 때 다시 추가되지 않도록 기록
@@ -2056,12 +2069,14 @@
             slot.style.transform = 'translateY(0)';
         }
 
+        const myToken = ++spinToken;
         setTimeout(() => {
-            performSpin();
+            if (myToken !== spinToken) return;
+            performSpin(myToken);
         }, 100);
     }
 
-    function performSpin() {
+    function performSpin(myToken) {
         const pool = getPool();
         const spinDurations = [2000, 2500, 3000];
         const finalIndexes = [];
@@ -2112,6 +2127,7 @@
             const maxSpins = Math.floor(duration / 50) + totalItems;
 
             const tick = () => {
+                if (myToken !== spinToken) return;
                 spinCount++;
                 const idx = spinCount % totalItems;
                 const currentPosition = -(idx * SLOT_HEIGHT);
@@ -2128,6 +2144,7 @@
 
             setTimeout(() => {
                 clearInterval(spinInterval);
+                if (myToken !== spinToken) return;
 
                 const lastLoopStart = totalItems - pool.length;
                 const targetIndex = lastLoopStart + finalIndex;
@@ -2139,6 +2156,7 @@
         }
 
         setTimeout(() => {
+            if (myToken !== spinToken) return;
             let selected;
             if (finalIndexes[0] === finalIndexes[1]) {
                 selected = pool[finalIndexes[0]];
